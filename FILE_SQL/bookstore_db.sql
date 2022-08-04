@@ -18,6 +18,38 @@ USE `bookstore_db`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `alias` varchar(64) NOT NULL,
+  `image` varchar(128) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `status` bit(1) NOT NULL,
+  `parent_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_jx1ptm0r46dop8v0o7nmgfbeq` (`alias`),
+  UNIQUE KEY `UK_t8o6pivur7nn124jehx7cygw5` (`name`),
+  KEY `FKsaok720gsu4u2wrgbk10b5n8d` (`parent_id`),
+  CONSTRAINT `FKsaok720gsu4u2wrgbk10b5n8d` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Arts & Photography','61MLln5mCbL._AC_UL127_SR127,127_.jpg','Arts & Photography',_binary '',NULL),(2,'Biographies & Memoirs','81ghFDPPUxL._AC_UL127_SR127,127_.jpg','Biographies & Memoirs',_binary '',NULL),(3,'Business & Money','61Ars9rdgGS._AC_UL127_SR127,127_.jpg','Business & Money',_binary '',NULL),(4,'Drawing','61INQyYUJJL._AC._SR240,240.jpg','Drawing',_binary '',1),(5,'Photography & Video','311C7Xb-2FL._AC._SR240,240.jpg','Photography & Video',_binary '',1),(6,'Music','41wfLB9cycL._AC._SR240,240.jpg','Music',_binary '',1),(7,'Graphic Design','41f9x-pnVQL._AC._SR240,240.jpg','Graphic Design',_binary '',1),(8,'Decorative Arts & Design','41phrPC9v9L._AC._SR240,240.jpg','Decorative Arts & Design',_binary '',1),(9,'Performing Arts','51pJwB1hlPL._AC._SR240,240.jpg','Performing Arts',_binary '',1),(10,'History & Criticism','41mTUCODSOL._AC._SR240,240.jpg','History & Criticism',_binary '',1),(11,'Architecture','41RrX77809L._AC._SR240,240.jpg','Architecture',_binary '',1),(12,'Historical','41KY-NORo9L._AC._SR240,240.jpg','Historical',_binary '',2),(13,'Memoirs','41wfLB9cycL._AC._SR240,240 (1).jpg','Memoirs',_binary '',2),(14,'Arts & Literature','31sIl2nBSbS._AC._SR240,240.jpg','Arts & Literature',_binary '',2),(15,'Professionals & Academics','411Rri9i9vL._AC._SR240,240.jpg','Professionals & Academics',_binary '',2),(16,'Leaders & Notable People','51yoHjJDQ3L._AC._SR240,240.jpg','Leaders & Notable People',_binary '',2),(17,'Community & Culture','51WRCQlWvuL._AC._SR240,240.jpg','Community & Culture',_binary '',2),(18,'True Crime','41NGxKy-N1L._AC._SR240,240.jpg','True Crime',_binary '',2),(19,'Travelers & Explorers','51xKiRY4L0L._AC._SR240,240.jpg','Travelers & Explorers',_binary '',2),(20,'Computers & Technology','41dpdctWNhL.jpg','Computers & Technology',_binary '',NULL),(21,'Education & Teaching','51do7OKo3iL.jpg','Education & Teaching',_binary '',NULL),(22,'Travel','61vTN7miRpL._AC._SR360,460.jpg','Travel',_binary '',NULL),(23,'Sports & Outdoors','811A3zgJGML._AC._SR360,460.jpg','Sports & Outdoors',_binary '',NULL),(24,'Science Fiction & Fantasy','41NsJqa5o1L.jpg','Science Fiction & Fantasy',_binary '',NULL),(25,'Crafts, Hobbies & Home','91M5h3r6NaL._AC._SR360,460.jpg','Crafts, Hobbies & Home',_binary '',NULL),(26,'Health, Fitness & Dieting','81WzAUh1QcL._AC._SR360,460.jpg','Health, Fitness & Dieting',_binary '',NULL),(27,'Calendars','81BHjeJ+42L._AC._SR360,460.jpg','Calendars',_binary '',NULL),(28,'Humor & Entertainment','91ks0ej5NnL._AC._SR360,460.jpg','Humor & Entertainment',_binary '',NULL);
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `roles`
 --
 
@@ -109,4 +141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-03 17:35:03
+-- Dump completed on 2022-08-04 11:37:38

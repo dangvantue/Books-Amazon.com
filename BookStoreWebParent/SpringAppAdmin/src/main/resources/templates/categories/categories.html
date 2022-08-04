@@ -25,44 +25,19 @@
                 <a th:href="@{/categories/new}" class="fas fa-calendar-plus fa-2x mr-2" title="Add New Category"></a>
                 &nbsp;&nbsp; 
                 <a th:href="@{/categories/export/csv}" class="fas fa-file-csv fa-2x mr-2 icon-success" title="Export to CSV"></a>
-                &nbsp;&nbsp; 
-                <a th:href="@{/categories/export/excel}" class="fas fa-file-excel fa-2x mr-2 icon-excel" title="Export to Excel"></a>
-                &nbsp;&nbsp; 
-                <a th:href="@{/categories/export/pdf}" class="fas fa-file-pdf fa-2x icon-red" title="Export to PDF"></a>
+               
             </div>
-            
-            <div th:if="${message != null}" class="alert alert-success text-center">
-				[[${message}]]
-			</div>
-			
 			
             <div class="card-body">
-            
-            <form th:action="@{/categories/page/1}" class="form-inline m-3">
-             <div class="row">         					
-                                <div class="col-lg-4 mb-1">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Filter</span>
-                                        <input type="search" name="keyword" th:value="${keyword}" class="form-control" required >
-                                        &nbsp;&nbsp;
-			<button type="submit" class="btn btn-primary">
-				<i class="fas fa-search"></i>
-			</button>
-			&nbsp;&nbsp;
-			<button type="button" class="btn btn-secondary" onclick="clearFilter()">
-				<i class="fas fa-eraser"></i>
-			</button>
-                                    </div>
-                                </div>
-                                </div>
-                                </form>
+           <div th:replace="fragments :: search_form_and_message('/categories/page/1')"></div>
+          
                  <table class="table table-hover mb-0">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Category Image</th>
-                <th>Category Name</th>
-                <th>Alias</th>
+                <th>Image</th>
+                <th th:replace="fragments :: column_link('/categories', 'name', 'Name', 'none')" />						
+					<th class="hideable-column">Alias</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -70,21 +45,36 @@
             <tbody>
               <tr th:each="cat : ${listCategories}">
                 <td>[[${cat.id}]]</td>
-                <td></td>
+                <td>
+                	<img th:src="@{${cat.imagePath}}" style="width: 100px" class="img-fluid"/>
+                </td>
 					<td>[[${cat.name}]]</td>
 					<td>[[${cat.alias}]]</td>
-                <td>
-						<div th:replace="fragments :: category_status"></div>
+               <td>
+						<div th:replace="fragments :: status(${cat.status}, 'category', '/categories/' + ${cat.id})"></div>
 					</td>
 					<td>
-						<div th:replace="fragments :: category_actions"></div>
-					</td>	
+						<div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})"></div>
+						&nbsp; 
+						<div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, ${!cat.hasChildren})"></div>					
+					</td>		
                
               </tr>
              
             </tbody>
           </table>
+          
+          
             </div>
+            
+           <div th:if="${keyword != null}" class="text-center">
+		<span>Search result does not show categories in hierarchical form</span>
+		<div th:replace="fragments :: pagination('/categories', 'categories')"></div>
+	</div>
+	
+	<th:block th:unless="${keyword != null}">
+	<div th:replace="fragments :: pagination('/categories', 'top-level categories')"></div>
+	
             
             <div th:replace="modal_fragments :: confirm_modal" /></div>
 	
@@ -96,10 +86,21 @@
 	<span th:replace="footer:: footer"></span>
         </div>
     </div>
+    
+<script type="text/javascript">
+	moduleURL = "[[@{/categories}]]";
+
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'category');
+		});
+	});
+</script>
+	<script th:src="@{/js/common_list.js}"></script>
     <script th:src="@{/js/feather-icons/feather.min.js}"></script>
     <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
     <script th:src="@{/js/app.js}"></script>  
-	<script th:src="@{/js/vendors.js}"></script>
     <script th:src="@{/js/main.js}"></script>
 </body>
 </html>
