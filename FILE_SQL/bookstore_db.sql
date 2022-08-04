@@ -18,6 +18,59 @@ USE `bookstore_db`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `author_categories`
+--
+
+DROP TABLE IF EXISTS `author_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `author_categories` (
+  `author_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  PRIMARY KEY (`author_id`,`category_id`),
+  KEY `FKbrp2qeo8y3wtex9nvu1kx4gsc` (`category_id`),
+  CONSTRAINT `FKbrp2qeo8y3wtex9nvu1kx4gsc` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+  CONSTRAINT `FKsu8t5dxlu6twy9bsjtixtn8rl` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `author_categories`
+--
+
+LOCK TABLES `author_categories` WRITE;
+/*!40000 ALTER TABLE `author_categories` DISABLE KEYS */;
+INSERT INTO `author_categories` VALUES (12,3),(1,4),(4,4),(5,5),(5,6),(1,7),(4,7),(1,8),(4,8),(5,9),(5,10),(1,11),(4,11),(6,12),(6,13),(6,14),(12,15),(6,16),(6,17),(12,18),(12,19),(8,20),(8,21),(9,21),(11,21),(3,22),(7,22),(3,23),(7,23),(3,24),(7,24),(10,24),(8,25),(9,26),(10,26),(11,26),(8,27),(9,28),(10,28),(11,28);
+/*!40000 ALTER TABLE `author_categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `authors`
+--
+
+DROP TABLE IF EXISTS `authors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `authors` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `image` varchar(128) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_9mhkwvnfaarcalo4noabrin5j` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authors`
+--
+
+LOCK TABLES `authors` WRITE;
+/*!40000 ALTER TABLE `authors` DISABLE KEYS */;
+INSERT INTO `authors` VALUES (1,'2.jpg','Adam Nayman'),(3,'1.jpg','Adrian Kulp'),(4,'5.jpg','Caroline Kepnes'),(5,'6.jpg','Darlene Deibler Rose'),(6,'9.jpg','Fred S. Kleiner'),(7,'10.jpg','Gardner R. Dozois'),(8,'15.jpg','Lewis Thomas'),(9,'13.jpg','J. Robin Albertson-W'),(10,'14.jpg','Kate Clifford Larson'),(11,'12.jpg','Isadora Montrose'),(12,'11.jpg','Hal B. Gregersen');
+/*!40000 ALTER TABLE `authors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `categories`
 --
 
@@ -141,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-04 11:37:38
+-- Dump completed on 2022-08-04 17:30:10
