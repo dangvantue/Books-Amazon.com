@@ -60,7 +60,7 @@
                              
                              <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="username-column">Enabled</label>                            
+                                    <label for="username-column">Status</label>                            
                                     <input type="checkbox" th:field="*{status}" />
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
     
 <script type="text/javascript">
 	moduleURL = "[[@{/categories}]]";
-	MAX_FILE_SIZE = 5120000; // 100KB
+	MAX_FILE_SIZE = 5120000; // 500KB
 	
 	function checkUnique(form) {
 		catId = $("#id").val();
