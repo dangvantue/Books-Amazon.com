@@ -28,6 +28,7 @@ public class SecurityConfiguration {
 		http.authorizeRequests()
 		.antMatchers("/users/**").hasAuthority("Admin")
 		.antMatchers("/categories/**", "/authors/**").hasAnyAuthority("Admin", "Editor")
+		.antMatchers("/books/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()			

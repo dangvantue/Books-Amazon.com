@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</head>
+<body>
+    <div id="app">
+       <span th:replace="sidebar :: sidebar"></span>
+        <div id="main">
+            <span th:replace="header :: header"></span>
+            
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Datatable</h3>
+                <p class="text-subtitle text-muted">We use simple-datatables. </p>
+            </div>
+            
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h3>Manage Books | [[${pageTitle}]]</h3>
+            </div>
+           
+                
+                    <form th:action="@{/books/save}" method="post" onsubmit="return checkUnique(this)"
+                    	enctype="multipart/form-data"
+                    	 th:object="${book}">
+                    <input type="hidden" th:field="*{id}" />
+                 	<div>
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" data-bs-toggle="tab" href="#fdescription" role="tab">Description</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" data-bs-toggle="tab" href="#images" role="tab">Images</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" data-bs-toggle="tab" href="#details" role="tab">Details</a>
+		  </li>
+		</ul>
+		
+		<div class="tab-content">
+		  <div class="tab-pane active p-3" id="overview" role="tabpanel">
+		  	<div th:replace="books/book_overview :: content"></div>
+		  </div>
+		   <div class="tab-pane" id="fdescription" role="tabpanel">
+		  	<div th:replace="books/book_description :: content"></div>
+		  </div>
+		  <div class="tab-pane" id="images" role="tabpanel">
+		  	<div th:replace="books/book_images :: content"></div>
+		  </div>
+		  <div class="tab-pane" id="details" role="tabpanel">Details</div>
+		</div>	
+	</div>
+	<div class="text-center">
+		<input type="submit" value="Save" class="btn btn-primary m-3" />
+		<input type="button" value="Cancel" class="btn btn-danger" id="buttonCancel" />
+	</div>
+                    </form>
+                    
+                   <div th:replace="modal_fragments :: modal_dialog"></div>   
+           
+        </div>
+
+    </section>
+</div>
+
+<span th:replace="footer:: footer"></span>
+        </div>
+    </div>
+    
+<script type="text/javascript">
+	MAX_FILE_SIZE = 502400; // 500KB
+	
+	moduleURL = "[[@{/books}]]";	
+	authorModuleURL = "[[@{/authors}]]";
+	
+	dropdownAuthors = $("#author");
+	dropdownCategories = $("#category");
+	
+	
+	$(document).ready(function() {
+		
+		$("#description").richText();
+		
+		dropdownAuthors.change(function() {
+			dropdownCategories.empty();
+			getCategories();
+		});	
+		
+		getCategories();
+	});
+	
+	
+	function getCategories() {
+		authorId = dropdownAuthors.val(); 
+		url = authorModuleURL + "/" + authorId + "/categories";
+		
+		$.get(url, function(responseJson) {
+			$.each(responseJson, function(index, category) {
+				$("<option>").val(category.id).text(category.name).appendTo(dropdownCategories);
+			});			
+		});
+	}
+	
+	function checkUnique(form) {
+		bookId = $("#id").val();
+		bookName = $("#name").val();
+		
+		csrfValue = $("input[name='_csrf']").val();
+		
+		url = "[[@{/books/check_unique}]]";
+		
+		params = {id: bookId, name: bookName, _csrf: csrfValue};
+		
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			} else if (response == "Duplicate") {
+				showWarningModal("There is another book having the name " + bookName);	
+			} else {
+				showErrorModal("Unknown response from server");
+			}
+			
+		}).fail(function() {
+			showErrorModal("Could not connect to the server");
+		});
+		
+		return false;
+	}	
+		
+</script>
+<script th:src="@{/js/common_form.js}"></script>
+    <script th:src="@{/js/feather-icons/feather.min.js}"></script>
+    <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+    <script th:src="@{/js/app.js}"></script>  
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

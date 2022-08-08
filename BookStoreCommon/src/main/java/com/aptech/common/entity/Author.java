@@ -39,6 +39,11 @@ public class Author extends IdBasedEntity {
 		this.image = "default-user.png";
 	}
 	
+	public Author(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
 	@Transient
 	public String getImagePath() {
 		if (this.id == null) return "/images/image-thumbnail.png";
