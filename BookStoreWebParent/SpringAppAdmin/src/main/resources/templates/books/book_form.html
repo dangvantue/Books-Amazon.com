@@ -12,59 +12,65 @@
             <span th:replace="header :: header"></span>
             
 <div class="main-content container-fluid">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Datatable</h3>
-                <p class="text-subtitle text-muted">We use simple-datatables. </p>
-            </div>
-            
-        </div>
-    </div>
+    
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h3>Manage Books | [[${pageTitle}]]</h3>
+                <h3>Manage Book</h3>
             </div>
-           
-                
+                          
                     <form th:action="@{/books/save}" method="post" onsubmit="return checkUnique(this)"
                     	enctype="multipart/form-data"
                     	 th:object="${book}">
                     <input type="hidden" th:field="*{id}" />
-                 	<div>
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
-		  <li class="nav-item">
-		    <a class="nav-link active" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" data-bs-toggle="tab" href="#fdescription" role="tab">Description</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" data-bs-toggle="tab" href="#images" role="tab">Images</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" data-bs-toggle="tab" href="#details" role="tab">Details</a>
-		  </li>
-		</ul>
-		
-		<div class="tab-content">
-		  <div class="tab-pane active p-3" id="overview" role="tabpanel">
-		  	<div th:replace="books/book_overview :: content"></div>
-		  </div>
-		   <div class="tab-pane" id="fdescription" role="tabpanel">
-		  	<div th:replace="books/book_description :: content"></div>
-		  </div>
-		  <div class="tab-pane" id="images" role="tabpanel">
-		  	<div th:replace="books/book_images :: content"></div>
-		  </div>
-		  <div class="tab-pane" id="details" role="tabpanel">Details</div>
-		</div>	
+                    <input th:if="${book.category != null}" type="hidden" 
+			id="categoryId" th:value="${book.category.id}" />
+                 <div class="card-body">
+                       <div>
+					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			  <li class="nav-item" role="presentation">
+			    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Overview</button>
+			  </li>
+			  <li class="nav-item" role="presentation">
+			    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Description</button>
+			  </li>
+			  <li class="nav-item" role="presentation">
+			    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Images</button>
+			  </li>
+			  <li class="nav-item" role="presentation">
+			    <button class="nav-link" id="pills-detail-tab" data-bs-toggle="pill" data-bs-target="#pills-detail" type="button" role="tab" aria-controls="pills-detail" aria-selected="false">Details</button>
+			  </li>
+			   
+			</ul>
+			<div class="tab-content" id="pills-tabContent">
+			  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+			  		<div th:replace="books/book_overview :: content"></div>
+			  </div>
+			  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+			  			<div th:replace="books/book_description :: content"></div>
+			  </div>
+			  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+			  	<div th:replace="books/book_images :: content"></div>
+			  </div>
+			  <div class="tab-pane fade" id="pills-detail" role="tabpanel" aria-labelledby="pills-detail-tab">
+			  		<div th:replace="books/book_detail :: content"></div> <br>
+			  		<div>
+		  			<input type="button" class="btn btn-secondary" value="Add More Detail"
+		  			onclick="addNextDetailSection()" />
+		  	</div>	
+			  </div>
+			  
+			</div>
 	</div>
-	<div class="text-center">
-		<input type="submit" value="Save" class="btn btn-primary m-3" />
-		<input type="button" value="Cancel" class="btn btn-danger" id="buttonCancel" />
-	</div>
+
+                                
+                        <div class="clearfix">
+                       		<div class="text-center">
+								<input type="submit" value="Submit" class="btn btn-primary m-3"  />
+								<input type="button" value="Cancel" class="btn btn-danger" id="buttonCancel" />
+							</div>     
+                        </div>
+                         </div>
                     </form>
                     
                    <div th:replace="modal_fragments :: modal_dialog"></div>   
@@ -81,65 +87,16 @@
 <script type="text/javascript">
 	MAX_FILE_SIZE = 502400; // 500KB
 	
-	moduleURL = "[[@{/books}]]";	
+	moduleURL = "[[@{/books}]]";
 	authorModuleURL = "[[@{/authors}]]";
+	defaultImageThumbnailSrc = "[[@{/images/image-thumbnail.png}]]";
+	checkUniqueUrl = "[[@{/books/check_unique}]]";
 	
-	dropdownAuthors = $("#author");
-	dropdownCategories = $("#category");
-	
-	
-	$(document).ready(function() {
-		
-		$("#description").richText();
-		
-		dropdownAuthors.change(function() {
-			dropdownCategories.empty();
-			getCategories();
-		});	
-		
-		getCategories();
-	});
-	
-	
-	function getCategories() {
-		authorId = dropdownAuthors.val(); 
-		url = authorModuleURL + "/" + authorId + "/categories";
-		
-		$.get(url, function(responseJson) {
-			$.each(responseJson, function(index, category) {
-				$("<option>").val(category.id).text(category.name).appendTo(dropdownCategories);
-			});			
-		});
-	}
-	
-	function checkUnique(form) {
-		bookId = $("#id").val();
-		bookName = $("#name").val();
-		
-		csrfValue = $("input[name='_csrf']").val();
-		
-		url = "[[@{/books/check_unique}]]";
-		
-		params = {id: bookId, name: bookName, _csrf: csrfValue};
-		
-		$.post(url, params, function(response) {
-			if (response == "OK") {
-				form.submit();
-			} else if (response == "Duplicate") {
-				showWarningModal("There is another book having the name " + bookName);	
-			} else {
-				showErrorModal("Unknown response from server");
-			}
-			
-		}).fail(function() {
-			showErrorModal("Could not connect to the server");
-		});
-		
-		return false;
-	}	
-		
 </script>
-<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/common_form.js}"></script>
+	<script th:src="@{/js/book_overview.js}"></script>
+	<script th:src="@{/js/book_image.js}"></script>
+	<script th:src="@{/js/book_details.js}"></script>
     <script th:src="@{/js/feather-icons/feather.min.js}"></script>
     <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
     <script th:src="@{/js/app.js}"></script>  

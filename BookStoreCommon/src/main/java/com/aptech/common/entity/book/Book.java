@@ -1,8 +1,10 @@
-package com.aptech.common.entity;
+package com.aptech.common.entity.book;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.aptech.common.entity.Author;
+import com.aptech.common.entity.Category;
+import com.aptech.common.entity.IdBasedEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,8 +71,8 @@ public class Book extends IdBasedEntity {
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BookImage> images = new HashSet<>();
 
-//	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-//	private List<BookDetail> details = new ArrayList<>();
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BookDetail> details = new ArrayList<>();
 
 	public void addExtraImage(String imageName) {
 		this.images.add(new BookImage(imageName, this));
@@ -78,6 +84,35 @@ public class Book extends IdBasedEntity {
 			return "/images/image-thumbnail.png";
 
 		return "/book-images/" + this.id + "/" + this.mainImage;
+	}
+	
+	public void addDetail(String name, String value) {
+		this.details.add(new BookDetail(name, value, this));
+	}
+	
+	public boolean containsImageName(String imageName) {
+		Iterator<BookImage> iterator = images.iterator();
+		
+		while (iterator.hasNext()) {
+			BookImage image = iterator.next();
+			if (image.getName().equals(imageName)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public void addDetail(Integer id, String name, String value) {
+		this.details.add(new BookDetail(id, name, value, this));
+	}
+	
+	@Transient
+	public String getShortName() {
+		if (name.length() > 70) {
+			return name.substring(0, 70).concat("...");
+		}
+		return name;
 	}
 
 }

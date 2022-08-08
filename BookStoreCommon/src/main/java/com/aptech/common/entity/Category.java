@@ -33,6 +33,9 @@ public class Category extends IdBasedEntity {
 	private String image;
 
 	private boolean status;
+	
+	@Column(name = "all_parent_ids", length = 256, nullable = true)
+	private String allParentIDs;
 
 	@OneToOne
 	@JoinColumn(name = "parent_id")
