@@ -1,4 +1,4 @@
-package com.aptech.admin.category;
+package com.aptech.common.exception;
 
 public class CategoryNotFoundException extends Exception {
 	/**

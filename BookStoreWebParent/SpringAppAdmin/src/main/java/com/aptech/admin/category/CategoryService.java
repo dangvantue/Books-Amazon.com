@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.aptech.common.entity.Category;
+import com.aptech.common.exception.CategoryNotFoundException;
 
 @Service
 @Transactional

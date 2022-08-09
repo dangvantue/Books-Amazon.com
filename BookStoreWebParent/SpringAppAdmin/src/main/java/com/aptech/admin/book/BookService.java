@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.aptech.common.entity.book.Book;
+import com.aptech.common.exception.BookNotFoundException;
 
 @Service
 @Transactional
