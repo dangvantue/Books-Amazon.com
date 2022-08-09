@@ -201,6 +201,31 @@ INSERT INTO `categories` VALUES (1,'Arts & Photography','61MLln5mCbL._AC_UL127_S
 UNLOCK TABLES;
 
 --
+-- Table structure for table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `countries` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `code` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `countries`
+--
+
+LOCK TABLES `countries` WRITE;
+/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+INSERT INTO `countries` VALUES (1,'Afghanistan','AFG'),(2,'Argentina','ARG'),(3,'Australia','AUS'),(4,'Brazil','BRA'),(5,'Canada','CAN'),(6,'China','CHN'),(7,'Dominican Republic','DOM'),(8,'East Timor','TMP'),(9,'France','FRA'),(10,'Germany','DEU'),(11,'Hong Kong, China','HKG'),(12,'Hungary','HUN'),(13,'Iceland','ISL'),(14,'India','IND'),(15,'Indonesia','IDN'),(16,'Iran, Islamic Rep','IRN'),(17,'Iraq','IRQ'),(18,'Ireland','IRL'),(19,'Italy','ITA'),(20,'Japan','JPN'),(21,'Korea, Rep','KOR'),(22,'Lao PDR','LAO');
+/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `roles`
 --
 
@@ -224,6 +249,57 @@ LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` VALUES (1,'Admin','Manage everything'),(2,'Salesperson','Manage product price, customers, shipping, orders and sales report'),(3,'Editor','Manage categories, authors, products, articles and menus'),(4,'Shipper','View products, view orders and update order status'),(5,'Assistant','Manage questions and reviews');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `settings` (
+  `key` varchar(128) NOT NULL,
+  `value` varchar(1024) NOT NULL,
+  `category` varchar(45) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `settings`
+--
+
+LOCK TABLES `settings` WRITE;
+/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
+INSERT INTO `settings` VALUES ('CUSTOMER_VERIFY_CONTENT','<b style=\"\"><font color=\"#000000\">Dear [[name]],</font></b><div><b style=\"\"><font color=\"#000000\"><i><br></i></font></b></div><div><b style=\"\"><font color=\"#000000\"><i>Click the link below to verify your registration:</i></font></b></div><div><b style=\"\"><font color=\"#000000\"><i><br></i></font></b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon','MAIL_TEMPLATES'),('MAIL_FROM','triquang.95qt@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','gcawfqbilchqzdpg','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','triquang.95qt@gmail.com','MAIL_SERVER'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Netfix','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER');
+/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `states`
+--
+
+DROP TABLE IF EXISTS `states`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `states` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `country_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKskkdphjml9vjlrqn4m5hi251y` (`country_id`),
+  CONSTRAINT `FKskkdphjml9vjlrqn4m5hi251y` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `states`
+--
+
+LOCK TABLES `states` WRITE;
+/*!40000 ALTER TABLE `states` DISABLE KEYS */;
+/*!40000 ALTER TABLE `states` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -282,6 +358,10 @@ LOCK TABLES `users_roles` WRITE;
 INSERT INTO `users_roles` VALUES (1,1),(2,2),(7,2),(3,3),(6,3),(7,3),(8,3),(4,4),(6,4),(8,4),(5,5),(8,5);
 /*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'bookstore_db'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -292,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-09 10:27:45
+-- Dump completed on 2022-08-09 16:12:57
