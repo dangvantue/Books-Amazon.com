@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head
 	th:replace="fragments :: page_head('Books - Book Store Admin', 'none')" />
 <body>
@@ -23,7 +24,10 @@
 					<div class="card">
 						<div class="card-header">
 							<h3>Manage Books</h3>
-							<br> <a th:href="@{/books/new}">Add New Book</a>
+							<br>
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+							 	<a th:href="@{/books/new}">Add New Book</a>
+							 </th:block>
 
 						</div>
 
@@ -62,7 +66,11 @@
 											th:replace="fragments :: column_link('/books', 'name', 'Name', 'none')" />
 										<th>Categories</th>
 										<th>Authors</th>
+										
+										<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
 										<th>Status</th>
+										</th:block>
+										
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -76,19 +84,25 @@
 											th:title="${book.name}">[[${book.shortName}]]</a></td>
 										<td>[[${book.category.name}]]</td>
 										<td>[[${book.author.name}]]</td>
-
+										
+										<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
 										<td>
 											<div
 												th:replace="fragments :: status(${book.status}, 'book', '/books/' + ${book.id})"></div>
 										</td>
+										</th:block>
 
 										<td><a class="fas fa-file-alt link-detail"
 											th:href="@{'books/detail/' + ${book.id}}" title="View"></a>
 											&nbsp;
+											<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
 											<div
 												th:replace="fragments :: edit('book', '/books/edit/' + ${book.id})"></div>
+												</th:block>
 											&nbsp;
-											<div th:replace="fragments :: delete('book', ${book.id}, '/books/delete/' + ${book.id}, true)"></div>					
+											<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+											<div th:replace="fragments :: delete('book', ${book.id}, '/books/delete/' + ${book.id}, true)"></div>		
+											</th:block>			
 					</td>
 
 									</tr>
@@ -122,23 +136,23 @@
 	<script type="text/javascript">
 		moduleURL = "[[@{/books}]]";
 
-		$(document).ready(
-				function() {
-					$(".link-delete").on("click", function(e) {
-						e.preventDefault();
-						showDeleteConfirmModal($(this), 'book');
-					});
-
-					$(".link-detail").on(
-							"click",
-							function(e) {
-								e.preventDefault();
-								linkDetailURL = $(this).attr("href");
-								$("#detailModal").modal("show").find(
-										".modal-content").load(linkDetailURL);
-							});
-
-				});
+		$(document).ready(function() {
+			$(".link-delete").on("click", function(e) {
+				e.preventDefault();
+				showDeleteConfirmModal($(this), 'book');
+			});
+			
+			$(".link-detail").on("click", function(e) {
+				e.preventDefault();
+				linkDetailURL = $(this).attr("href");
+				$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+			});
+			
+			$("#dropdownCategory").on("change", function() {
+				$("#searchForm").submit();
+			});
+			
+		});
 	</script>
 	<script th:src="@{/js/common_list.js}"></script>
 	<script th:src="@{/js/feather-icons/feather.min.js}"></script>

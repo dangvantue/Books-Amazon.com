@@ -28,7 +28,15 @@ public class SecurityConfiguration {
 		http.authorizeRequests()
 		.antMatchers("/users/**").hasAuthority("Admin")
 		.antMatchers("/categories/**", "/authors/**").hasAnyAuthority("Admin", "Editor")
-		.antMatchers("/books/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
+		.antMatchers("/books/new", "/books/delete/**").hasAnyAuthority("Admin", "Editor")
+		
+		.antMatchers("/books/edit/**", "/books/save", "/books/check_unique")
+			.hasAnyAuthority("Admin", "Editor", "Salesperson")
+			
+		.antMatchers("/books", "/books/", "/books/detail/**", "/books/page/**")
+			.hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
+			
+		.antMatchers("/books/**").hasAnyAuthority("Admin", "Editor")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()			

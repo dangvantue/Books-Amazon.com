@@ -15,78 +15,99 @@ import org.springframework.stereotype.Service;
 
 import com.aptech.common.entity.book.Book;
 
-
 @Service
 @Transactional
 public class BookService {
 	public static final int PRODUCTS_PER_PAGE = 5;
-	
-	@Autowired private BookRepository repo;
-	
+
+	@Autowired
+	private BookRepository repo;
+
 	public List<Book> listAll() {
 		return (List<Book>) repo.findAll();
 	}
-	
-	public Page<Book> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
+
+	public Page<Book> listByPage(int pageNum, String sortField, String sortDir, 
+			String keyword, Integer categoryId) {
 		Sort sort = Sort.by(sortField);
 		
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 				
 		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
 		
-		if (keyword != null) {
+		if (keyword != null && !keyword.isEmpty()) {
+			if (categoryId != null && categoryId > 0) {
+				String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+				return repo.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
+			}
+			
 			return repo.findAll(keyword, pageable);
+		}
+		
+		if (categoryId != null && categoryId > 0) {
+			String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+			return repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
 		}
 		
 		return repo.findAll(pageable);		
 	}	
-	
+
 	public Book save(Book book) {
 		if (book.getId() == null) {
 			book.setCreatedTime(new Date());
 		}
-		
+
 		if (book.getAlias() == null || book.getAlias().isEmpty()) {
 			String defaultAlias = book.getName().replaceAll(" ", "-");
 			book.setAlias(defaultAlias);
 		} else {
 			book.setAlias(book.getAlias().replaceAll(" ", "-"));
 		}
-		
+
 		book.setUpdatedTime(new Date());
-		
+
 		return repo.save(book);
 	}
-	
+
 	public String checkUnique(Integer id, String name) {
 		boolean isCreatingNew = (id == null || id == 0);
 		Book bookByName = repo.findByName(name);
-		
+
 		if (isCreatingNew) {
-			if (bookByName != null) return "Duplicate";
+			if (bookByName != null)
+				return "Duplicate";
 		} else {
 			if (bookByName != null && bookByName.getId() != id) {
 				return "Duplicate";
 			}
 		}
-		
+
 		return "OK";
 	}
-	
+
 	public void updateBookEnabledStatus(Integer id, boolean enabled) {
 		repo.updateEnabledStatus(id, enabled);
 	}
 	
+	public void saveBookPrice(Book bookInForm) {
+		Book bookInDB = repo.findById(bookInForm.getId()).get();
+		bookInDB.setCost(bookInForm.getCost());
+		bookInDB.setPrice(bookInForm.getPrice());
+		bookInDB.setDiscountPercent(bookInForm.getDiscountPercent());
+		
+		repo.save(bookInDB);
+	}
+
 	public void delete(Integer id) throws BookNotFoundException {
 		Long countById = repo.countById(id);
-		
+
 		if (countById == null || countById == 0) {
-			throw new BookNotFoundException("Could not find any book with ID " + id);			
+			throw new BookNotFoundException("Could not find any book with ID " + id);
 		}
-		
+
 		repo.deleteById(id);
-	}	
-	
+	}
+
 	public Book get(Integer id) throws BookNotFoundException {
 		try {
 			return repo.findById(id).get();
