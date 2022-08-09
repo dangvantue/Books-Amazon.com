@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aptech.admin.FileUploadUtil;
 import com.aptech.admin.author.AuthorService;
 import com.aptech.admin.category.CategoryService;
+import com.aptech.admin.security.BookStoreUserDetails;
 import com.aptech.common.entity.Author;
 import com.aptech.common.entity.Category;
 import com.aptech.common.entity.book.Book;
@@ -42,16 +44,17 @@ public class BookController {
 	
 	@GetMapping("/books")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "name", "asc", null);
+		return listByPage(1, model, "name", "asc", null, 0);
 	}
 	
 	@GetMapping("/books/page/{pageNum}")
 	public String listByPage(
 			@PathVariable(name = "pageNum") int pageNum, Model model,
 			@Param("sortField") String sortField, @Param("sortDir") String sortDir,
-			@Param("keyword") String keyword
+			@Param("keyword") String keyword,
+			@Param("categoryId") Integer categoryId
 			) {
-		Page<Book> page = bookService.listByPage(pageNum, sortField, sortDir, keyword);
+		Page<Book> page = bookService.listByPage(pageNum, sortField, sortDir, keyword, categoryId);
 		List<Book> listBooks = page.getContent();
 		
 		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
@@ -63,6 +66,8 @@ public class BookController {
 		}
 		
 		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		
+		if (categoryId != null) model.addAttribute("categoryId", categoryId);
 		
 		model.addAttribute("currentPage", pageNum);
 		model.addAttribute("totalPages", page.getTotalPages());
@@ -97,15 +102,23 @@ public class BookController {
 	
 	@PostMapping("/books/save")
 	public String saveBook(Book book, RedirectAttributes ra,
-			@RequestParam("fileImage") MultipartFile mainImageMultipart,			
-			@RequestParam("extraImage") MultipartFile[] extraImageMultiparts,
+			@RequestParam(value = "fileImage", required = false) MultipartFile mainImageMultipart,			
+			@RequestParam(value = "extraImage", required = false) MultipartFile[] extraImageMultiparts,
 			@RequestParam(name = "detailIDs", required = false) String[] detailIDs,
 			@RequestParam(name = "detailNames", required = false) String[] detailNames,
 			@RequestParam(name = "detailValues", required = false) String[] detailValues,
 			@RequestParam(name = "imageIDs", required = false) String[] imageIDs,
-			@RequestParam(name = "imageNames", required = false) String[] imageNames
+			@RequestParam(name = "imageNames", required = false) String[] imageNames,
+			@AuthenticationPrincipal BookStoreUserDetails loggedUser
 			) 
 					throws IOException {
+		
+		if (loggedUser.hasRole("Salesperson")) {
+			bookService.saveBookPrice(book);
+			ra.addFlashAttribute("message", "The book has been saved successfully.");			
+			return "redirect:/books";			
+		}
+		
 		setMainImageName(mainImageMultipart, book);
 		setExistingExtraImageNames(imageIDs, imageNames, book);
 		setNewExtraImageNames(extraImageMultiparts, book);
