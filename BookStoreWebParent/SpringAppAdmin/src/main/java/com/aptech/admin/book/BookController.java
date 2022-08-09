@@ -32,6 +32,7 @@ import com.aptech.common.entity.Author;
 import com.aptech.common.entity.Category;
 import com.aptech.common.entity.book.Book;
 import com.aptech.common.entity.book.BookImage;
+import com.aptech.common.exception.BookNotFoundException;
 
 
 @Controller

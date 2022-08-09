@@ -1,4 +1,4 @@
-package com.aptech.admin.book;
+package com.aptech.common.exception;
 
 public class BookNotFoundException extends Exception {
 	/**
