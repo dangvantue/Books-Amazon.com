@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('BookStore', 'none')" />
+<body>
+
+   <!--=========== Loader =============-->
+   			<span th:replace="loader :: loader"></span>
+   <!--=========== Loader =============-->
+			<span th:replace="header :: header"></span>
+   <!--========== Header ==============-->
+  
+   <!--========== Header ==============-->
+
+   <!-- owl-carousel Banner Start -->
+ 	<span th:replace="banner :: banner"></span>
+   <!-- owl-carousel Banner End -->
+
+   <!-- owl-carousel Videos Section-1 Start -->
+   <section class="gen-section-padding-2">
+      <div class="container">
+         <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6">
+               <h4 class="gen-heading-title">Shop By Category</h4>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 d-none d-md-inline-block">
+               <div class="gen-movie-action">
+                  <div class="gen-btn-container text-right">
+                     <a href="#" class="gen-button gen-button-flat">
+                        <span class="text">More Categories</span>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row mt-3">
+            <div class="col-12">
+               <div class="gen-style-2">
+                  <div class="owl-carousel owl-loaded owl-drag" data-dots="false" data-nav="true" data-desk_num="4"
+                     data-lap_num="3" data-tab_num="2" data-mob_num="1" data-mob_sm="1" data-autoplay="false"
+                     data-loop="false" data-margin="30">
+                     <div class="item" th:each="cat : ${listCategories}">
+                        <div
+                           class="movie type-movie status-publish has-post-thumbnail hentry movie_genre-action movie_genre-adventure movie_genre-drama">
+                           <div class="gen-carousel-movies-style-2 movie-grid style-2">
+                              <div class="gen-movie-contain">
+                                 <div class="gen-movie-img">
+                                    <img th:src="@{${cat.imagePath}}" alt="owl-carousel-video-image" style="width: 250px; height: 300px">
+                                    <div class="gen-movie-add">
+                                       
+                                       <div class="movie-actions--link_add-to-playlist dropdown">
+                                          
+                                          <div class="dropdown-menu mCustomScrollbar">
+                                             <div class="mCustomScrollBox">
+                                                <div class="mCSB_container">
+                                                   <a class="login-link" href="register.html">Sign in to add this movie
+                                                      to a
+                                                      playlist.</a>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                  
+                                 </div>
+                                 <div class="gen-info-contain">
+                                    <div class="gen-movie-info">
+                                       <h3><a th:href="@{'/c/' + ${cat.alias}}">[[${cat.name}]]</a></h3>
+                                       
+                                    </div>
+                                   
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- #post-## -->
+                     </div>
+
+                   
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- owl-carousel Videos Section-1 End -->
+
+  
+
+
+                   
+
+   <!-- footer start -->
+  		<span th:replace="footer :: footer"></span>		
+   <!-- footer End -->
+
+   <!-- Back-to-Top start -->
+   <div id="back-to-top">
+      <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
+   </div>
+   <!-- Back-to-Top end -->
+
+   <!-- js-min -->
+   <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+   <script th:src="@{/js/asyncloader.min.js}"></script>
+   <!-- JS bootstrap -->
+   <script th:src="@{/js/bootstrap.min.js}"></script>
+   <!-- owl-carousel -->
+   <script th:src="@{/js/owl.carousel.min.js}"></script>
+   <!-- counter-js -->
+   <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+   <script th:src="@{/js/jquery.counterup.min.js}"></script>
+   <!-- popper-js -->
+   <script th:src="@{/js/popper.min.js}"></script>
+   <script th:src="@{/js/swiper-bundle.min.js}"></script>
+   <!-- Iscotop -->
+   <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+
+   <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+
+   <script th:src="@{/js/slick.min.js}"></script>
+
+   <script th:src="@{/js/streamlab-core.js}"></script>
+
+   <script th:src="@{/js/script.js}"></script>
+
+
+</body>
+
+</html>

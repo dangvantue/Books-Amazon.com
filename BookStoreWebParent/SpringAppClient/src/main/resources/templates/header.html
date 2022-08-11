@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<body>
+		 <header id="gen-header" class="gen-header-style-1 gen-has-sticky" th:fragment="header">
+      <div class="gen-bottom-header">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <a class="navbar-brand" th:href="@{/}">
+                        <img class="img-fluid logo" th:src="@{${SITE_LOGO}}">
+                     </a>
+                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div id="gen-menu-contain" class="gen-menu-contain">
+                           <ul id="gen-main-menu" class="navbar-nav ml-auto">
+                              <li class="menu-item active">
+                                 <a th:href="@{/}" aria-current="page">Home</a>
+                                
+                              </li>  
+                              
+                              <li class="menu-item">
+                                 <a href="#">About Us</a>                                                           
+                              </li>   
+                              
+                               <li class="menu-item">
+                                 <a href="#">Privacy Policy</a>                                                           
+                              </li> 
+                              
+                              <li class="menu-item">
+                                 <a href="#">Help Center</a>                                                           
+                              </li>                       
+                           
+                              <li class="menu-item">
+                                 <a href="#">Contact Us</a>                                                           
+                              </li>
+                              
+                               <li class="menu-item">
+                                 <a href="#">Fag</a>                                                           
+                              </li>
+                                                        
+                             
+                           </ul>
+                        </div>
+                     </div>
+                     
+                     <th:block sec:authorize="isAuthenticated()">	
+		<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+			<input type="submit" value="Logout" />
+		</form>
+		</th:block>
+                     <div class="gen-header-info-box">
+                        <div class="gen-menu-search-block" >
+                           <a href="javascript:void(0)" id="gen-seacrh-btn"><i class="fa fa-search"></i></a>
+                           <div class="gen-search-form">
+                              <form role="search" method="get" class="search-form" th:action="@{/search}">
+                                 <label>
+                                    <span class="screen-reader-text"></span>
+                                    <input type="search" class="search-field" placeholder="Search for anything" th:value="${keyword}" name="keyword" required>
+                                 </label>
+                                 <button type="submit" class="search-submit"><span
+                                       class="screen-reader-text"></span></button>
+                              </form>
+                           </div>
+                        </div>
+                        
+                        <div class="gen-account-holder">
+                                    <a href="#" ><i class="fa fa-cart-plus"></i></a>
+                                    
+                                </div>
+                                
+                               
+                        <th:block sec:authorize="isAuthenticated()">
+                        <div class="gen-account-holder">
+                           <a href="javascript:void(0)" id="gen-user-btn"><i class="fa fa-user"></i></a>
+                           <div class="gen-account-menu">
+                              <ul class="gen-account-menu">
+                                 <!-- Pms Menu -->
+                                
+                                  
+                                 <li>
+                                    <a th:href="@{/account_details}"><i class="fa fa-user"></i>
+                                        Hi, <b sec:authentication="principal.fullName"></b> </a>
+                                 </li>
+                                 <!-- Library Menu -->
+                                
+                                 <li>
+                                    <a href="library.html">
+                                       <i class="fa fa-indent"></i>
+                                       Library </a>
+                                 </li>
+                                 <li>
+                                    <a href="library.html"><i class="fa fa-list"></i>
+                                       Subscription </a>
+                                 </li>
+                                 <li>
+                                    <a href="library.html"><i class="fa fa-list"></i>
+                                       Payments </a>
+                                 </li>
+                                
+                                  <li>
+                                    <a href="javascript: document.logoutForm.submit()"><i class="fas fa-sign-in-alt"></i>
+                                       Logout </a>
+                                 </li>
+                                
+                                
+                              </ul>
+                           </div>
+                        </div>
+                         </th:block>		
+                        <div class="gen-btn-container">
+                           <a th:href="@{/login}" class="gen-button">
+                              <div class="gen-button-block">
+                                 <span class="gen-button-line-left"></span>
+                                 <span class="gen-button-text" >Subscribe</span>
+                              </div>
+                           </a>
+                        </div>
+                     </div>
+                     <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                     </button>
+                  </nav>
+               </div>
+            </div>
+         </div>
+      </div>
+   </header>
+</body>
+</html>
