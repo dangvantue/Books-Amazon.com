@@ -58,12 +58,14 @@ public class ForgotPasswordController {
 		String subject = "Here's the link to reset your password";
 		
 		String content = "<p>Hello,</p>"
-				+ "<p>You have requested to reset your password.</p>"
-				+ "Click the link below to change your password:</p>"
-				+ "<p><a href=\"" + link + "\">Change my password</a></p>"
+				+ "<p>Did you forget your password?</p>"
+				+ "<p>Alternately, you could use the url below to complete your action.</p>"
+				+ "<p><a href=\"" + link + "\">Reset Password</a></p>"
 				+ "<br>"
-				+ "<p>Ignore this email if you do remember your password, "
-				+ "or you have not made the request.</p>";
+				+ "<p>If you don't want to change your password or didn't request this, "
+				+ "please ignore and delete this message.</p>"
+		        + "<p>Thank you,</p>"
+		        + "<p>The Amazon Account Team.</p>";
 		
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);

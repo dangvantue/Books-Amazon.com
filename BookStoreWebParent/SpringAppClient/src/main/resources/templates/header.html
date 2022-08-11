@@ -64,13 +64,10 @@
                            </div>
                         </div>
                         
+                         <th:block sec:authorize="isAuthenticated()">
                         <div class="gen-account-holder">
-                                    <a href="#" ><i class="fa fa-cart-plus"></i></a>
-                                    
-                                </div>
-                                
-                               
-                        <th:block sec:authorize="isAuthenticated()">
+                                <a href="#" ><i class="fa fa-cart-plus"></i></a>                                  
+                              </div>                                                                            
                         <div class="gen-account-holder">
                            <a href="javascript:void(0)" id="gen-user-btn"><i class="fa fa-user"></i></a>
                            <div class="gen-account-menu">
@@ -83,12 +80,7 @@
                                         Hi, <b sec:authentication="principal.fullName"></b> </a>
                                  </li>
                                  <!-- Library Menu -->
-                                
-                                 <li>
-                                    <a href="library.html">
-                                       <i class="fa fa-indent"></i>
-                                       Library </a>
-                                 </li>
+                                                          
                                  <li>
                                     <a href="library.html"><i class="fa fa-list"></i>
                                        Subscription </a>

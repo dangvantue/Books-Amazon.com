@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+	  <!--=========== Loader =============-->
+   			<span th:replace="loader :: loader"></span>
+   <!--=========== Loader =============-->
+			<span th:replace="header :: header"></span>
+   <!--========== Header ==============-->
+  
+   <!-- breadcrumb -->
+    <div class="gen-breadcrumb" th:style=" 'background-image: url(' + @{/images/background/asset-10.JPG} + ');' ">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <div class="gen-breadcrumb-title" >
+                            <h1>
+                                [[${category.name}]]
+                            </h1>
+                        </div>
+                        <div class="gen-breadcrumb-container">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/}"><i
+                                            class="fas fa-home mr-2"></i>Home</a></li>
+                                            <th:block th:each="parent : ${listCategoryParents}">
+                                <li class="breadcrumb-item active"><a th:href="@{'/c/' + ${parent.alias}}">[[${parent.name}]]</a></li>
+                                </th:block>
+                            </ol>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb -->
+
+	 <!-- Section-1 Start -->
+    <section class="gen-section-padding-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" >
+                 <th:block th:each="book : ${listBooks}">
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="gen-carousel-books-style-3 book-grid style-3">
+                                <div class="gen-book-contain">
+                                    <div class="gen-book-img">
+                                        <img th:src="@{${book.mainImagePath}}" style="width: 250px; height: 300px">
+                                       	
+                                    </div>
+                                    <div class="gen-info-contain">
+                                        <div class="gen-book-info">
+                                            <h5><a th:href="@{'/m/' + ${book.alias}}">[[${book.name}]]</a></h5>
+                                        </div>
+                                         <div class="gen-book-info" th:if="${book.discountPercent <= 0}">
+                                         	<span>$ [[${book.price}]]</span>                                    
+                                        </div>
+                                        <div class="gen-book-info" th:if="${book.discountPercent > 0}">
+                                         	<span style="font-size: larger; color: darkred">$ [[${book.discountPrice}]]</span>    
+                                         	<del><span>$ [[${book.price}]]</span></del>                                
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </th:block>
+                        
+                    </div>
+                </div>
+                
+                <div th:replace="fragments :: pagination('/c/' + ${category.alias}, 'book')"></div>
+        
+            </div>
+        </div>
+    </section>
+    <!-- Section-1 End -->
+	 <span th:replace="footer:: footer"></span>
+  <!-- Back-to-Top start -->
+    <div id="back-to-top">
+        <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
+    </div>
+    <!-- Back-to-Top end -->
+
+    <!-- js-min -->
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/asyncloader.min.js}"></script>
+    <!-- JS bootstrap -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- owl-carousel -->
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <!-- counter-js -->
+    <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/jquery.counterup.min.js}"></script>
+    <!-- popper-js -->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/swiper-bundle.min.js}"></script>
+    <!-- Iscotop -->
+    <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+
+    <script th:src="@{/js/slick.min.js}"></script>
+
+    <script th:src="@{/js/streamlab-core.js}"></script>
+
+    <script th:src="@{/js/script.js}"></script>
+
+
+</body>
+</html>
