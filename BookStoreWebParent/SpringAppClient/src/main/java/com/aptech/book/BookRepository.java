@@ -15,7 +15,7 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 	
 	public Book findByAlias(String alias);
 	
-	@Query(value = "SELECT * FROM Book WHERE status = true AND "
+	@Query(value = "SELECT * FROM books WHERE status = true AND "
 			+ "MATCH(name, description) AGAINST (?1)", 
 			nativeQuery = true)
 	public Page<Book> search(String keyword, Pageable pageable);

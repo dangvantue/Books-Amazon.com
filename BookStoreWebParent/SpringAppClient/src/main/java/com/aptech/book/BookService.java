@@ -11,8 +11,8 @@ import com.aptech.common.exception.BookNotFoundException;
 
 @Service
 public class BookService {
-	public static final int BOOKS_PER_PAGE = 10;
-	public static final int SEARCH_RESULTS_PER_PAGE = 10;
+	public static final int BOOKS_PER_PAGE = 8;
+	public static final int SEARCH_RESULTS_PER_PAGE = 8;
 	
 	@Autowired private BookRepository repo;
 	

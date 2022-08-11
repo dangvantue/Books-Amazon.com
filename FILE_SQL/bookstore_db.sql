@@ -18,6 +18,42 @@ USE `bookstore_db`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `addresses`
+--
+
+DROP TABLE IF EXISTS `addresses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `addresses` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `address_line_1` varchar(64) NOT NULL,
+  `address_line_2` varchar(64) DEFAULT NULL,
+  `city` varchar(45) NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `postal_code` varchar(10) NOT NULL,
+  `state` varchar(45) NOT NULL,
+  `country_id` int DEFAULT NULL,
+  `customer_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKn3sth7s3kur1rafwbbrqqnswt` (`country_id`),
+  KEY `FKhrpf5e8dwasvdc5cticysrt2k` (`customer_id`),
+  CONSTRAINT `FKhrpf5e8dwasvdc5cticysrt2k` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
+  CONSTRAINT `FKn3sth7s3kur1rafwbbrqqnswt` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `addresses`
+--
+
+LOCK TABLES `addresses` WRITE;
+/*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `author_categories`
 --
 
@@ -152,6 +188,7 @@ CREATE TABLE `books` (
   UNIQUE KEY `UK_eh6bfj824qyn40pii29i90bll` (`name`),
   KEY `FKfjixh2vym2cvfj3ufxj91jem7` (`author_id`),
   KEY `FKleqa3hhc0uhfvurq6mil47xk0` (`category_id`),
+  FULLTEXT KEY `books_FTS` (`name`,`description`),
   CONSTRAINT `FKfjixh2vym2cvfj3ufxj91jem7` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`),
   CONSTRAINT `FKleqa3hhc0uhfvurq6mil47xk0` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -196,7 +233,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Arts & Photography','61MLln5mCbL._AC_UL127_SR127,127_.jpg','Arts & Photography',_binary '',NULL,NULL),(2,'Biographies & Memoirs','81ghFDPPUxL._AC_UL127_SR127,127_.jpg','Biographies & Memoirs',_binary '',NULL,NULL),(3,'Business & Money','61Ars9rdgGS._AC_UL127_SR127,127_.jpg','Business & Money',_binary '',NULL,NULL),(4,'Drawing','61INQyYUJJL._AC._SR240,240.jpg','Drawing',_binary '',1,'-1-'),(5,'Photography & Video','311C7Xb-2FL._AC._SR240,240.jpg','Photography & Video',_binary '',1,'-1-'),(6,'Music','41wfLB9cycL._AC._SR240,240.jpg','Music',_binary '',1,'-1-'),(7,'Graphic Design','41f9x-pnVQL._AC._SR240,240.jpg','Graphic Design',_binary '',1,'-1-'),(8,'Decorative Arts & Design','41phrPC9v9L._AC._SR240,240.jpg','Decorative Arts & Design',_binary '',1,'-1-'),(9,'Performing Arts','51pJwB1hlPL._AC._SR240,240.jpg','Performing Arts',_binary '',1,'-1-'),(10,'History & Criticism','41mTUCODSOL._AC._SR240,240.jpg','History & Criticism',_binary '',1,'-1-'),(11,'Architecture','41RrX77809L._AC._SR240,240.jpg','Architecture',_binary '',1,'-1-'),(12,'Historical','41KY-NORo9L._AC._SR240,240.jpg','Historical',_binary '',2,'-2-'),(13,'Memoirs','41wfLB9cycL._AC._SR240,240 (1).jpg','Memoirs',_binary '',2,'-2-'),(14,'Arts & Literature','31sIl2nBSbS._AC._SR240,240.jpg','Arts & Literature',_binary '',2,'-2-'),(15,'Professionals & Academics','411Rri9i9vL._AC._SR240,240.jpg','Professionals & Academics',_binary '',2,'-2-'),(16,'Leaders & Notable People','51yoHjJDQ3L._AC._SR240,240.jpg','Leaders & Notable People',_binary '',2,'-2-'),(17,'Community & Culture','51WRCQlWvuL._AC._SR240,240.jpg','Community & Culture',_binary '',2,'-2-'),(18,'True Crime','41NGxKy-N1L._AC._SR240,240.jpg','True Crime',_binary '',2,'-2-'),(19,'Travelers & Explorers','51xKiRY4L0L._AC._SR240,240.jpg','Travelers & Explorers',_binary '',2,'-2-'),(20,'Computers & Technology','41dpdctWNhL.jpg','Computers & Technology',_binary '',NULL,NULL),(21,'Education & Teaching','51do7OKo3iL.jpg','Education & Teaching',_binary '',NULL,NULL),(22,'Travel','61vTN7miRpL._AC._SR360,460.jpg','Travel',_binary '',NULL,NULL),(23,'Sports & Outdoors','811A3zgJGML._AC._SR360,460.jpg','Sports & Outdoors',_binary '',NULL,NULL),(24,'Science Fiction & Fantasy','41NsJqa5o1L.jpg','Science Fiction & Fantasy',_binary '',NULL,NULL),(25,'Crafts, Hobbies & Home','91M5h3r6NaL._AC._SR360,460.jpg','Crafts, Hobbies & Home',_binary '',NULL,NULL),(26,'Health, Fitness & Dieting','81WzAUh1QcL._AC._SR360,460.jpg','Health, Fitness & Dieting',_binary '',NULL,NULL),(27,'Calendars','81BHjeJ+42L._AC._SR360,460.jpg','Calendars',_binary '',NULL,NULL),(28,'Humor & Entertainment','91ks0ej5NnL._AC._SR360,460.jpg','Humor & Entertainment',_binary '',NULL,NULL);
+INSERT INTO `categories` VALUES (1,'Arts & Photography','51sTUoojuaL._SX322_BO1,204,203,200_.jpg','Arts & Photography',_binary '',NULL,NULL),(2,'Biographies & Memoirs','81ghFDPPUxL._AC_UL127_SR127,127_.jpg','Biographies & Memoirs',_binary '',NULL,NULL),(3,'Business & Money','61Ars9rdgGS._AC_UL127_SR127,127_.jpg','Business & Money',_binary '',NULL,NULL),(4,'Drawing','61INQyYUJJL._AC._SR240,240.jpg','Drawing',_binary '',1,'-1-'),(5,'Photography & Video','311C7Xb-2FL._AC._SR240,240.jpg','Photography & Video',_binary '',1,'-1-'),(6,'Music','41SitFz-XsL._SY344_BO1,204,203,200_QL70_ML2_.jpg','Music',_binary '',1,'-1-'),(7,'Graphic Design','41f9x-pnVQL._AC._SR240,240.jpg','Graphic Design',_binary '',1,'-1-'),(8,'Decorative Arts & Design','41phrPC9v9L._AC._SR240,240.jpg','Decorative Arts & Design',_binary '',1,'-1-'),(9,'Performing Arts','51pJwB1hlPL._AC._SR240,240.jpg','Performing Arts',_binary '',1,'-1-'),(10,'History & Criticism','41mTUCODSOL._AC._SR240,240.jpg','History & Criticism',_binary '',1,'-1-'),(11,'Architecture','51k-iIhugSL._SX331_BO1,204,203,200_.jpg','Architecture',_binary '',1,'-1-'),(12,'Historical','41KY-NORo9L._AC._SR240,240.jpg','Historical',_binary '',2,'-2-'),(13,'Memoirs','41wfLB9cycL._AC._SR240,240 (1).jpg','Memoirs',_binary '',2,'-2-'),(14,'Arts & Literature','31sIl2nBSbS._AC._SR240,240.jpg','Arts & Literature',_binary '',2,'-2-'),(15,'Professionals & Academics','411Rri9i9vL._AC._SR240,240.jpg','Professionals & Academics',_binary '',2,'-2-'),(16,'Leaders & Notable People','51yoHjJDQ3L._AC._SR240,240.jpg','Leaders & Notable People',_binary '',2,'-2-'),(17,'Community & Culture','51WRCQlWvuL._AC._SR240,240.jpg','Community & Culture',_binary '',2,'-2-'),(18,'True Crime','41NGxKy-N1L._AC._SR240,240.jpg','True Crime',_binary '',2,'-2-'),(19,'Travelers & Explorers','51xKiRY4L0L._AC._SR240,240.jpg','Travelers & Explorers',_binary '',2,'-2-'),(20,'Computers & Technology','41dpdctWNhL.jpg','Computers & Technology',_binary '',NULL,NULL),(21,'Education & Teaching','51do7OKo3iL.jpg','Education & Teaching',_binary '',NULL,NULL),(22,'Travel','61vTN7miRpL._AC._SR360,460.jpg','Travel',_binary '',NULL,NULL),(23,'Sports & Outdoors','811A3zgJGML._AC._SR360,460.jpg','Sports & Outdoors',_binary '',NULL,NULL),(24,'Science Fiction & Fantasy','41NsJqa5o1L.jpg','Science Fiction & Fantasy',_binary '',NULL,NULL),(25,'Crafts, Hobbies & Home','91M5h3r6NaL._AC._SR360,460.jpg','Crafts, Hobbies & Home',_binary '',NULL,NULL),(26,'Health, Fitness & Dieting','81WzAUh1QcL._AC._SR360,460.jpg','Health, Fitness & Dieting',_binary '',NULL,NULL),(27,'Calendars','81BHjeJ+42L._AC._SR360,460.jpg','Calendars',_binary '',NULL,NULL),(28,'Humor & Entertainment','91ks0ej5NnL._AC._SR360,460.jpg','Humor & Entertainment',_binary '',NULL,NULL);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,6 +260,48 @@ LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
 INSERT INTO `countries` VALUES (1,'Afghanistan','AFG'),(2,'Argentina','ARG'),(3,'Australia','AUS'),(4,'Brazil','BRA'),(5,'Canada','CAN'),(6,'China','CHN'),(7,'Dominican Republic','DOM'),(8,'East Timor','TMP'),(9,'France','FRA'),(10,'Germany','DEU'),(11,'Hong Kong, China','HKG'),(12,'Hungary','HUN'),(13,'Iceland','ISL'),(14,'India','IND'),(15,'Indonesia','IDN'),(16,'Iran, Islamic Rep','IRN'),(17,'Iraq','IRQ'),(18,'Ireland','IRL'),(19,'Italy','ITA'),(20,'Japan','JPN'),(21,'Korea, Rep','KOR'),(22,'Lao PDR','LAO');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `address_line_1` varchar(64) NOT NULL,
+  `address_line_2` varchar(64) DEFAULT NULL,
+  `city` varchar(45) NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `postal_code` varchar(10) NOT NULL,
+  `state` varchar(45) NOT NULL,
+  `authentication_type` varchar(10) DEFAULT NULL,
+  `created_time` datetime(6) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `reset_password_token` varchar(30) DEFAULT NULL,
+  `status` bit(1) NOT NULL,
+  `verification_code` varchar(64) DEFAULT NULL,
+  `country_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_rfbvkrffamfql7cjmen8v976v` (`email`),
+  KEY `FK7b7p2myt0y31l4nyj1p7sk0b1` (`country_id`),
+  CONSTRAINT `FK7b7p2myt0y31l4nyj1p7sk0b1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'Bien Hoa','Bien Hoa','Ho Chi Minh','Trí','Quang','098-777-4191','121212','Bien Hoa','GOOGLE','2022-08-11 15:38:02.290000','triquang.74qt@gmail.com','','CH7DFy71PdZwbJxW2p8i0sAGvaCK7I',_binary '',NULL,19),(2,'8 W Cerritos Ave #54','1 State Route 27','Queensland','Quang','Tri','123-234-1232','70116','Ba Ria Vung Tau','DATABASE','2022-08-11 16:19:00.226000','messi@gmail.com','$2a$10$YQ7bz8MiRrjWGaT8CJO5M.YgQwHW0oo0rJY27c/AQsOAcEu2cuQQG',NULL,_binary '\0','66XJVyrVGy4F5wcAqt8OdcWnbP7jKjcOUktp8Ied2O0rxbzlDPjpjwEiNdanTtn4',13),(3,'',NULL,'','Quang','Trí','','','','GOOGLE','2022-08-11 17:13:58.517000','triquang.95qt@gmail.com','',NULL,_binary '',NULL,NULL),(4,'6649 N Blue Gum St','8 W Cerritos Ave #54','Bridgeport','James','Adell','233-346-3446','346772','New South Wales','DATABASE','2022-08-11 17:23:27.412000','triquang.65qt@gmail.com','$2a$10$2KZEFJpeugkAG81svP2Uheyj2gf.Lu.IFFFz5oypj4DJhIwpYlyRO','JnmRI29zKePWqEfPcEH2bZCdSnuCzS',_binary '\0','krb0wAn2lvhdKraI8pISGaLkd2Z4hRXjIqcCibTsX5FkkN2ejQH5p87SRHGclODO',9),(5,'8 W Cerritos Ave #54','1 State Route 27','Queensland','Quang','Tri','123-345-4578','121212','New South Wales','GOOGLE','2022-08-11 17:42:53.814000','triquang.25qt@gmail.com','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C','5vcJ2HG5pdk5DSOp4HIH6IJSsNOTBR',_binary '\0','p7DVKbwfQtNA3Y9Q1Qo5PKWSHr5pcoYVq990Sc6H1gVhmy1fTdHnECiyMtk78KFX',12),(6,'6649 N Blue Gum St','8 W Cerritos Ave #54','Bridgeport','Quang','Hoa','244-454-5676','346377','London','DATABASE','2022-08-11 18:19:34.215000','triquang.115qt@gmail.com','$2a$10$uF3SmdMWh9PY7K/z2AFov.ttYg9qv5Vw4n5rNJwIuH7Myn4MHwaoa',NULL,_binary '',NULL,15),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','James','Messi','123-345-3434','121212','Ho Chi Minh City','DATABASE','2022-08-11 18:23:11.720000','triquang.135qt@gmail.com','$2a$10$RSYFPyiMBGVS.1hioTnzXe0SLe/.6hC1rBAWppSbnKzsdPbV0S.rG','xWN6iOiACp5ksTVYT314FFjHVOdAJy',_binary '',NULL,13),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','James','Ronadol','123-234-4546','121212','Florida','DATABASE','2022-08-11 18:31:38.580000','triquang.15qt@gmail.com','$2a$10$JTatUXK95zlIVnVYhWQqU.mr0nuSLEsYEQdMKHfXrj1iZ49oYONKK','3Sb2F6ZuN4FUMzRZ7e8cWz0YcdALiV',_binary '',NULL,10);
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -272,7 +351,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('CUSTOMER_VERIFY_CONTENT','<b style=\"\"><font color=\"#000000\">Dear [[name]],</font></b><div><b style=\"\"><font color=\"#000000\"><i><br></i></font></b></div><div><b style=\"\"><font color=\"#000000\"><i>Click the link below to verify your registration:</i></font></b></div><div><b style=\"\"><font color=\"#000000\"><i><br></i></font></b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon','MAIL_TEMPLATES'),('MAIL_FROM','triquang.95qt@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','gcawfqbilchqzdpg','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','triquang.95qt@gmail.com','MAIL_SERVER'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Netfix','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER');
+INSERT INTO `settings` VALUES ('CUSTOMER_VERIFY_CONTENT','<b>&nbsp; &nbsp; &nbsp; Dear [[name]],</b><div><i><b><br></b></i></div><div><i><b>&nbsp;Click the link below to verify your registration:</b></i></div><div><i><b><br></b></i></div>\r\n\r\n\r\n&nbsp; <a href=\"[[URL]]\" target=\"_self\">VERIFY</a><a href=\"[[URL]]\" target=\"_self\"></a><h3></h3><div><br></div><a href=\"[[URL]]\" target=\"_self\"></a><div><b>&nbsp;Best Regard,</b></div><div><b>&nbsp;The Amazon Team.</b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon Book','MAIL_TEMPLATES'),('MAIL_FROM','triquang.95qt@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','gcawfqbilchqzdpg','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','triquang.95qt@gmail.com','MAIL_SERVER'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Amazon.com','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,10 +437,6 @@ LOCK TABLES `users_roles` WRITE;
 INSERT INTO `users_roles` VALUES (1,1),(2,2),(7,2),(3,3),(6,3),(7,3),(8,3),(4,4),(6,4),(8,4),(5,5),(8,5);
 /*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'bookstore_db'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -372,4 +447,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-09 16:12:57
+-- Dump completed on 2022-08-11 18:50:15
