@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+ <!--=========== Loader =============-->
+   			<span th:replace="loader :: loader"></span>
+   <!--=========== Loader =============-->
+	 <!-- register -->
+    <section class="position-relative pb-0">
+        <div class="gen-register-page-background" style="background-image: url('images/background/asset-3.jpg');">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <form id="pms_register-form" class="pms-form" th:action="@{/create_customer}" method="post" th:object="${customer}"
+                        	onsubmit="return checkEmailUnique(this);">
+             				
+                            <h4>Register</h4>
+                           
+                            <ul class="pms-form-fields-wrapper pl-0">
+                            
+                                <li class="pms-field pms-user-email-field ">
+                                    <label for="pms_user_email">E-mail *</label>
+                                    <input  type="email" th:field="*{email}" required="required" maxlength="45" minlength="8">
+                                </li>
+                                <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">First Name *</label>
+                                    <input id="pms_first_name"  type="text" th:field="*{firstName}" required="required" maxlength="45" minlength="2">
+                                </li>
+                                <li class="pms-field pms-last-name-field ">
+                                    <label for="pms_last_name">Last Name *</label>
+                                    <input id="pms_last_name"  type="text" th:field="*{lastName}" required="required" maxlength="45" minlength="2">
+                                </li>
+                                <li class="pms-field pms-pass1-field">
+                                    <label for="pms_pass1">Password *</label>
+                                    <input type="password" th:field="*{password}" required="required" maxlength="15" minlength="8"
+                                    	oninput="checkPasswordMatch(document.getElementById('confirmPassword'))">
+                                </li>
+                                <li class="pms-field pms-pass2-field">
+                                    <label for="pms_pass2">Repeat Password *</label>
+                                    <input id="confirmPassword"  type="password" required="required" maxlength="15" minlength="8"
+										oninput="checkPasswordMatch(this)">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Phone Number *</label>
+                                    <input id="pms_first_name"  type="tel" th:field="*{phoneNumber}" required="required" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" autocomplete="off">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Address Line 1 *</label>
+                                    <input id="pms_first_name"  type="text"th:field="*{addressLine1}" required="required" maxlength="45" minlength="5">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Address Line 2 *</label>
+                                    <input id="pms_first_name"  type="text" th:field="*{addressLine2}" required="required" maxlength="45" minlength="5">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">City *</label>
+                                    <input id="pms_first_name"  type="text" th:field="*{city}" required="required" maxlength="45" minlength="5">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">State/Province *</label>
+                                    <input  type="text" th:field="*{state}" maxlength="45" required="required" minlength="5" list="listStates">
+                                    <datalist id="listStates"></datalist>
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Postal Code *</label>
+                                    <input id="pms_first_name"  type="text" th:field="*{postalCode}" required="required" maxlength="10" minlength="2">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Country *</label>
+                                    <select th:field="*{country}" >
+                                    	<th:block th:each="country : ${listCountries}">
+										<option th:value="${country.id}">[[${country.name}]]</option>
+									</th:block>
+                                    </select>
+                                   
+                                </li>
+                                
+                                 <li class="pms-field pms-field-subscriptions ">
+                                   
+                                </li>
+                                                      
+                                
+                            </ul>
+                           
+                            <input type="submit" value="Register">
+                        </form>
+                                    
+				<div th:replace="fragments :: modal_dialog"></div>                                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- register -->
+<!-- Back-to-Top start -->
+    <div id="back-to-top">
+        <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
+    </div>
+    <!-- Back-to-Top end -->
+	<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+	
+	function checkEmailUnique(form) {
+		url = contextPath + "customers/check_unique_email";
+		customerEmail = $("#email").val();
+		csrfValue = $("input[name='_csrf']").val();
+		
+		params = {email: customerEmail, _csrf: csrfValue};
+		
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			} else if (response == "Duplicated") {
+				showWarningModal("There is another cusotmer having the email " + customerEmail);
+			} else {
+				showErrorModal("Unknown response from server");
+			}
+		}).fail(function() {
+			showErrorModal("Could not connect to the server");
+		});
+		
+		return false;
+	}	
+</script>
+	<script type="text/javascript" th:src="@{/js/common_customer_form.js}"></script>
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/asyncloader.min.js}"></script>
+    <!-- JS bootstrap -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- owl-carousel -->
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <!-- counter-js -->
+    <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/jquery.counterup.min.js}"></script>
+    <!-- popper-js -->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/swiper-bundle.min.js}"></script>
+    <!-- Iscotop -->
+    <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+
+    <script th:src="@{/js/slick.min.js}"></script>
+
+    <script th:src="@{/js/streamlab-core.js}"></script>
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

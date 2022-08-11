@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Error - BookStore', 'none')" />
+</head>
+<body>
+  <!--=========== Loader =============-->
+   			<span th:replace="loader :: loader"></span>
+   <!--=========== Loader =============-->
+			<span th:replace="header :: header"></span>
+   <!--========== Header ==============-->
+  
+   <!-- breadcrumb -->
+    <div class="gen-breadcrumb" th:style=" 'background-image: url(' + @{/images/background/asset-25.jpeg} + ');' ">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <div class="gen-breadcrumb-title" >
+                            <h1>
+                               500
+                            </h1>
+                            <p>Error system. Please contact administrator.</p>
+                        </div>
+                        <div class="gen-breadcrumb-container">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/}"><i
+                                            class="fas fa-home mr-2"></i>Go Home</a></li>
+                                           
+                            </ol>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb -->
+
+	
+	 <span th:replace="footer:: footer"></span>
+  <!-- Back-to-Top start -->
+    <div id="back-to-top">
+        <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
+    </div>
+    <!-- Back-to-Top end -->
+
+    <!-- js-min -->
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/asyncloader.min.js}"></script>
+    <!-- JS bootstrap -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- owl-carousel -->
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <!-- counter-js -->
+    <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/jquery.counterup.min.js}"></script>
+    <!-- popper-js -->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/swiper-bundle.min.js}"></script>
+    <!-- Iscotop -->
+    <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+
+    <script th:src="@{/js/slick.min.js}"></script>
+
+    <script th:src="@{/js/streamlab-core.js}"></script>
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
+
+
