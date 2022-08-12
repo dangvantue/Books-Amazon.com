@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -42,6 +43,7 @@ public class Category extends IdBasedEntity {
 	private Category parent;
 
 	@OneToMany(mappedBy = "parent")
+	@OrderBy("name asc")
 	private Set<Category> children = new HashSet<>();
 
 	public Category(Integer id) {

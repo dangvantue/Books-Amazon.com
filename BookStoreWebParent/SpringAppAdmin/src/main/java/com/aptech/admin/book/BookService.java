@@ -19,7 +19,7 @@ import com.aptech.common.exception.BookNotFoundException;
 @Service
 @Transactional
 public class BookService {
-	public static final int PRODUCTS_PER_PAGE = 5;
+	public static final int BOOKS_PER_PAGE = 5;
 
 	@Autowired
 	private BookRepository repo;
@@ -34,7 +34,7 @@ public class BookService {
 		
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 				
-		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+		Pageable pageable = PageRequest.of(pageNum - 1, BOOKS_PER_PAGE, sort);
 		
 		if (keyword != null && !keyword.isEmpty()) {
 			if (categoryId != null && categoryId > 0) {

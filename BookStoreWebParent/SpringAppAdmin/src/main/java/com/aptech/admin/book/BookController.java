@@ -60,8 +60,8 @@ public class BookController {
 		
 		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 		
-		long startCount = (pageNum - 1) * BookService.PRODUCTS_PER_PAGE + 1;
-		long endCount = startCount + BookService.PRODUCTS_PER_PAGE - 1;
+		long startCount = (pageNum - 1) * BookService.BOOKS_PER_PAGE + 1;
+		long endCount = startCount + BookService.BOOKS_PER_PAGE - 1;
 		if (endCount > page.getTotalElements()) {
 			endCount = page.getTotalElements();
 		}
