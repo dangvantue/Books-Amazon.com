@@ -61,7 +61,7 @@ public class BookController {
 		}
 	}
 	
-	@GetMapping("/p/{book_alias}")
+	@GetMapping("/b/{book_alias}")
 	public String viewBookDetail(@PathVariable("book_alias") String alias, Model model) {
 		
 		try {
