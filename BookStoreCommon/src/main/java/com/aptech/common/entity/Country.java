@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,10 +20,10 @@ import lombok.Setter;
 public class Country extends IdBasedEntity {
 	@Column(nullable = false, length = 45)
 	private String name;
-
-	@Column(nullable = false, length = 10)
+	
+	@Column(nullable = false, length = 5)
 	private String code;
-
+	
 	@OneToMany(mappedBy = "country")
 	private Set<State> states;
 

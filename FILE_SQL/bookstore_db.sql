@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `bookstore_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `bookstore_db`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bookstore_db
@@ -249,7 +247,7 @@ CREATE TABLE `countries` (
   `name` varchar(45) NOT NULL,
   `code` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,7 +256,7 @@ CREATE TABLE `countries` (
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
-INSERT INTO `countries` VALUES (1,'Afghanistan','AFG'),(2,'Argentina','ARG'),(3,'Australia','AUS'),(4,'Brazil','BRA'),(5,'Canada','CAN'),(6,'China','CHN'),(7,'Dominican Republic','DOM'),(8,'East Timor','TMP'),(9,'France','FRA'),(10,'Germany','DEU'),(11,'Hong Kong, China','HKG'),(12,'Hungary','HUN'),(13,'Iceland','ISL'),(14,'India','IND'),(15,'Indonesia','IDN'),(16,'Iran, Islamic Rep','IRN'),(17,'Iraq','IRQ'),(18,'Ireland','IRL'),(19,'Italy','ITA'),(20,'Japan','JPN'),(21,'Korea, Rep','KOR'),(22,'Lao PDR','LAO');
+INSERT INTO `countries` VALUES (1,'Afghanistan','AFG'),(2,'Argentina','ARG'),(3,'Australia','AUS'),(4,'Brazil','BRA'),(5,'Canada','CAN'),(6,'China','CHN'),(7,'Dominican Republic','DOM'),(8,'East Timor','TMP'),(9,'France','FRA'),(10,'Germany','DEU'),(11,'Hong Kong, China','HKG'),(12,'Hungary','HUN'),(13,'Iceland','ISL'),(14,'India','IND'),(15,'Indonesia','IDN'),(16,'Iran, Islamic Rep','IRN'),(17,'Iraq','IRQ'),(18,'Ireland','IRL'),(19,'Italy','ITA'),(20,'Japan','JPN'),(21,'Korea, Rep','KOR'),(23,'Vietnam','VNM'),(25,'United States','USA'),(26,'Singapore','SGP');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,7 +289,7 @@ CREATE TABLE `customers` (
   UNIQUE KEY `UK_rfbvkrffamfql7cjmen8v976v` (`email`),
   KEY `FK7b7p2myt0y31l4nyj1p7sk0b1` (`country_id`),
   CONSTRAINT `FK7b7p2myt0y31l4nyj1p7sk0b1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +298,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'Bien Hoa','Bien Hoa','Ho Chi Minh','Trí','Quang','098-777-4191','121212','Bien Hoa','GOOGLE','2022-08-11 15:38:02.290000','triquang.74qt@gmail.com','','CH7DFy71PdZwbJxW2p8i0sAGvaCK7I',_binary '',NULL,19),(2,'8 W Cerritos Ave #54','1 State Route 27','Queensland','Quang','Tri','123-234-1232','70116','Ba Ria Vung Tau','DATABASE','2022-08-11 16:19:00.226000','messi@gmail.com','$2a$10$YQ7bz8MiRrjWGaT8CJO5M.YgQwHW0oo0rJY27c/AQsOAcEu2cuQQG',NULL,_binary '\0','66XJVyrVGy4F5wcAqt8OdcWnbP7jKjcOUktp8Ied2O0rxbzlDPjpjwEiNdanTtn4',13),(3,'',NULL,'','Quang','Trí','','','','GOOGLE','2022-08-11 17:13:58.517000','triquang.95qt@gmail.com','',NULL,_binary '',NULL,NULL),(4,'6649 N Blue Gum St','8 W Cerritos Ave #54','Bridgeport','James','Adell','233-346-3446','346772','New South Wales','DATABASE','2022-08-11 17:23:27.412000','triquang.65qt@gmail.com','$2a$10$2KZEFJpeugkAG81svP2Uheyj2gf.Lu.IFFFz5oypj4DJhIwpYlyRO','JnmRI29zKePWqEfPcEH2bZCdSnuCzS',_binary '\0','krb0wAn2lvhdKraI8pISGaLkd2Z4hRXjIqcCibTsX5FkkN2ejQH5p87SRHGclODO',9),(5,'8 W Cerritos Ave #54','1 State Route 27','Queensland','Quang','Tri','123-345-4578','121212','New South Wales','GOOGLE','2022-08-11 17:42:53.814000','triquang.25qt@gmail.com','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C','5vcJ2HG5pdk5DSOp4HIH6IJSsNOTBR',_binary '\0','p7DVKbwfQtNA3Y9Q1Qo5PKWSHr5pcoYVq990Sc6H1gVhmy1fTdHnECiyMtk78KFX',12),(6,'6649 N Blue Gum St','8 W Cerritos Ave #54','Bridgeport','Quang','Hoa','244-454-5676','346377','London','DATABASE','2022-08-11 18:19:34.215000','triquang.115qt@gmail.com','$2a$10$uF3SmdMWh9PY7K/z2AFov.ttYg9qv5Vw4n5rNJwIuH7Myn4MHwaoa',NULL,_binary '',NULL,15),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','James','Messi','123-345-3434','121212','Ho Chi Minh City','DATABASE','2022-08-11 18:23:11.720000','triquang.135qt@gmail.com','$2a$10$RSYFPyiMBGVS.1hioTnzXe0SLe/.6hC1rBAWppSbnKzsdPbV0S.rG','xWN6iOiACp5ksTVYT314FFjHVOdAJy',_binary '',NULL,13),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','James','Ronadol','123-234-4546','121212','Florida','DATABASE','2022-08-11 18:31:38.580000','triquang.15qt@gmail.com','$2a$10$JTatUXK95zlIVnVYhWQqU.mr0nuSLEsYEQdMKHfXrj1iZ49oYONKK','3Sb2F6ZuN4FUMzRZ7e8cWz0YcdALiV',_binary '',NULL,10);
+INSERT INTO `customers` VALUES (1,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington',NULL,NULL,'triquang.74qt@gmail.com','$2a$10$/usRREkW3ypuTi8OQHMpMeFKkgqM18ArhCk/WejfLM2sPiYR/aOSq',NULL,_binary '',NULL,25),(4,'63 E Aurora Dr','8 W Cerritos Ave #54','Bridgeport','Motley','Chauncey','407-557-8857','346772','Prince Georges',NULL,NULL,'chauncey_motley@aol.com','$2a$10$N13OgGhfVupgqwU512OI2uXdTZYvwgf/VVL0UMVYMmtzc0xN5I2uC',NULL,_binary '',NULL,21),(5,'2 Sw Nyberg Rd','2 Sw Nyberg Rd','Queensland','Kampa','Raylene','574-330-1884','121212','Daytona Beach',NULL,NULL,'rkampa@kampa.org','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C',NULL,_binary '',NULL,5),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','Biddy','Jani','123-345-3434','121212','Alliance',NULL,NULL,'jbiddy@yahoo.com','$2a$10$XSaqq3ahI5nNrzzOH7rL8eigeBC6GTOHjypg5n0SR0Js7L13Galyy',NULL,_binary '',NULL,7),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Bookamer','Flo','123-234-4546','121212','Florida',NULL,NULL,'flo.bookamer@cox.net','$2a$10$xINxNL4mJuZq6knKLmRRQOG2hwXwzKzx7wSM7gSRuqPOP1j./UeJ.',NULL,_binary '',NULL,10),(9,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Jovita','Oles','123-234-4546','121212','Florida',NULL,NULL,'joles@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,2);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,7 +367,7 @@ CREATE TABLE `states` (
   PRIMARY KEY (`id`),
   KEY `FKskkdphjml9vjlrqn4m5hi251y` (`country_id`),
   CONSTRAINT `FKskkdphjml9vjlrqn4m5hi251y` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -447,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-11 18:50:15
+-- Dump completed on 2022-08-12 10:45:41
