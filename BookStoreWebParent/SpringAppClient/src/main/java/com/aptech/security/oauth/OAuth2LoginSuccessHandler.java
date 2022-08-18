@@ -16,7 +16,6 @@ import com.aptech.common.entity.AuthenticationType;
 import com.aptech.common.entity.Customer;
 import com.aptech.customer.CustomerService;
 
-
 @Component
 public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	

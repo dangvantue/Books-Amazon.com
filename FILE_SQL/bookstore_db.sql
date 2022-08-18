@@ -205,6 +205,35 @@ INSERT INTO `books` VALUES (2,'Elements-of-Style:-Designing-a-Home-&-a-Life',15,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cart_items`
+--
+
+DROP TABLE IF EXISTS `cart_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `quantity` int NOT NULL,
+  `book_id` int DEFAULT NULL,
+  `customer_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKhiu1jw80o45wfiw5tgok1xpkl` (`book_id`),
+  KEY `FKdagcsk6v6x4n1kxw3rkp57921` (`customer_id`),
+  CONSTRAINT `FKdagcsk6v6x4n1kxw3rkp57921` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
+  CONSTRAINT `FKhiu1jw80o45wfiw5tgok1xpkl` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+LOCK TABLES `cart_items` WRITE;
+/*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `categories`
 --
 
@@ -263,6 +292,32 @@ INSERT INTO `countries` VALUES (1,'Afghanistan','AFG'),(2,'Argentina','ARG'),(3,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `currencies`
+--
+
+DROP TABLE IF EXISTS `currencies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `currencies` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `symbol` varchar(3) NOT NULL,
+  `code` varchar(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `currencies`
+--
+
+LOCK TABLES `currencies` WRITE;
+/*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
+INSERT INTO `currencies` VALUES (1,'United States Dollar','$','USD'),(2,'British Pound','£','GPB'),(3,'Japanese Yen','¥','JPY'),(4,'Euro','€','EUR'),(5,'Russian Ruble','₽','RUB'),(6,'South Korean Won','₩','KRW'),(7,'Chinese Yuan','¥','CNY'),(8,'Brazilian Real','R$','BRL'),(9,'Australian Dollar','$','AUD'),(10,'Canadian Dollar','$','CAD'),(11,'Vietnamese đồng ','₫','VND'),(12,'Indian Rupee','₹','INR');
+/*!40000 ALTER TABLE `currencies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customers`
 --
 
@@ -291,7 +346,7 @@ CREATE TABLE `customers` (
   UNIQUE KEY `UK_rfbvkrffamfql7cjmen8v976v` (`email`),
   KEY `FK7b7p2myt0y31l4nyj1p7sk0b1` (`country_id`),
   CONSTRAINT `FK7b7p2myt0y31l4nyj1p7sk0b1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +355,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington',NULL,'2020-10-09 03:18:58.000000','triquang.74qt@gmail.com','$2a$10$/usRREkW3ypuTi8OQHMpMeFKkgqM18ArhCk/WejfLM2sPiYR/aOSq',NULL,_binary '',NULL,25),(4,'63 E Aurora Dr','8 W Cerritos Ave #54','Bridgeport','Motley','Chauncey','407-557-8857','346772','Prince Georges',NULL,'2020-10-09 03:18:58.000000','chauncey_motley@aol.com','$2a$10$UDY0lXzGpSc6ZcOWL1WeWuG08.28Gg271bSzbfm/GQm/mO2zmKVzm',NULL,_binary '',NULL,21),(5,'2 Sw Nyberg Rd','2 Sw Nyberg Rd','Queensland','Kampa','Raylene','574-330-1884','121212','Daytona Beach',NULL,'2020-10-09 03:18:58.000000','rkampa@kampa.org','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C',NULL,_binary '',NULL,5),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','Biddy','Jani','123-345-3434','121212','Alliance',NULL,'2020-10-09 03:18:58.000000','jbiddy@yahoo.com','$2a$10$r/qrdq1eqzhaNhZ0mUNcGuPfMeRR0F113O3sGGTkrUIv8vPsVKx82',NULL,_binary '',NULL,7),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Bookamer','Flo','123-234-4546','121212','Florida',NULL,'2020-10-09 03:18:58.000000','flo.bookamer@cox.net','$2a$10$xINxNL4mJuZq6knKLmRRQOG2hwXwzKzx7wSM7gSRuqPOP1j./UeJ.',NULL,_binary '',NULL,10),(9,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Jovita','Oles','123-234-4546','121212','Florida',NULL,'2020-10-09 03:18:58.000000','joles@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,2);
+INSERT INTO `customers` VALUES (1,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington','DATABASE','2020-10-09 03:18:58.000000','triquang.04qt@gmail.com','$2a$10$/usRREkW3ypuTi8OQHMpMeFKkgqM18ArhCk/WejfLM2sPiYR/aOSq',NULL,_binary '',NULL,25),(4,'63 E Aurora Dr','8 W Cerritos Ave #54','Bridgeport','Motley','Chauncey','407-557-8857','346772','Prince Georges','DATABASE','2020-10-09 03:18:58.000000','chauncey_motley@aol.com','$2a$10$UDY0lXzGpSc6ZcOWL1WeWuG08.28Gg271bSzbfm/GQm/mO2zmKVzm',NULL,_binary '',NULL,21),(5,'2 Sw Nyberg Rd','2 Sw Nyberg Rd','Queensland','Kampa','Raylene','574-330-1884','121212','Daytona Beach','DATABASE','2020-10-09 03:18:58.000000','rkampa@kampa.org','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C',NULL,_binary '',NULL,5),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','Biddy','Jani','123-345-3434','121212','Alliance','DATABASE','2020-10-09 03:18:58.000000','jbiddy@yahoo.com','$2a$10$r/qrdq1eqzhaNhZ0mUNcGuPfMeRR0F113O3sGGTkrUIv8vPsVKx82',NULL,_binary '',NULL,7),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Bookamer','Flo','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','flo.bookamer@cox.net','$2a$10$xINxNL4mJuZq6knKLmRRQOG2hwXwzKzx7wSM7gSRuqPOP1j./UeJ.',NULL,_binary '',NULL,10),(9,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Jovita','Oles','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','joles@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,2),(10,'Ha Noi','Ho Chi Minh','Ho Chi Minh','Quang','Trí','123-356-4632','1254125','Ho Chi Minh City','GOOGLE','2022-08-12 15:37:37.102000','triquang.95qt@gmail.com','',NULL,_binary '',NULL,23),(11,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Cris','Ronadol','535-754-3678','346772','New South Wales','DATABASE','2022-08-12 15:53:19.210000','Murad.89@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,9);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,7 +406,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('CUSTOMER_VERIFY_CONTENT','<b>&nbsp; &nbsp; &nbsp; Dear [[name]],</b><div><i><b><br></b></i></div><div><i><b>&nbsp;Click the link below to verify your registration:</b></i></div><div><i><b><br></b></i></div>\r\n\r\n\r\n&nbsp; <a href=\"[[URL]]\" target=\"_self\">VERIFY</a><a href=\"[[URL]]\" target=\"_self\"></a><h3></h3><div><br></div><a href=\"[[URL]]\" target=\"_self\"></a><div><b>&nbsp;Best Regard,</b></div><div><b>&nbsp;The Amazon Team.</b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon Book','MAIL_TEMPLATES'),('MAIL_FROM','triquang.95qt@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','gcawfqbilchqzdpg','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','triquang.95qt@gmail.com','MAIL_SERVER'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Amazon.com','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER');
+INSERT INTO `settings` VALUES ('CURRENCY_ID','1','CURRENCY'),('CURRENCY_SYMBOL','$','CURRENCY'),('CURRENCY_SYMBOL_POSITION','Before price','CURRENCY'),('CUSTOMER_VERIFY_CONTENT','<b>&nbsp; &nbsp; &nbsp; Dear [[name]],</b><div><i><b><br></b></i></div><div><i><b>&nbsp;Click the link below to verify your registration:</b></i></div><div><i><b><br></b></i></div>\r\n\r\n\r\n&nbsp; <a href=\"[[URL]]\" target=\"_self\">VERIFY</a><a href=\"[[URL]]\" target=\"_self\"></a><h3></h3><div><br></div><a href=\"[[URL]]\" target=\"_self\"></a><div><b>&nbsp;Best Regard,</b></div><div><b>&nbsp;The Amazon Team.</b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon Book','MAIL_TEMPLATES'),('DECIMAL_DIGITS','2','CURRENCY'),('DECIMAL_POINT_TYPE','POINT','CURRENCY'),('MAIL_FROM','triquang.95qt@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','gcawfqbilchqzdpg','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','triquang.95qt@gmail.com','MAIL_SERVER'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Amazon.com','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER'),('THOUSANDS_POINT_TYPE','COMMA','CURRENCY');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,4 +502,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-12 14:57:02
+-- Dump completed on 2022-08-18  8:33:40
