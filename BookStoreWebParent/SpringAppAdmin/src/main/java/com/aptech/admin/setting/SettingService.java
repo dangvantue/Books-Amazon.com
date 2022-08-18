@@ -9,34 +9,36 @@ import org.springframework.stereotype.Service;
 import com.aptech.common.entity.setting.Setting;
 import com.aptech.common.entity.setting.SettingCategory;
 
+
 @Service
 public class SettingService {
-	@Autowired
-	private SettingRepository settingRepository;
-
-	public List<Setting> listAllSetting() {
-		return (List<Setting>) settingRepository.findAll();
+	@Autowired private SettingRepository repo;
+	
+	public List<Setting> listAllSettings() {
+		return (List<Setting>) repo.findAll();
 	}
-
+	
 	public GeneralSettingBag getGeneralSettings() {
 		List<Setting> settings = new ArrayList<>();
-
-		List<Setting> generalSettings = settingRepository.findByCategory(SettingCategory.GENERAL);
-
+		
+		List<Setting> generalSettings = repo.findByCategory(SettingCategory.GENERAL);
+		List<Setting> currencySettings = repo.findByCategory(SettingCategory.CURRENCY);
+		
 		settings.addAll(generalSettings);
-
+		settings.addAll(currencySettings);
+		
 		return new GeneralSettingBag(settings);
 	}
-
+	
 	public void saveAll(Iterable<Setting> settings) {
-		settingRepository.saveAll(settings);
+		repo.saveAll(settings);
 	}
-
+	
 	public List<Setting> getMailServerSettings() {
-		return settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+		return repo.findByCategory(SettingCategory.MAIL_SERVER);
 	}
-
+	
 	public List<Setting> getMailTemplateSettings() {
-		return settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATES);
-	}
+		return repo.findByCategory(SettingCategory.MAIL_TEMPLATES);
+	}	
 }
