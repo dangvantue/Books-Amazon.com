@@ -16,7 +16,7 @@ public class SettingService {
 
 
 	public List<Setting> getGeneralSettings() {
-		return settingRepository.findByCategories(SettingCategory.GENERAL);
+		return settingRepository.findByCategories(SettingCategory.GENERAL, SettingCategory.CURRENCY);
 	}
 	
 	public EmailSettingBag getEmailSettings() {

@@ -55,7 +55,7 @@
 						
 					</div>
 					<div class="details col-md-6">
-						<h3 class="product-title" style="color: red;">[[${book.name}]]</h3>
+						<h3 class="book-title" style="color: red;">[[${book.name}]]</h3>
 						<div>
 				<span>by <a href="">[[${book.author.name}]]</a>  (Author) </span>
 			</div>
@@ -76,26 +76,30 @@
 				<span>[[${detail.value}]]</span>
 			</div>
 			</th:block> <br>
-						
-						<div class="gen-book-info" th:if="${book.discountPercent <= 0}">
-							<h6 class="price">Price: <span>$ [[${book.price}]]</span></h6>
-						 </div>
-						 
-						<div class="gen-book-info" th:if="${book.discountPercent > 0}">
-                                          <span style="font-size: larger; color: darkred"><strong>$ [[${book.discountPrice}]] </strong></span>  &nbsp;  
-                                         	<del><span>$ [[${book.price}]]</span></del>                                
-                                        </div>
+
+               <div>
+				<b style="color: Chocolate;">Digital List Price:</b> 
+				<span th:if="${book.discountPercent <= 0}"><div th:replace="book/book_fragment :: price_fragment(${book.price})"></div></span>
+				<del th:if="${book.discountPercent > 0}"><span><div th:replace="book/book_fragment :: price_fragment(${book.price})"></div></span></del>
+			</div>
+			<div th:if="${book.discountPercent > 0}">
+				<b style="color: IndianRed;">Kindle Price:</b>
+				<span style="font-size: larger; color: darkred"><div th:replace="book/book_fragment :: price_fragment(${book.discountPrice})"></div></span>
+				([[${#numbers.formatDecimal(book.discountPercent, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]] % off includes free international wireless delivery via Amazon)
+			</div>
                                         <div>
 									<span th:if="${book.inStock}" class="text-success"><b>In Stock</b></span>
 									<span th:unless="${book.inStock}" class="text-danger"><b>Out of Stock</b></span>
 								</div>
 								
+								<th:block th:if="${book.inStock}">
 								<div th:replace="cart/quantity_control :: quantity_control(1, ${book.id})"></div>								
 
 						<div class="action">
-							<input type="button" value="Add to Cart" class="add-to-cart btn btn-default" /> &nbsp;			
+							<input type="button" value="Add to Cart" id="buttonAdd2Cart" class="add-to-cart btn btn-default" /> &nbsp;			
 							<button class="like btn btn-default" type="button" style="height: 57px;"><span class="fa fa-heart"></span></button>
 						</div>
+						</th:block>
 					</div>
 				</div>
 			</div>
@@ -112,6 +116,11 @@
     </div>
     <!-- Back-to-Top end -->
 <script type="text/javascript">
+	contextPath = "[[@{/}]]";
+	bookId = "[[${book.id}]]";
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";	
+
 	$(document).ready(function() {
 		bigImage = $("#bigImage");
 		
@@ -127,6 +136,7 @@
     <!-- js-min -->
     <script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
     <script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
+    <script type="text/javascript" th:src="@{/js/add_to_cart.js}"></script>
     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/asyncloader.min.js}"></script>
     <!-- JS bootstrap -->

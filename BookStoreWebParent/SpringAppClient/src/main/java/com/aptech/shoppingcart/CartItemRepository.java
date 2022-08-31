@@ -10,6 +10,7 @@ import com.aptech.common.entity.CartItem;
 import com.aptech.common.entity.Customer;
 import com.aptech.common.entity.book.Book;
 
+
 public interface CartItemRepository extends CrudRepository<CartItem, Integer> {
 	public List<CartItem> findByCustomer(Customer customer);
 	

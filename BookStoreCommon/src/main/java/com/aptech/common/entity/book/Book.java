@@ -73,6 +73,10 @@ public class Book extends IdBasedEntity {
 
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BookDetail> details = new ArrayList<>();
+	
+	public Book(Integer id) {
+		this.id = id;
+	}
 
 	public void addExtraImage(String imageName) {
 		this.images.add(new BookImage(imageName, this));
@@ -122,4 +126,5 @@ public class Book extends IdBasedEntity {
 		}
 		return this.price;
 	}
+
 }
