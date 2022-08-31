@@ -90,18 +90,19 @@
 									<span th:unless="${book.inStock}" class="text-danger"><b>Out of Stock</b></span>
 								</div>
 								
-																
-									
-						<br>
+								<div th:replace="cart/quantity_control :: quantity_control(1, ${book.id})"></div>								
+
 						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+							<input type="button" value="Add to Cart" class="add-to-cart btn btn-default" /> &nbsp;			
+							<button class="like btn btn-default" type="button" style="height: 57px;"><span class="fa fa-heart"></span></button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div th:replace="fragments :: modal_dialog"></div>	
 	
 	<br>
 	 <span th:replace="footer:: footer"></span>
@@ -124,6 +125,8 @@
 	});
 </script>
     <!-- js-min -->
+    <script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
+    <script type="text/javascript" th:src="@{/js/quantity_control.js}"></script>
     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/asyncloader.min.js}"></script>
     <!-- JS bootstrap -->

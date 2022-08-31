@@ -41,12 +41,13 @@
                             <div class="gen-carousel-books-style-3 book-grid style-3">
                                 <div class="gen-book-contain">
                                     <div class="gen-book-img">
+                                    <a th:href="@{'/b/' + ${book.alias}}">
                                         <img th:src="@{${book.mainImagePath}}" style="width: 250px; height: 300px">
-                                       	
+                                       	</a>
                                     </div>
                                     <div class="gen-info-contain">
                                         <div class="gen-book-info">
-                                            <h5><a th:href="@{'/m/' + ${book.alias}}">[[${book.name}]]</a></h5>
+                                            <h5><a th:href="@{'/b/' + ${book.alias}}">[[${book.name}]]</a></h5>
                                         </div>
                                          <div class="gen-book-info" th:if="${book.discountPercent <= 0}">
                                          	<span>$ [[${book.price}]]</span>                                    
