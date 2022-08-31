@@ -13,8 +13,6 @@ import lombok.Setter;
 @MappedSuperclass
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public abstract class IdBasedEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
