@@ -53,14 +53,8 @@
                                         <div class="gen-book-info">
                                             <h5><a th:href="@{'/b/' + ${book.alias}}">[[${book.name}]]</a></h5>
                                         </div>
-                                         <div class="gen-book-info" th:if="${book.discountPercent <= 0}">
-                                         	<span>$ [[${book.price}]]</span>                                    
-                                        </div>
-                                        <div class="gen-book-info" th:if="${book.discountPercent > 0}">
-                                         	<span style="font-size: larger; color: darkred">$ [[${book.discountPrice}]]</span>    
-                                         	<del><span>$ [[${book.price}]]</span></del>                                
-                                        </div>
-                                       
+                                   
+                                       <div th:replace="book/book_fragment :: book_price"></div>
                                     </div>
                                 </div>
                             </div>
