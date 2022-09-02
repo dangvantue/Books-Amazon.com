@@ -3,6 +3,7 @@ package com.aptech.shoppingcart;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,5 +56,19 @@ public class ShoppingCartRestController {
 		} catch (CustomerNotFoundException ex) {
 			return "You must login to change quantity of book.";
 		}	
+	}
+	
+	@DeleteMapping("/cart/remove/{bookId}")
+	public String removeBook(@PathVariable("bookId") Integer bookId,
+			HttpServletRequest request) {
+		try {
+			Customer customer = getAuthenticatedCustomer(request);
+			cartService.removeBook(bookId, customer);
+			
+			return "The book has been removed from your shopping cart.";
+			
+		} catch (CustomerNotFoundException e) {
+			return "You must login to remove book.";
+		}
 	}
 }

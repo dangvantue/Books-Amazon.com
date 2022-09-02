@@ -1,3 +1,6 @@
+decimalSeparator = decimalPointType == 'COMMA' ? ',' : '.';
+thousandsSeparator = thousandsPointType == 'COMMA' ? ',' : '.'; 
+
 $(document).ready(function() {
 	$(".linkMinus").on("click", function(evt) {
 		evt.preventDefault();
@@ -7,7 +10,12 @@ $(document).ready(function() {
 	$(".linkPlus").on("click", function(evt) {
 		evt.preventDefault();
 		increaseQuantity($(this));
-	});	
+	});
+	
+	$(".linkRemove").on("click", function(evt) {
+		evt.preventDefault();
+		removeBook($(this));
+	});		
 });
 
 function decreaseQuantity(link) {
@@ -54,17 +62,69 @@ function updateQuantity(bookId, quantity) {
 }
 
 function updateSubtotal(updatedSubtotal, bookId) {
-	formattedSubtotal = $.number(updatedSubtotal, 2);
-	$("#subtotal" + bookId).text(formattedSubtotal);
+	$("#subtotal" + bookId).text(formatCurrency(updatedSubtotal));
 }
 
 function updateTotal() {
 	total = 0.0;
+	bookCount = 0;
 	
 	$(".subtotal").each(function(index, element) {
-		total += parseFloat(element.innerHTML.replaceAll(",", ""));
+		bookCount++;
+		total += parseFloat(clearCurrencyFormat(element.innerHTML));
 	});
 	
-	formattedTotal = $.number(total, 2);
-	$("#total").text(formattedTotal);
+	if (bookCount < 1) {
+		showEmptyShoppingCart();
+	} else {
+		$("#total").text(formatCurrency(total));	
+	}
+	
+}
+
+function showEmptyShoppingCart() {
+	$("#sectionTotal").hide();
+	$("#sectionEmptyCartMessage").removeClass("d-none");
+}
+
+function removeBook(link) {
+	url = link.attr("href");
+
+	$.ajax({
+		type: "DELETE",
+		url: url,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfValue);
+		}
+	}).done(function(response) {
+		rowNumber = link.attr("rowNumber");
+		removeBookHTML(rowNumber);
+		updateTotal();
+		updateCountNumbers();
+		
+		showModalDialog("Shopping Cart", response);
+		
+	}).fail(function() {
+		showErrorModal("Error while removing book.");
+	});				
+}
+
+function removeBookHTML(rowNumber) {
+	$("#row" + rowNumber).remove();
+	$("#blankLine" + rowNumber).remove();
+}
+
+function updateCountNumbers() {
+	$(".divCount").each(function(index, element) {
+		element.innerHTML = "" + (index + 1);
+	}); 
+}
+
+function formatCurrency(amount) {
+	return $.number(amount, decimalDigits, decimalSeparator, thousandsSeparator);
+}
+
+function clearCurrencyFormat(numberString) {
+	result = numberString.replaceAll(thousandsSeparator, "");
+	return result.replaceAll(decimalSeparator, ".");
 }
