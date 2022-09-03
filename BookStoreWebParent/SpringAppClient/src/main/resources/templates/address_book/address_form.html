@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+	  <!--=========== Loader =============-->
+   			<span th:replace="loader :: loader"></span>
+   <!--=========== Loader =============-->
+			<span th:replace="header :: header"></span>
+   <!--========== Header ==============-->
+  
+   <!-- breadcrumb -->
+    <div class="gen-breadcrumb" th:style=" 'background-image: url(' + @{/images/background/asset-10.JPG} + ');' ">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <div class="gen-breadcrumb-title" >
+                           <h2>[[${pageTitle}]]</h2>
+                        </div>
+                        
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb -->
+    
+    
+      <section class="position-relative pb-0">    
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <div class="text-center">
+                        <form id="pms_register-form" class="pms-form" th:action="@{/address_book/save}" method="post" th:object="${address}">
+             				<input type="hidden" th:field="*{id}" />
+							<input type="hidden" th:field="*{defaultForShipping}" />	
+             				 <br>
+                            <h4>Add New Address</h4>
+                           
+                            <ul class="pms-form-fields-wrapper pl-0">
+                                                        
+                                <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">First Name *</label>
+                                   <input type="text" th:field="*{firstName}" class="form-control"
+									required="required" maxlength="45" minlength="2" />
+                                </li>
+                                <li class="pms-field pms-last-name-field ">
+                                    <label for="pms_last_name">Last Name *</label>
+                                    <input type="text" th:field="*{lastName}" class="form-control"
+									required="required" maxlength="45" minlength="2" />
+                                </li>
+                               
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Phone Number *</label>
+                                    <input id="pms_first_name"  type="tel" th:field="*{phoneNumber}" required="required" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" autocomplete="off">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Address Line 1 *</label>
+                                    <input id="pms_first_name"  type="text"th:field="*{addressLine1}" required="required" maxlength="45" minlength="5">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Address Line 2 *</label>
+                                    <input id="pms_first_name"  type="text" th:field="*{addressLine2}" required="required" maxlength="45" minlength="5">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">City *</label>
+                                    <input id="pms_first_name"  type="text" th:field="*{city}" required="required" maxlength="45" minlength="5">
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">State/Province *</label>
+                                    <input  type="text" th:field="*{state}" maxlength="45" required="required" minlength="5" list="listStates">
+                                    <datalist id="listStates"></datalist>
+                                </li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Postal Code *</label>
+                                   <input type="text" th:field="*{postalCode}" class="form-control"
+									maxlength="10" minlength="2" />
+                                	</li>
+                                
+                                 <li class="pms-field pms-first-name-field ">
+                                    <label for="pms_first_name">Country *</label>
+                                    <select class="form-control" th:field="*{country}">
+					<th:block th:each="country : ${listCountries}">
+					<option th:value="${country.id}">[[${country.name}]]</option>
+					</th:block>
+				</select>
+                                   
+                                </li>
+                                
+                                 <li class="pms-field pms-field-subscriptions ">
+                                   
+                                </li>
+                                                      
+                                
+                            </ul>
+                           
+                            <input type="submit" value="Use this address">
+                        </form>
+                                                                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	 <span th:replace="footer:: footer"></span>
+  <!-- Back-to-Top start -->
+    <div id="back-to-top">
+        <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
+    </div>
+    <!-- Back-to-Top end -->
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+</script>
+<script type="text/javascript" th:src="@{/js/common_customer_form.js}"></script>
+    <!-- js-min -->
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/asyncloader.min.js}"></script>
+    <!-- JS bootstrap -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- owl-carousel -->
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <!-- counter-js -->
+    <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/jquery.counterup.min.js}"></script>
+    <!-- popper-js -->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/swiper-bundle.min.js}"></script>
+    <!-- Iscotop -->
+    <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+
+    <script th:src="@{/js/slick.min.js}"></script>
+
+    <script th:src="@{/js/streamlab-core.js}"></script>
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
