@@ -34,9 +34,7 @@
     <div class="row">
         <div class="col-md-9">
             <div class="ibox">
-                <div class="ibox-title" th:unless="${#lists.isEmpty(cartItems)}">
-                    <h5 class="book-title" style="color: red;">Items in your cart</h5>
-                </div>
+               
                                            
                <th:block th:each="item, status : ${cartItems}">
                 <div class="ibox-content" th:with="book = ${item.book}" th:id="'row' + ${status.count}">
@@ -83,14 +81,13 @@
                 </div>
                 <div class="row m-1" th:id="'blankLine' + ${status.count}">&nbsp;</div>
                    </th:block>
-                <div class="ibox-content" th:unless="${#lists.isEmpty(cartItems)}" >
-                    <a th:href="@{'/'}" class="btn btn-warning pull-right"><i class="fa fa-arrow-left"></i>Continue shopping</a>
-                </div>
+             
             </div>
         </div>
      
         
         <div class="col-md-3" th:unless="${#lists.isEmpty(cartItems)}" id="sectionTotal">
+         
             <div class="ibox">
                 <div class="ibox-title">
                     <h5 class="book-title" style="color: red;">Cart Summary</h5>
@@ -110,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-              </div>
+              </div>           
 
             <div class="ibox">
                 <div class="ibox-title">
@@ -122,6 +119,13 @@
                         Please contact with us if you have any questions. We are avalible 24h.
                     </span>
                 </div>
+            </div>
+            
+            <div class="ibox">
+                <div class="ibox-content">
+                    <a th:href="@{'/'}" class="btn btn-warning pull-right"><i class="fa fa-arrow-left"></i>Continue shopping</a>
+                </div>
+               
             </div>
         </div>
     </div>

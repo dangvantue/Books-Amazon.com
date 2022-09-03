@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Customer extends AbstractAddressWithCountry {
 
 	@Column(nullable = false, unique = true, length = 45)
@@ -51,5 +51,25 @@ public class Customer extends AbstractAddressWithCountry {
 		return firstName + " " + lastName;
 	}
 	
-
+	@Transient
+	public String getAddress() {
+		String address = firstName;
+		
+		if (lastName != null && !lastName.isEmpty()) address += " " + lastName;
+		
+		if (!addressLine1.isEmpty()) address += ", " + addressLine1;
+		
+		if (addressLine2 != null && !addressLine2.isEmpty()) address += ", " + addressLine2;
+		
+		if (!city.isEmpty()) address += ", " + city;
+		
+		if (state != null && !state.isEmpty()) address += ", " + state;
+		
+		address += ", " + country.getName();
+		
+		if (!postalCode.isEmpty()) address += ". Postal Code: " + postalCode;
+		if (!phoneNumber.isEmpty()) address += ". Phone Number: " + phoneNumber;
+		
+		return address;
+	}
 }

@@ -1,5 +1,6 @@
 package com.aptech.common.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,12 +18,13 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Address extends AbstractAddressWithCountry {
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-
+	@Column(name = "default_address")
+	private boolean defaultForShipping;
+	
 }
