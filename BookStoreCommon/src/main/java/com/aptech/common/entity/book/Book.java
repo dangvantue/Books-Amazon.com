@@ -77,6 +77,10 @@ public class Book extends IdBasedEntity {
 	public Book(Integer id) {
 		this.id = id;
 	}
+	
+	public Book(String name) {
+		this.name = name;
+	}
 
 	public void addExtraImage(String imageName) {
 		this.images.add(new BookImage(imageName, this));
