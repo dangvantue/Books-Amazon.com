@@ -10,12 +10,12 @@
     <div class="sidebar-menu">
         <ul class="menu">
                      
-                <li class='sidebar-title'>Main Menu</li>
+                <li class='sidebar-title'>[[#{menu.mainmenu}]]</li>
                                          
                 <li class="sidebar-item active ">
                     <a th:href="@{/}" class='sidebar-link'>
                         <i data-feather="home" width="20"></i> 
-                        <span>Dashboard</span>
+                        <span>[[#{menu.dashboard}]]</span>
                     </a>
                   
                 </li>
@@ -25,14 +25,14 @@
 
                     <a href="#" class='sidebar-link'>
                         <i data-feather="triangle" width="20"></i> 
-                        <span>Authentication</span>
+                        <span>[[#{menu.authentication}]]</span>
                     </a>
 
                     
                     <ul class="submenu ">
                         
                         <li>
-                            <a th:href="@{/users}">Manage Users</a>
+                            <a th:href="@{/users}">[[#{menu.user}]]</a>
                         </li>                                                             
                        
                     </ul>
@@ -45,7 +45,7 @@
 
                     <a th:href="@{/categories}" class='sidebar-link'>
                         <i data-feather="box" width="20"></i> 
-                        <span>Categories</span>
+                        <span>[[#{menu.category}]]</span>
                     </a>
                 
                     
@@ -55,7 +55,7 @@
 
                     <a th:href="@{/authors}" class='sidebar-link'>
                         <i data-feather="box" width="20"></i> 
-                        <span>Authors</span>
+                        <span>[[#{menu.author}]]</span>
                     </a>
                 
                     
@@ -69,16 +69,16 @@
 
                     <a href="#" class='sidebar-link'>
                         <i data-feather="loader" width="20"></i> 
-                        <span>Books</span>
+                        <span>[[#{menu.book}]]</span>
                     </a>
                 
                     <ul class="submenu ">                      
                         <li>
-                            <a th:href="@{/books}">Manage Books</a>
+                            <a th:href="@{/books}">[[#{menu.book}]]</a>
                         </li>      
                         
                          <li>
-                            <a href="component-extra-divider.html">Review</a>
+                            <a href="component-extra-divider.html">[[#{menu.review}]]</a>
                         </li>                                                           
                     </ul>
                     
@@ -90,12 +90,12 @@
 
                     <a href="#" class='sidebar-link'>
                         <i data-feather="user" width="20"></i> 
-                        <span>Customer</span>
+                        <span>[[#{menu.customer}]]</span>
                     </a>
                 
                     <ul class="submenu ">                      
                         <li>
-                            <a th:href="@{/customers}">Manage Customer</a>
+                            <a th:href="@{/customers}">[[#{menu.customer}]]</a>
                         </li>                                                                 
                     </ul>
                     
@@ -105,7 +105,7 @@
 
                     <a th:href="@{/shipping_rates}" class='sidebar-link'>
                         <i data-feather="wind" width="20"></i> 
-                        <span>Shipping Rate</span>
+                        <span>[[#{menu.shipping}]]</span>
                     </a>
                     
                 </li>
@@ -116,7 +116,7 @@
 
                     <a href="#" class='sidebar-link'>
                         <i data-feather="wifi" width="20"></i> 
-                        <span>Review</span>
+                        <span>[[#{menu.review}]]</span>
                     </a>
                     
                 </li>
@@ -127,7 +127,7 @@
 
                     <a href="#" class='sidebar-link'>
                         <i data-feather="target" width="20"></i> 
-                        <span>Manage Order</span>
+                        <span>[[#{menu.order}]]</span>
                     </a>
                 
                 </li>
@@ -138,7 +138,7 @@
 
                     <a href="#" class='sidebar-link'>
                         <i data-feather="sun" width="20"></i> 
-                        <span>Sales Report</span>
+                        <span>[[#{menu.report}]]</span>
                     </a>
                 
                 </li>

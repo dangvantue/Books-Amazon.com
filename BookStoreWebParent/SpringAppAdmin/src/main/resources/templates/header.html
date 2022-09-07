@@ -16,7 +16,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
+                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">                 
                         <li class="dropdown nav-icon">
                             <a href="#" data-bs-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
                                 <div class="d-lg-inline-block">
@@ -24,14 +24,14 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-large" >
-                                <h6 class='py-2 px-4'>Notifications</h6>
+                                <h6 class='py-2 px-4'>[[#{menu.notifications}]]</h6>
                                 <ul class="list-group rounded-none">
                                     <li class="list-group-item border-0 align-items-start">
                                         <div class="avatar bg-success me-3">
                                             <span class="avatar-content"><i data-feather="shopping-cart"></i></span>
                                         </div>
                                         <div>
-                                            <h6 class='text-bold'>Welcome</h6>
+                                            <h6 class='text-bold'>[[#{menu.welcome}]]</h6>
                                             <p class='text-xs'>
                                                 <a th:href="@{/account}" 
 												sec:authentication="principal.fullname"></a>	- 
@@ -42,6 +42,24 @@
                                 </ul>
                             </div>
                         </li>
+                        
+                  
+                         <li class="dropdown nav-icon me-2">
+	                         <div class="d-lg-inline-block">
+	                            <a th:href="@{?lang=en}" class="nav-link">                               
+	                               <img alt="" th:src="@{/images/english.png}" width="35">&nbsp;English                           
+	                            </a>
+	                          </div>
+                            
+                            <div class="d-lg-inline-block">
+	                            <a th:href="@{?lang=fr}" class="nav-link">                               
+	                               <img alt="" th:src="@{/images/france.png}" width="30">&nbsp;France                            
+	                            </a>
+	                          </div>
+                       
+                        </li>
+                        
+                        
                         <li class="dropdown nav-icon me-2" sec:authorize="hasAuthority('Admin')">
                             <a th:href="@{/}" data-bs-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                                 <div class="d-lg-inline-block">
@@ -49,12 +67,12 @@
                                 </div>
                             </a>
                            <div class="dropdown-menu dropdown-menu-end"  >
-                                <a class="dropdown-item active" th:href="@{/settings#general}"><i data-feather="home"></i> General</a>
-                                <a class="dropdown-item " th:href="@{/settings#countries}"><i data-feather="map-pin"></i> Countries</a>
-                                <a class="dropdown-item" th:href="@{/settings#states}"><i data-feather="navigation"></i> States</a>
-                                <a class="dropdown-item" th:href="@{/settings#mailServer}"><i data-feather="mail"></i> Mail Server</a>
-                                <a class="dropdown-item" th:href="@{/settings#mailTemplate}"><i data-feather="mail"></i> Mail Templates</a>
-                                <a class="dropdown-item" th:href="@{/settings#payment}"><i data-feather="heart"></i> Payment</a>
+                                <a class="dropdown-item active" th:href="@{/settings#general}"><i data-feather="home"></i> [[#{menu.general}]]</a>
+                                <a class="dropdown-item " th:href="@{/settings#countries}"><i data-feather="map-pin"></i> [[#{menu.countries}]]</a>
+                                <a class="dropdown-item" th:href="@{/settings#states}"><i data-feather="navigation"></i> [[#{menu.states}]]</a>
+                                <a class="dropdown-item" th:href="@{/settings#mailServer}"><i data-feather="mail"></i> [[#{menu.mailServer}]]</a>
+                                <a class="dropdown-item" th:href="@{/settings#mailTemplate}"><i data-feather="mail"></i> [[#{menu.mailTemplates}]]</a>
+                                <a class="dropdown-item" th:href="@{/settings#payment}"><i data-feather="heart"></i> [[#{menu.payment}]]</a>
 
                             </div>
                         </li>
@@ -67,9 +85,9 @@
                           		</div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">                     
-                                <a class="dropdown-item" th:href="@{/account}"><i data-feather="user"></i> Account</a>                                              
+                                <a class="dropdown-item" th:href="@{/account}"><i data-feather="user"></i> [[#{menu.account}]]</a>                                              
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" id="logoutLink" href=""><i data-feather="log-out"></i> Logout</a>
+                                <a class="dropdown-item" id="logoutLink" href=""><i data-feather="log-out"></i> [[#{menu.logout}]]</a>
                             </div>
                         </li>
                     </ul>
