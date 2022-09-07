@@ -37,6 +37,8 @@ public class SecurityConfiguration {
 			.hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 			
 		.antMatchers("/books/**").hasAnyAuthority("Admin", "Editor")
+		.antMatchers("/customers/**", "/orders/**").hasAnyAuthority("Admin", "Salesperson")
+		
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()			
