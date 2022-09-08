@@ -59,7 +59,7 @@
 						&nbsp; 
 						<div th:replace="fragments :: edit('order', '/orders/edit/' + ${order.id})"></div>
 						&nbsp; 
-						<div th:replace="fragments :: delete('order', ${order.id}, '/orders/delete/' + ${order.id}, true)"></div>					
+						<div th:replace="fragments :: delete('order', ${order.id}, '/orders/delete/' + ${order.id}, true)"></div>						
 					</td>					
 				</tr>
             </tbody>
@@ -91,6 +91,8 @@
     </section>
 </div>
 
+	<div th:replace="modal_fragments :: confirm_modal"></div>
+
 	<span th:replace="footer:: footer"></span>
         </div>
     </div>
@@ -101,7 +103,15 @@
 	$(document).ready(function() {
 		handleLinkViewCustomerDetails();
 		handleLinkViewOrderDetails();
+		handleLinkDeleteOrder();		
 	});
+	
+	function handleLinkDeleteOrder() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'order');
+		});		
+	}
 	
 	function handleLinkViewCustomerDetails() {
 		$(".linkCustomerDetail").on("click", function(e) {
