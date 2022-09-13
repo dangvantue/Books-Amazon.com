@@ -31,11 +31,11 @@
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="card">
-				<div class="card-header"><h5 style="color: red;">Shipping information</h5></div>
+				<div class="card-header bg-warning"><h5 style="color: red;">Shipping information</h5></div>
 				<div class="card-body text-secondary">
 					<p>
 						<b>Ship to:</b>&nbsp; [[${shippingAddress}]]
-						<a th:href="@{/address_book}">[Ship to another address]</a>
+						<a th:href="@{/address_book(redirect=checkout)}">[Ship to another address]</a>
 					</p>
 					<p>
 						<b>Days to deliver: </b>[[${checkoutInfo.deliverDays}]] day(s)
@@ -47,13 +47,13 @@
 			</div>		
 			
 			<div class="card mt-3 mb-3">
-				<div class="card-header"><h5 style="color: red;">Payment Method</h5></div>
+				<div class="card-header bg-warning "><h5 style="color: red;">Payment Method</h5></div>
 				<div class="card-body text-secondary">
 					<div th:if="${checkoutInfo.codSupported}">
 						<p>
 							<input type="radio" /> Cash on Delivery (COD)
 							&nbsp;
-							<button class="btn btn-danger">Place Order with COD</button>
+							<button class="btn btn-primary">Place Order with COD</button>
 						</p>
 					</div>
 				</div>			
@@ -62,7 +62,7 @@
 		
 		<div class="col-sm-4">
 			<div class="card">
-				<div class="card-header"><h5 style="color: red;">Order Summary</h5></div>
+				<div class="card-header bg-warning"><h5 style="color: red;">Order Summary</h5></div>
 				<div class="card-body text-secondary">
 					<div>
 					<table>
