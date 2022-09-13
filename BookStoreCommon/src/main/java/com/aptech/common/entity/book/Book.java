@@ -56,6 +56,11 @@ public class Book extends IdBasedEntity {
 
 	@Column(name = "discount_percent")
 	private float discountPercent;
+	
+	private float length;
+	private float width;
+	private float height;
+	private float weight;
 
 	@Column(name = "main_image", nullable = false)
 	private String mainImage;

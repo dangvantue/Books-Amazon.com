@@ -103,7 +103,9 @@
                     </span>
                     <div class="m-t-sm">
                         <div class="btn-group" th:if="${shippingSupported}">
-                        	<button class="btn btn-warning"><i class="fa fa-shopping-cart"></i> Proceed to checkout</button>                  
+                        <form th:action="@{/checkout}">
+                        	<button class="btn btn-warning"><i class="fa fa-shopping-cart"></i> Proceed to checkout</button>   
+                        </form>               
                         </div>
                         
                        <div th:unless="${shippingSupported}">
