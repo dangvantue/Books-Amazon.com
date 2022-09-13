@@ -102,9 +102,25 @@
                         *For United States, France and Germany applicable sales tax will be applied
                     </span>
                     <div class="m-t-sm">
-                        <div class="btn-group">
-                        <a href="#" class="btn btn-warning"><i class="fa fa-shopping-cart"></i> Proceed to checkout</a>                  
+                        <div class="btn-group" th:if="${shippingSupported}">
+                        <form th:action="@{/checkout}">
+                        	<button class="btn btn-warning"><i class="fa fa-shopping-cart"></i> Proceed to checkout</button>   
+                        </form>               
                         </div>
+                        
+                       <div th:unless="${shippingSupported}">
+							<div><span class="h5 text-warning">No shipping available for your location</span></div>
+					
+						<div th:if="${usePrimaryAddressAsDefault}">
+							<a th:href="@{/account_details(redirect=cart)}" class="h6">Update your address</a>
+						</div>
+					
+						<div th:unless="${usePrimaryAddressAsDefault}">
+							<a th:href="@{/address_book(redirect=cart)}" class="h6">Use another shipping address</a>
+					
+				</div>
+					
+				</div>
                     </div>
                 </div>
               </div>           
