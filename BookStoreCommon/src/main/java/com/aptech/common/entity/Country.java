@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Country extends IdBasedEntity {
 	@Column(nullable = false, length = 5)
 	private String code;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "country")
 	private Set<State> states;
 
