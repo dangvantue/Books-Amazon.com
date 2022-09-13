@@ -50,11 +50,13 @@
 				<div class="card-header bg-warning "><h5 style="color: red;">Payment Method</h5></div>
 				<div class="card-body text-secondary">
 					<div th:if="${checkoutInfo.codSupported}">
+						<form th:action="@{/place_order}" method="post">
 						<p>
-							<input type="radio" /> Cash on Delivery (COD)
+							<input type="radio" name="paymentMethod" id="radioCOD" value="COD" /> Cash on Delivery (COD)
 							&nbsp;
-							<button class="btn btn-primary">Place Order with COD</button>
+							<button class="btn btn-primary d-none" type="submit" id="buttonSubmit">Place Order with COD</button>
 						</p>
+						</form>
 					</div>
 				</div>			
 			</div>
@@ -113,7 +115,18 @@
         <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
     </div>
     <!-- Back-to-Top end -->
-    
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";
+	
+	$(document).ready(function() {
+		$("#radioCOD").on("click", function() {
+			$("#buttonSubmit").removeClass("d-none");
+		});
+	});
+	
+</script>
 
     <!-- js-min -->
     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
