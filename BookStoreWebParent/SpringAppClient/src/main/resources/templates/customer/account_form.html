@@ -82,7 +82,7 @@
                                 
                                  <li class="pms-field pms-first-name-field ">
                                     <label for="pms_first_name">Phone Number *</label>
-                                    <input id="pms_first_name"  type="tel" th:field="*{phoneNumber}" required="required" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" autocomplete="off">
+                                    <input id="pms_first_name"  type="tel" th:field="*{phoneNumber}" required="required" maxlength="10" minlength="10">
                                 </li>
                                 
                                  <li class="pms-field pms-first-name-field ">
