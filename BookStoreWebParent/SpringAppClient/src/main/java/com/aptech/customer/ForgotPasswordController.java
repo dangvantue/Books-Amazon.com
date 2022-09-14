@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.aptech.Utility;
 import com.aptech.common.entity.Customer;
 import com.aptech.common.exception.CustomerNotFoundException;
+import com.aptech.setting.EmailSettingBag;
 import com.aptech.setting.SettingService;
 
 @Controller

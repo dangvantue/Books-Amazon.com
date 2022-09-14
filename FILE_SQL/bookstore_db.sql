@@ -227,7 +227,7 @@ CREATE TABLE `cart_items` (
   KEY `FKdagcsk6v6x4n1kxw3rkp57921` (`customer_id`),
   CONSTRAINT `FKdagcsk6v6x4n1kxw3rkp57921` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `FKhiu1jw80o45wfiw5tgok1xpkl` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +236,7 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` VALUES (1,1,18,1),(8,3,22,7),(9,3,10,7),(10,2,5,7),(11,2,24,7),(40,4,4,12),(44,4,15,12),(45,1,22,8),(46,1,12,12),(47,2,26,11);
+INSERT INTO `cart_items` VALUES (1,1,18,1),(8,3,22,7),(9,3,10,7),(10,2,5,7),(11,2,24,7),(45,1,22,8),(47,2,26,11);
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +353,7 @@ CREATE TABLE `customers` (
   UNIQUE KEY `UK_rfbvkrffamfql7cjmen8v976v` (`email`),
   KEY `FK7b7p2myt0y31l4nyj1p7sk0b1` (`country_id`),
   CONSTRAINT `FK7b7p2myt0y31l4nyj1p7sk0b1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,7 +362,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington','DATABASE','2020-10-09 03:18:58.000000','triquang.04qt@gmail.com','$2a$10$/usRREkW3ypuTi8OQHMpMeFKkgqM18ArhCk/WejfLM2sPiYR/aOSq',NULL,_binary '',NULL,25),(4,'63 E Aurora Dr','8 W Cerritos Ave #54','Bridgeport','Motley','Chauncey','407-557-8857','346772','Prince Georges','DATABASE','2020-10-09 03:18:58.000000','chauncey_motley@aol.com','$2a$10$UDY0lXzGpSc6ZcOWL1WeWuG08.28Gg271bSzbfm/GQm/mO2zmKVzm',NULL,_binary '',NULL,21),(5,'2 Sw Nyberg Rd','2 Sw Nyberg Rd','Queensland','Kampa','Raylene','574-330-1884','121212','Daytona Beach','DATABASE','2020-10-09 03:18:58.000000','rkampa@kampa.org','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C',NULL,_binary '',NULL,5),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','Biddy','Jani','123-345-3434','121212','Alliance','DATABASE','2020-10-09 03:18:58.000000','jbiddy@yahoo.com','$2a$10$r/qrdq1eqzhaNhZ0mUNcGuPfMeRR0F113O3sGGTkrUIv8vPsVKx82',NULL,_binary '',NULL,7),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Bookamer','Flo','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','flo.bookamer@cox.net','$2a$10$xINxNL4mJuZq6knKLmRRQOG2hwXwzKzx7wSM7gSRuqPOP1j./UeJ.',NULL,_binary '',NULL,10),(9,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Jovita','Oles','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','joles@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,2),(10,'Ha Noi','Ho Chi Minh','Ho Chi Minh','Quang','Trí','123-356-4632','1254125','Ho Chi Minh City','GOOGLE','2022-08-12 15:37:37.102000','triquang.95qt@gmail.com','',NULL,_binary '',NULL,23),(11,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Cris','Ronadol','535-754-3678','346772','Herat','DATABASE','2022-08-12 15:53:19.210000','Murad.89@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,1),(12,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat','GOOGLE','2022-08-31 08:07:52.020000','onlinebook.amazon.com@gmail.com','',NULL,_binary '',NULL,1),(13,'',NULL,'Bridgeport','Trí','Quang','234-123-1212','346772','New South Wales','FACEBOOK','2022-08-31 14:06:24.717000','triquang.74qt@gmail.com','','5EZsq040TMLhVirmhmF2yS4FKfB8C9',_binary '',NULL,9);
+INSERT INTO `customers` VALUES (1,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington','DATABASE','2020-10-09 03:18:58.000000','triquang.04qt@gmail.com','$2a$10$/usRREkW3ypuTi8OQHMpMeFKkgqM18ArhCk/WejfLM2sPiYR/aOSq',NULL,_binary '',NULL,25),(4,'63 E Aurora Dr','8 W Cerritos Ave #54','Bridgeport','Motley','Chauncey','407-557-8857','346772','Prince Georges','DATABASE','2020-10-09 03:18:58.000000','chauncey_motley@aol.com','$2a$10$UDY0lXzGpSc6ZcOWL1WeWuG08.28Gg271bSzbfm/GQm/mO2zmKVzm',NULL,_binary '',NULL,21),(5,'2 Sw Nyberg Rd','2 Sw Nyberg Rd','Queensland','Kampa','Raylene','574-330-1884','121212','Daytona Beach','DATABASE','2020-10-09 03:18:58.000000','rkampa@kampa.org','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C',NULL,_binary '',NULL,5),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','Biddy','Jani','123-345-3434','121212','Alliance','DATABASE','2020-10-09 03:18:58.000000','jbiddy@yahoo.com','$2a$10$r/qrdq1eqzhaNhZ0mUNcGuPfMeRR0F113O3sGGTkrUIv8vPsVKx82',NULL,_binary '',NULL,7),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Bookamer','Flo','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','flo.bookamer@cox.net','$2a$10$xINxNL4mJuZq6knKLmRRQOG2hwXwzKzx7wSM7gSRuqPOP1j./UeJ.',NULL,_binary '',NULL,10),(9,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Jovita','Oles','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','joles@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,2),(10,'Ha Noi','Ho Chi Minh','Ho Chi Minh','Quang','Trí','123-356-4632','1254125','Ho Chi Minh City','GOOGLE','2022-08-12 15:37:37.102000','triquang.95qt@gmail.com','',NULL,_binary '',NULL,23),(11,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Cris','Ronadol','535-754-3678','346772','Herat','DATABASE','2022-08-12 15:53:19.210000','Murad.89@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,1),(12,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat','GOOGLE','2022-08-31 08:07:52.020000','onlinebook.amazon.com@gmail.com','',NULL,_binary '',NULL,1),(13,'8 W Cerritos Ave #54','Benton, John B Jr','Bridgeport','Trí','Quang','234-123-1212','346772','Herat','FACEBOOK','2022-08-31 14:06:24.717000','triquang.74qt@gmail.com','','re1eksN0ereg70GLesRaSBNfqiaUky',_binary '',NULL,1);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -387,7 +387,7 @@ CREATE TABLE `order_details` (
   KEY `FKjyu2qbqt8gnvno9oe9j2s2ldk` (`order_id`),
   CONSTRAINT `FKjqe04yonp6a52rhbf2y0m03qw` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `FKjyu2qbqt8gnvno9oe9j2s2ldk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +396,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (3,5,2,20,190,95,11,3),(4,5,1,10,56,56,6,3),(5,15,1,10,25.99,25.99,2,4);
+INSERT INTO `order_details` VALUES (3,5,2,20,190,95,11,3),(4,5,1,10,56,56,6,3),(5,15,1,10,25.99,25.99,2,4),(8,48,4,92.4,167.4,41.85,4,6),(9,10,1,38.5,56.05,56.05,12,6),(10,40,4,154,262.2,65.55,15,6),(11,15,3,115.5,101.85,33.95,10,7),(12,24,2,46.2,83.7,41.85,4,15),(14,10,2,77,98.56,49.28,6,28),(15,5,1,38.5,40.05,40.05,7,29),(16,2,1,23.1,84.55,84.55,26,30),(17,20,1,38.5,42.75,42.75,9,31);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -460,7 +460,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `FKpxtb8awmi0dk6smoh2vp1litg` (`customer_id`),
   CONSTRAINT `FKpxtb8awmi0dk6smoh2vp1litg` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -469,7 +469,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (3,'Ha Noi','Ho Chi Minh','Ho Chi Minh','Quang','Trí','123-356-4632','1254125','Ho Chi Minh City',10,'Vietnam','2022-09-08 09:38:08.009000',3,'2022-09-08 09:38:08.009000','CREDIT_CARD',30,'PACKAGED',246,0,276,10),(4,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington',15,'United States','2022-09-08 09:38:08.222000',1,'2022-09-08 09:38:08.222000','CREDIT_CARD',10,'NEW',25.99,0,35.99,1);
+INSERT INTO `orders` VALUES (3,'Ha Noi','Ho Chi Minh','Ho Chi Minh','Quang','Trí','123-356-4632','1254125','Ho Chi Minh City',10,'Vietnam','2022-09-08 09:38:08.009000',3,'2022-09-08 09:38:08.009000','CREDIT_CARD',30,'PACKAGED',246,0,276,10),(4,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington',15,'United States','2022-09-08 09:38:08.222000',1,'2022-09-08 09:38:08.222000','CREDIT_CARD',10,'NEW',25.99,0,35.99,1),(6,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',98,'Afghanistan','2022-09-18 17:45:10.564000',5,'2022-09-13 17:45:10.563000','COD',284.9,'NEW',485.65,0,770.55,12),(7,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',15,'Afghanistan','2022-09-18 17:50:26.952000',5,'2022-09-13 17:50:26.952000','COD',115.5,'NEW',101.85,0,217.35,12),(15,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',24,'Afghanistan','2022-09-18 18:00:10.326000',5,'2022-09-13 18:00:10.326000','COD',46.2,'NEW',83.7,0,129.9,12),(28,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',10,'Afghanistan','2022-09-19 10:48:04.905000',5,'2022-09-14 10:48:04.905000','COD',77,'NEW',98.56,0,175.56,12),(29,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',5,'Afghanistan','2022-09-19 10:52:50.778000',5,'2022-09-14 10:52:50.778000','COD',38.5,'NEW',40.05,0,78.55,12),(30,'8 W Cerritos Ave #54','Benton, John B Jr','Bridgeport','Trí','Quang','234-123-1212','346772','Herat',2,'Afghanistan','2022-09-19 11:00:22.384000',5,'2022-09-14 11:00:22.384000','COD',23.1,'NEW',84.55,0,107.65,13),(31,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',20,'Afghanistan','2022-09-19 11:50:55.560000',5,'2022-09-14 11:50:55.560000','COD',38.5,'NEW',42.75,0,81.25,12);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,7 +520,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('CURRENCY_ID','12','CURRENCY'),('CURRENCY_SYMBOL','₹','CURRENCY'),('CURRENCY_SYMBOL_POSITION','Before price','CURRENCY'),('CUSTOMER_VERIFY_CONTENT','<b>&nbsp; &nbsp; &nbsp; Dear [[name]],</b><div><i><b><br></b></i></div><div><i><b>&nbsp;Click the link below to verify your registration:</b></i></div><div><i><b><br></b></i></div>\r\n\r\n\r\n&nbsp; <a href=\"[[URL]]\" target=\"_self\">VERIFY</a><a href=\"[[URL]]\" target=\"_self\"></a><h3></h3><div><br></div><a href=\"[[URL]]\" target=\"_self\"></a><div><b>&nbsp;Best Regard,</b></div><div><b>&nbsp;The Amazon Team.</b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon Book','MAIL_TEMPLATES'),('DECIMAL_DIGITS','2','CURRENCY'),('DECIMAL_POINT_TYPE','POINT','CURRENCY'),('MAIL_FROM','triquang.95qt@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','gcawfqbilchqzdpg','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','triquang.95qt@gmail.com','MAIL_SERVER'),('ORDER_CONFIRMATION_CONTENT','Dear [[name]],&nbsp;<div>This email is to confirm that you have successfully placed an order through our website. Please review the following order summary:<div><br></div></div><div>- Order ID: [[orderId]]</div><div>- Order time: [[orderTime]]</div><div>- Ship to: [[shippingAddress]]</div><div>- Total: [[total]]</div><div>- Payment method: [[paymentMethod]]</div><div><br></div><div>We\'re currently processing your order. Click here to view full details of your order on our website (login required).</div><div><br></div><div>Thanks for purchasing products at Amazon Book.</div><div>The Amazon Team.</div>','MAIL_TEMPLATES'),('ORDER_CONFIRMATION_SUBJECT','[Amazon Book] Purchase Confirmation of your order ID #[[orderId]]','MAIL_TEMPLATES'),('PAYPAL_API_BASE_URL','https://api-m.sandbox.paypal.com','PAYMENT'),('PAYPAL_API_CLIENT_ID','ARgPr_yMjmml6F4zfsZXxo2X84wmrbJW9ApO0UhmcdVujCjWiixOOaxDiFKlRZxtxAEJoGb2x_DHsSdy','PAYMENT'),('PAYPAL_API_CLIENT_SECRET','EOFQMI3KM38HukThzJp_uQa1Kj08sckvKTc1kbBZLck5S8V6TVSDecAuQcUlLwUKgbKiV9m-nzqPJPce','PAYMENT'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Amazon.com','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER'),('THOUSANDS_POINT_TYPE','COMMA','CURRENCY');
+INSERT INTO `settings` VALUES ('CURRENCY_ID','1','CURRENCY'),('CURRENCY_SYMBOL','$','CURRENCY'),('CURRENCY_SYMBOL_POSITION','Before price','CURRENCY'),('CUSTOMER_VERIFY_CONTENT','<b>&nbsp; &nbsp; &nbsp; Dear [[name]],</b><div><i><b><br></b></i></div><div><i><b>&nbsp;Click the link below to verify your registration:</b></i></div><div><i><b><br></b></i></div>\r\n\r\n\r\n&nbsp; <a href=\"[[URL]]\" target=\"_self\">VERIFY</a><a href=\"[[URL]]\" target=\"_self\"></a><h3></h3><div><br></div><a href=\"[[URL]]\" target=\"_self\"></a><div><b>&nbsp;Best Regard,</b></div><div><b>&nbsp;The Amazon Team.</b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon Book','MAIL_TEMPLATES'),('DECIMAL_DIGITS','2','CURRENCY'),('DECIMAL_POINT_TYPE','POINT','CURRENCY'),('MAIL_FROM','aptech.amazonbook@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','fgfexbtvnqboebat','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','aptech.amazonbook@gmail.com','MAIL_SERVER'),('ORDER_CONFIRMATION_CONTENT','&nbsp; &nbsp; &nbsp; &nbsp; Dear [[name]],&nbsp;<div>&nbsp;This email is to confirm that you have successfully placed an order through our website. Please review the following order summary:<div><br></div></div><div>- Order ID: [[orderId]]</div><div>- Order time: [[orderTime]]</div><div>- Ship to: [[shippingAddress]]</div><div>- Total: [[total]]</div><div>- Payment method: [[paymentMethod]]</div><div><br></div><div>We\'re currently processing your order. Click here to view full details of your order on our website (login required).</div><div><br></div><div>Thanks for purchasing products at Amazon Book.</div><div><b>The Amazon Team.</b></div>','MAIL_TEMPLATES'),('ORDER_CONFIRMATION_SUBJECT','[Amazon Book] Purchase Confirmation of your order ID #[[orderId]]','MAIL_TEMPLATES'),('PAYPAL_API_BASE_URL','https://api-m.sandbox.paypal.com','PAYMENT'),('PAYPAL_API_CLIENT_ID','ARgPr_yMjmml6F4zfsZXxo2X84wmrbJW9ApO0UhmcdVujCjWiixOOaxDiFKlRZxtxAEJoGb2x_DHsSdy','PAYMENT'),('PAYPAL_API_CLIENT_SECRET','EOFQMI3KM38HukThzJp_uQa1Kj08sckvKTc1kbBZLck5S8V6TVSDecAuQcUlLwUKgbKiV9m-nzqPJPce','PAYMENT'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Amazon.com','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER'),('THOUSANDS_POINT_TYPE','COMMA','CURRENCY');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -647,4 +647,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-13 17:22:33
+-- Dump completed on 2022-09-14 11:59:19
