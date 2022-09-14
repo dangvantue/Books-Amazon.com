@@ -31,7 +31,7 @@
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="card">
-				<div class="card-header bg-warning"><h5 style="color: red;">Shipping information</h5></div>
+				<div class="card-header bg-danger"><h5 style="color: white;">Shipping information</h5></div>
 				<div class="card-body text-secondary">
 					<p>
 						<b>Ship to:</b>&nbsp; [[${shippingAddress}]]
@@ -47,7 +47,7 @@
 			</div>		
 			
 			<div class="card mt-3 mb-3">
-				<div class="card-header bg-warning "><h5 style="color: red;">Payment Method</h5></div>
+				<div class="card-header bg-danger "><h5 style="color: white;">Payment Method</h5></div>
 				<div class="card-body text-secondary">
 					<div th:if="${checkoutInfo.codSupported}">
 						<form th:action="@{/place_order}" method="post">
@@ -58,13 +58,19 @@
 						</p>
 						</form>
 					</div>
+					
+					<div id="paypal-button-container"></div>
+					<form th:action="@{/process_paypal_order}" method="post" id="paypalForm">
+						<input type="hidden" name="orderId" id="orderId" />
+						<input type="hidden" name="paymentMethod" value="PAYPAL" />
+					</form>
 				</div>			
 			</div>
 		</div>
 		
 		<div class="col-sm-4">
 			<div class="card">
-				<div class="card-header bg-warning"><h5 style="color: red;">Order Summary</h5></div>
+				<div class="card-header bg-danger"><h5 style="color: white;">Order Summary</h5></div>
 				<div class="card-body text-secondary">
 					<div>
 					<table>
@@ -115,6 +121,8 @@
         <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
     </div>
     <!-- Back-to-Top end -->
+<script th:src="@{https://www.paypal.com/sdk/js(client-id=${paypalClientId},currency=${currencyCode})}"></script>
+<script type="text/javascript" th:src="@{/js/common_modal.js}"></script>
 <script type="text/javascript">
 	contextPath = "[[@{/}]]";
 	var csrfHeaderName = "[[${_csrf.headerName}]]";
@@ -125,6 +133,76 @@
 			$("#buttonSubmit").removeClass("d-none");
 		});
 	});
+	
+	function validateOrder(orderId) {
+		$("#orderId").val(orderId);
+		$("#paypalForm").submit();
+	}
+	
+	paypal.Buttons({
+		enableStandardCardFields: true,
+		createOrder: function(data, actions) {
+			// setup a transaction
+			return actions.order.create({
+				
+				intent: 'CAPTURE', // make payment immediately
+				payer: {
+					name: {
+					given_name: "[[${customer.firstName}]]",
+					surname: "[[${customer.lastName}]]"
+					},
+				
+					address: {
+						address_line_1: "[[${customer.addressLine1}]]",
+						address_line_2: "[[${customer.addressLine2}]]",
+						admin_area_1: "[[${customer.state}]]",
+						admin_area_2: "[[${customer.city}]]",
+						postal_code: "[[${customer.postalCode}]]",
+						country_code: "[[${customer.country.code}]]"
+					},
+					
+					email_address: "[[${customer.email}]]",
+					
+					phone: {
+						phone_type: "MOBILE",
+						phone_number: {
+							national_number: "[[${customer.phoneNumber}]]"
+						}
+					}
+				},
+				
+				purchase_units: [{
+					amount: {
+						value: "[[${checkoutInfo.paymentTotal4PayPal}]]",
+						currency_code: "[[${currencyCode}]]"
+					}
+				}],
+				
+				application_context: {
+					shipping_preference: "NO_SHIPPING"
+				}
+			});
+		},
+		
+		onApprove: function(data, actions) {
+			// buyer approved payment
+			return actions.order.capture().then(function(details) {
+				//console.log(details);
+				orderId = details.id;
+				validateOrder(orderId);				
+			});
+		},
+		
+		onCancel: function(data) {
+			// buyer cancelled payment
+			alert('Payment cancelled by the buyer');
+		},
+		
+		onError: function(err) {
+			// error that prevents buyer from doing checkout
+			showErrorModal("Something wrong with your address information, so payment will not work.");
+		}
+	}).render("#paypal-button-container");
 	
 </script>
 

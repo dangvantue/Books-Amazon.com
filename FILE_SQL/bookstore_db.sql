@@ -42,7 +42,7 @@ CREATE TABLE `addresses` (
   KEY `FKhrpf5e8dwasvdc5cticysrt2k` (`customer_id`),
   CONSTRAINT `FKhrpf5e8dwasvdc5cticysrt2k` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `FKn3sth7s3kur1rafwbbrqqnswt` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `addresses` (
 
 LOCK TABLES `addresses` WRITE;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-INSERT INTO `addresses` VALUES (3,'8 W Cerritos Ave #54','Benton, John B Jr','New Orleans','Josephine','Ronadol','123-123-1213','346772','New South Wales',17,12,_binary '\0'),(6,'Bien Hoa','Benton, John B Jr','New Orleans','James','Ronadol','123-123-4352','346772','Kansai',20,8,_binary '\0'),(7,'8 W Cerritos Ave #54','Bien Hoa','New Orleans','Josephine','Hoa','134-134-1234','346772','Ba Ria Vung Tau',18,8,_binary '\0'),(8,'Bien Hoa','Benton, John B Jr','Ho Chi Minh','James','Adell','123-123-1245','121212','Buenos Aires',2,11,_binary '\0');
+INSERT INTO `addresses` VALUES (1,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','','British Columbia',39,2,_binary '');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +227,7 @@ CREATE TABLE `cart_items` (
   KEY `FKdagcsk6v6x4n1kxw3rkp57921` (`customer_id`),
   CONSTRAINT `FKdagcsk6v6x4n1kxw3rkp57921` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `FKhiu1jw80o45wfiw5tgok1xpkl` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +236,7 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` VALUES (1,1,18,1),(8,3,22,7),(9,3,10,7),(10,2,5,7),(11,2,24,7),(45,1,22,8),(47,2,26,11);
+INSERT INTO `cart_items` VALUES (8,3,22,7),(9,3,10,7),(10,2,5,7),(11,2,24,7),(45,1,22,8),(47,2,26,11),(55,2,5,15),(56,1,26,12),(57,2,5,16),(58,1,7,17),(59,2,10,10);
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,9 +283,9 @@ DROP TABLE IF EXISTS `countries`;
 CREATE TABLE `countries` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `code` varchar(10) NOT NULL,
+  `code` varchar(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +294,7 @@ CREATE TABLE `countries` (
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
-INSERT INTO `countries` VALUES (1,'Afghanistan','AFG'),(2,'Argentina','ARG'),(3,'Australia','AUS'),(4,'Brazil','BRA'),(5,'Canada','CAN'),(6,'China','CHN'),(7,'Dominican Republic','DOM'),(8,'East Timor','TMP'),(9,'France','FRA'),(10,'Germany','DEU'),(11,'Hong Kong, China','HKG'),(12,'Hungary','HUN'),(13,'Iceland','ISL'),(14,'India','IND'),(15,'Indonesia','IDN'),(16,'Iran, Islamic Rep','IRN'),(17,'Iraq','IRQ'),(18,'Ireland','IRL'),(19,'Italy','ITA'),(20,'Japan','JPN'),(21,'Korea, Rep','KOR'),(23,'Vietnam','VNM'),(25,'United States','USA'),(26,'Singapore','SGP'),(27,'Aruba','ABW'),(28,'Zimbabwe','ZWE'),(29,'Zambia','ZMB'),(30,'Yemen','YEM'),(31,'Western Sahara','ESH'),(32,'Wallis and Futuna','WLF'),(33,'Venezuela','VEN'),(34,'Vatican','VAT'),(35,'Vanuatu','VUT'),(36,'Uzbekistan','UZB'),(37,'Uruguay','URY'),(38,'United Kingdom','GBR'),(39,'United Arab Emirates','ARE'),(40,'Ukraine','UKR'),(41,'Uganda','UGA'),(42,'U.S. Virgin Islands','VIR'),(43,'Tuvalu','TUV'),(44,'Turks and Caicos Islands','TCA'),(45,'Turkmenistan','TKM'),(46,'Turkey','TUR'),(47,'Tunisia','TUN'),(48,'Trinidad and Tobago','TTO'),(49,'Tonga','TON'),(50,'Tokelau','TKL'),(51,'Togo','TGO'),(52,'Thailand','THA'),(53,'Tanzania','TZA'),(54,'Tajikistan','TJK'),(55,'Taiwan','TWN');
+INSERT INTO `countries` VALUES (1,'Andorra','AD'),(2,'United Arab Emirates','AE'),(3,'Afghanistan','AF'),(4,'Antigua and Barbuda','AG'),(5,'Anguilla','AI'),(6,'Albania','AL'),(7,'Armenia','AM'),(8,'Netherlands Antilles','AN'),(9,'Angola','AO'),(10,'Antarctica','AQ'),(11,'Argentina','AR'),(12,'American Samoa','AS'),(13,'Austria','AT'),(14,'Australia','AU'),(15,'Aruba','AW'),(16,'Åland Islands','AX'),(17,'Azerbaijan','AZ'),(18,'Bosnia and Herzegovina','BA'),(19,'Barbados','BB'),(20,'Bangladesh','BD'),(21,'Belgium','BE'),(22,'Burkina Faso','BF'),(23,'Bulgaria','BG'),(24,'Bahrain','BH'),(25,'Burundi','BI'),(26,'Benin','BJ'),(27,'Saint Barthélemy','BL'),(28,'Bermuda','BM'),(29,'Brunei','BN'),(30,'Bolivia','BO'),(31,'Bonaire, Sint Eustatius and Saba','BQ'),(32,'Brazil','BR'),(33,'Bahamas','BS'),(34,'Bhutan','BT'),(35,'Bouvet Island','BV'),(36,'Botswana','BW'),(37,'Belarus','BY'),(38,'Belize','BZ'),(39,'Canada','CA'),(40,'Cocos Islands','CC'),(41,'The Democratic Republic Of Congo','CD'),(42,'Central African Republic','CF'),(43,'Congo','CG'),(44,'Switzerland','CH'),(45,'Côte d\'Ivoire','CI'),(46,'Cook Islands','CK'),(47,'Chile','CL'),(48,'Cameroon','CM'),(49,'China','CN'),(50,'Colombia','CO'),(51,'Costa Rica','CR'),(52,'Cuba','CU'),(53,'Cape Verde','CV'),(54,'Curaçao','CW'),(55,'Christmas Island','CX'),(56,'Cyprus','CY'),(57,'Czech Republic','CZ'),(58,'Germany','DE'),(59,'Djibouti','DJ'),(60,'Denmark','DK'),(61,'Dominica','DM'),(62,'Dominican Republic','DO'),(63,'Algeria','DZ'),(64,'Ecuador','EC'),(65,'Estonia','EE'),(66,'Egypt','EG'),(67,'Western Sahara','EH'),(68,'Eritrea','ER'),(69,'Spain','ES'),(70,'Ethiopia','ET'),(71,'Finland','FI'),(72,'Fiji','FJ'),(73,'Falkland Islands','FK'),(74,'Micronesia','FM'),(75,'Faroe Islands','FO'),(76,'France','FR'),(77,'Gabon','GA'),(78,'United Kingdom','GB'),(79,'Grenada','GD'),(80,'Georgia','GE'),(81,'French Guiana','GF'),(82,'Guernsey','GG'),(83,'Ghana','GH'),(84,'Gibraltar','GI'),(85,'Greenland','GL'),(86,'Gambia','GM'),(87,'Guinea','GN'),(88,'Guadeloupe','GP'),(89,'Equatorial Guinea','GQ'),(90,'Greece','GR'),(91,'South Georgia And The South Sandwich Islands','GS'),(92,'Guatemala','GT'),(93,'Guam','GU'),(94,'Guinea-Bissau','GW'),(95,'Guyana','GY'),(96,'Hong Kong','HK'),(97,'Heard Island And McDonald Islands','HM'),(98,'Honduras','HN'),(99,'Croatia','HR'),(100,'Haiti','HT'),(101,'Hungary','HU'),(102,'Indonesia','ID'),(103,'Ireland','IE'),(104,'Israel','IL'),(105,'Isle Of Man','IM'),(106,'India','IN'),(107,'British Indian Ocean Territory','IO'),(108,'Iraq','IQ'),(109,'Iran','IR'),(110,'Iceland','IS'),(111,'Italy','IT'),(112,'Jersey','JE'),(113,'Jamaica','JM'),(114,'Jordan','JO'),(115,'Japan','JP'),(116,'Kenya','KE'),(117,'Kyrgyzstan','KG'),(118,'Cambodia','KH'),(119,'Kiribati','KI'),(120,'Comoros','KM'),(121,'Saint Kitts And Nevis','KN'),(122,'North Korea','KP'),(123,'South Korea','KR'),(124,'Kuwait','KW'),(125,'Cayman Islands','KY'),(126,'Kazakhstan','KZ'),(127,'Laos','LA'),(128,'Lebanon','LB'),(129,'Saint Lucia','LC'),(130,'Liechtenstein','LI'),(131,'Sri Lanka','LK'),(132,'Liberia','LR'),(133,'Lesotho','LS'),(134,'Lithuania','LT'),(135,'Luxembourg','LU'),(136,'Latvia','LV'),(137,'Libya','LY'),(138,'Morocco','MA'),(139,'Monaco','MC'),(140,'Moldova','MD'),(141,'Montenegro','ME'),(142,'Saint Martin','MF'),(143,'Madagascar','MG'),(144,'Marshall Islands','MH'),(145,'Macedonia','MK'),(146,'Mali','ML'),(147,'Myanmar','MM'),(148,'Mongolia','MN'),(149,'Macao','MO'),(150,'Northern Mariana Islands','MP'),(151,'Martinique','MQ'),(152,'Mauritania','MR'),(153,'Montserrat','MS'),(154,'Malta','MT'),(155,'Mauritius','MU'),(156,'Maldives','MV'),(157,'Malawi','MW'),(158,'Mexico','MX'),(159,'Malaysia','MY'),(160,'Mozambique','MZ'),(161,'Namibia','NA'),(162,'New Caledonia','NC'),(163,'Niger','NE'),(164,'Norfolk Island','NF'),(165,'Nigeria','NG'),(166,'Nicaragua','NI'),(167,'Netherlands','NL'),(168,'Norway','NO'),(169,'Nepal','NP'),(170,'Nauru','NR'),(171,'Niue','NU'),(172,'New Zealand','NZ'),(173,'Oman','OM'),(174,'Panama','PA'),(175,'Peru','PE'),(176,'French Polynesia','PF'),(177,'Papua New Guinea','PG'),(178,'Philippines','PH'),(179,'Pakistan','PK'),(180,'Poland','PL'),(181,'Saint Pierre And Miquelon','PM'),(182,'Pitcairn','PN'),(183,'Puerto Rico','PR'),(184,'Palestine','PS'),(185,'Portugal','PT'),(186,'Palau','PW'),(187,'Paraguay','PY'),(188,'Qatar','QA'),(189,'Reunion','RE'),(190,'Romania','RO'),(191,'Serbia','RS'),(192,'Russia','RU'),(193,'Rwanda','RW'),(194,'Saudi Arabia','SA'),(195,'Solomon Islands','SB'),(196,'Seychelles','SC'),(197,'Sudan','SD'),(198,'Sweden','SE'),(199,'Singapore','SG'),(200,'Saint Helena','SH'),(201,'Slovenia','SI'),(202,'Svalbard And Jan Mayen','SJ'),(203,'Slovakia','SK'),(204,'Sierra Leone','SL'),(205,'San Marino','SM'),(206,'Senegal','SN'),(207,'Somalia','SO'),(208,'Suriname','SR'),(209,'South Sudan','SS'),(210,'Sao Tome And Principe','ST'),(211,'El Salvador','SV'),(212,'Sint Maarten (Dutch part)','SX'),(213,'Syria','SY'),(214,'Swaziland','SZ'),(215,'Turks And Caicos Islands','TC'),(216,'Chad','TD'),(217,'French Southern Territories','TF'),(218,'Togo','TG'),(219,'Thailand','TH'),(220,'Tajikistan','TJ'),(221,'Tokelau','TK'),(222,'Timor-Leste','TL'),(223,'Turkmenistan','TM'),(224,'Tunisia','TN'),(225,'Tonga','TO'),(226,'Turkey','TR'),(227,'Trinidad and Tobago','TT'),(228,'Tuvalu','TV'),(229,'Taiwan','TW'),(230,'Tanzania','TZ'),(231,'Ukraine','UA'),(232,'Uganda','UG'),(233,'United States Minor Outlying Islands','UM'),(234,'United States','US'),(235,'Uruguay','UY'),(236,'Uzbekistan','UZ'),(237,'Vatican','VA'),(238,'Saint Vincent And The Grenadines','VC'),(239,'Venezuela','VE'),(240,'British Virgin Islands','VG'),(241,'U.S. Virgin Islands','VI'),(242,'Vietnam','VN'),(243,'Vanuatu','VU'),(244,'Wallis And Futuna','WF'),(245,'Samoa','WS'),(246,'Yemen','YE'),(247,'Mayotte','YT'),(248,'South Africa','ZA'),(249,'Zambia','ZM'),(250,'Zimbabwe','ZW'),(253,'New Country','CCN');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +353,7 @@ CREATE TABLE `customers` (
   UNIQUE KEY `UK_rfbvkrffamfql7cjmen8v976v` (`email`),
   KEY `FK7b7p2myt0y31l4nyj1p7sk0b1` (`country_id`),
   CONSTRAINT `FK7b7p2myt0y31l4nyj1p7sk0b1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,7 +362,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington','DATABASE','2020-10-09 03:18:58.000000','triquang.04qt@gmail.com','$2a$10$/usRREkW3ypuTi8OQHMpMeFKkgqM18ArhCk/WejfLM2sPiYR/aOSq',NULL,_binary '',NULL,25),(4,'63 E Aurora Dr','8 W Cerritos Ave #54','Bridgeport','Motley','Chauncey','407-557-8857','346772','Prince Georges','DATABASE','2020-10-09 03:18:58.000000','chauncey_motley@aol.com','$2a$10$UDY0lXzGpSc6ZcOWL1WeWuG08.28Gg271bSzbfm/GQm/mO2zmKVzm',NULL,_binary '',NULL,21),(5,'2 Sw Nyberg Rd','2 Sw Nyberg Rd','Queensland','Kampa','Raylene','574-330-1884','121212','Daytona Beach','DATABASE','2020-10-09 03:18:58.000000','rkampa@kampa.org','$2a$10$6wzlm/njpbea3gLTeCeFQe1Lkz1QXfDcJTl3gDLhlJehyH8wEpa1C',NULL,_binary '',NULL,5),(7,'8 W Cerritos Ave #54','Ho Chi Minh','Queensland','Biddy','Jani','123-345-3434','121212','Alliance','DATABASE','2020-10-09 03:18:58.000000','jbiddy@yahoo.com','$2a$10$r/qrdq1eqzhaNhZ0mUNcGuPfMeRR0F113O3sGGTkrUIv8vPsVKx82',NULL,_binary '',NULL,7),(8,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Bookamer','Flo','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','flo.bookamer@cox.net','$2a$10$xINxNL4mJuZq6knKLmRRQOG2hwXwzKzx7wSM7gSRuqPOP1j./UeJ.',NULL,_binary '',NULL,10),(9,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Jovita','Oles','123-234-4546','121212','Florida','DATABASE','2020-10-09 03:18:58.000000','joles@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,2),(10,'Ha Noi','Ho Chi Minh','Ho Chi Minh','Quang','Trí','123-356-4632','1254125','Ho Chi Minh City','GOOGLE','2022-08-12 15:37:37.102000','triquang.95qt@gmail.com','',NULL,_binary '',NULL,23),(11,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','Bridgeport','Cris','Ronadol','535-754-3678','346772','Herat','DATABASE','2022-08-12 15:53:19.210000','Murad.89@gmail.com','$2a$10$V.QY.zOtxklbbV7ybJql9ueddfxk5hgmHd9ZjU6ZQkjvhc1S.4WxO',NULL,_binary '',NULL,1),(12,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat','GOOGLE','2022-08-31 08:07:52.020000','onlinebook.amazon.com@gmail.com','',NULL,_binary '',NULL,1),(13,'8 W Cerritos Ave #54','Benton, John B Jr','Bridgeport','Trí','Quang','234-123-1212','346772','Herat','FACEBOOK','2022-08-31 14:06:24.717000','triquang.74qt@gmail.com','','re1eksN0ereg70GLesRaSBNfqiaUky',_binary '',NULL,1);
+INSERT INTO `customers` VALUES (1,'8 W Cerritos Ave #54','Benton, John B Jr','Ho Chi Minh','Quang','Trí','0987774191','71000','California','GOOGLE','2022-09-14 17:07:12.037000','triquang.15qt@gmail.com','',NULL,_binary '',NULL,234),(2,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','New Orleans','Trí','Quang','0987774191','71000','Queensland','FACEBOOK','2022-09-14 17:52:45.582000','triquang.74qt@gmail.com','',NULL,_binary '',NULL,14);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -387,7 +387,7 @@ CREATE TABLE `order_details` (
   KEY `FKjyu2qbqt8gnvno9oe9j2s2ldk` (`order_id`),
   CONSTRAINT `FKjqe04yonp6a52rhbf2y0m03qw` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `FKjyu2qbqt8gnvno9oe9j2s2ldk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +396,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (3,5,2,20,190,95,11,3),(4,5,1,10,56,56,6,3),(5,15,1,10,25.99,25.99,2,4),(8,48,4,92.4,167.4,41.85,4,6),(9,10,1,38.5,56.05,56.05,12,6),(10,40,4,154,262.2,65.55,15,6),(11,15,3,115.5,101.85,33.95,10,7),(12,24,2,46.2,83.7,41.85,4,15),(14,10,2,77,98.56,49.28,6,28),(15,5,1,38.5,40.05,40.05,7,29),(16,2,1,23.1,84.55,84.55,26,30),(17,20,1,38.5,42.75,42.75,9,31);
+INSERT INTO `order_details` VALUES (1,5,1,80.92,84.15,84.15,18,1),(2,60,3,173.4,128.25,42.75,9,1),(3,36,3,88.92,125.55,41.85,4,2);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -460,7 +460,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `FKpxtb8awmi0dk6smoh2vp1litg` (`customer_id`),
   CONSTRAINT `FKpxtb8awmi0dk6smoh2vp1litg` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -469,7 +469,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (3,'Ha Noi','Ho Chi Minh','Ho Chi Minh','Quang','Trí','123-356-4632','1254125','Ho Chi Minh City',10,'Vietnam','2022-09-08 09:38:08.009000',3,'2022-09-08 09:38:08.009000','CREDIT_CARD',30,'PACKAGED',246,0,276,10),(4,'5 Washington St #1','5 Washington St #1','Ho Chi Minh','Thaddeus','Ankeny','098-777-4191','121212','Washington',15,'United States','2022-09-08 09:38:08.222000',1,'2022-09-08 09:38:08.222000','CREDIT_CARD',10,'NEW',25.99,0,35.99,1),(6,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',98,'Afghanistan','2022-09-18 17:45:10.564000',5,'2022-09-13 17:45:10.563000','COD',284.9,'NEW',485.65,0,770.55,12),(7,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',15,'Afghanistan','2022-09-18 17:50:26.952000',5,'2022-09-13 17:50:26.952000','COD',115.5,'NEW',101.85,0,217.35,12),(15,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',24,'Afghanistan','2022-09-18 18:00:10.326000',5,'2022-09-13 18:00:10.326000','COD',46.2,'NEW',83.7,0,129.9,12),(28,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',10,'Afghanistan','2022-09-19 10:48:04.905000',5,'2022-09-14 10:48:04.905000','COD',77,'NEW',98.56,0,175.56,12),(29,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',5,'Afghanistan','2022-09-19 10:52:50.778000',5,'2022-09-14 10:52:50.778000','COD',38.5,'NEW',40.05,0,78.55,12),(30,'8 W Cerritos Ave #54','Benton, John B Jr','Bridgeport','Trí','Quang','234-123-1212','346772','Herat',2,'Afghanistan','2022-09-19 11:00:22.384000',5,'2022-09-14 11:00:22.384000','COD',23.1,'NEW',84.55,0,107.65,13),(31,'8 W Cerritos Ave #54','1 State Route 27','Bridgeport','Quang','Tri','234-123-1212','346772','Herat',20,'Afghanistan','2022-09-19 11:50:55.560000',5,'2022-09-14 11:50:55.560000','COD',38.5,'NEW',42.75,0,81.25,12);
+INSERT INTO `orders` VALUES (1,'8 W Cerritos Ave #54','Benton, John B Jr','Ho Chi Minh','Quang','Trí','0987774191','71000','California',65,'United States','2022-09-20 17:48:26.456000',6,'2022-09-14 17:48:26.456000','PAYPAL',254.32,'NEW',212.4,0,466.72,1),(2,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','','British Columbia',36,'Canada','2022-09-21 17:58:09.898000',7,'2022-09-14 17:58:09.898000','PAYPAL',88.92,'NEW',125.55,0,214.47,2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,7 +520,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES ('CURRENCY_ID','1','CURRENCY'),('CURRENCY_SYMBOL','$','CURRENCY'),('CURRENCY_SYMBOL_POSITION','Before price','CURRENCY'),('CUSTOMER_VERIFY_CONTENT','<b>&nbsp; &nbsp; &nbsp; Dear [[name]],</b><div><i><b><br></b></i></div><div><i><b>&nbsp;Click the link below to verify your registration:</b></i></div><div><i><b><br></b></i></div>\r\n\r\n\r\n&nbsp; <a href=\"[[URL]]\" target=\"_self\">VERIFY</a><a href=\"[[URL]]\" target=\"_self\"></a><h3></h3><div><br></div><a href=\"[[URL]]\" target=\"_self\"></a><div><b>&nbsp;Best Regard,</b></div><div><b>&nbsp;The Amazon Team.</b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon Book','MAIL_TEMPLATES'),('DECIMAL_DIGITS','2','CURRENCY'),('DECIMAL_POINT_TYPE','POINT','CURRENCY'),('MAIL_FROM','aptech.amazonbook@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','fgfexbtvnqboebat','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','aptech.amazonbook@gmail.com','MAIL_SERVER'),('ORDER_CONFIRMATION_CONTENT','&nbsp; &nbsp; &nbsp; &nbsp; Dear [[name]],&nbsp;<div>&nbsp;This email is to confirm that you have successfully placed an order through our website. Please review the following order summary:<div><br></div></div><div>- Order ID: [[orderId]]</div><div>- Order time: [[orderTime]]</div><div>- Ship to: [[shippingAddress]]</div><div>- Total: [[total]]</div><div>- Payment method: [[paymentMethod]]</div><div><br></div><div>We\'re currently processing your order. Click here to view full details of your order on our website (login required).</div><div><br></div><div>Thanks for purchasing products at Amazon Book.</div><div><b>The Amazon Team.</b></div>','MAIL_TEMPLATES'),('ORDER_CONFIRMATION_SUBJECT','[Amazon Book] Purchase Confirmation of your order ID #[[orderId]]','MAIL_TEMPLATES'),('PAYPAL_API_BASE_URL','https://api-m.sandbox.paypal.com','PAYMENT'),('PAYPAL_API_CLIENT_ID','ARgPr_yMjmml6F4zfsZXxo2X84wmrbJW9ApO0UhmcdVujCjWiixOOaxDiFKlRZxtxAEJoGb2x_DHsSdy','PAYMENT'),('PAYPAL_API_CLIENT_SECRET','EOFQMI3KM38HukThzJp_uQa1Kj08sckvKTc1kbBZLck5S8V6TVSDecAuQcUlLwUKgbKiV9m-nzqPJPce','PAYMENT'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Amazon.com','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER'),('THOUSANDS_POINT_TYPE','COMMA','CURRENCY');
+INSERT INTO `settings` VALUES ('CURRENCY_ID','1','CURRENCY'),('CURRENCY_SYMBOL','$','CURRENCY'),('CURRENCY_SYMBOL_POSITION','Before price','CURRENCY'),('CUSTOMER_VERIFY_CONTENT','<b>&nbsp; &nbsp; &nbsp; Dear [[name]],</b><div><i><b><br></b></i></div><div><i><b>&nbsp;Click the link below to verify your registration:</b></i></div><div><i><b><br></b></i></div>\r\n\r\n\r\n&nbsp; <a href=\"[[URL]]\" target=\"_self\">VERIFY</a><a href=\"[[URL]]\" target=\"_self\"></a><h3></h3><div><br></div><a href=\"[[URL]]\" target=\"_self\"></a><div><b>&nbsp;Best Regard,</b></div><div><b>&nbsp;The Amazon Team.</b></div>','MAIL_TEMPLATES'),('CUSTOMER_VERIFY_SUBJECT','Please verify your registration to continue Amazon Book','MAIL_TEMPLATES'),('DECIMAL_DIGITS','2','CURRENCY'),('DECIMAL_POINT_TYPE','POINT','CURRENCY'),('MAIL_FROM','aptech.amazonbook@gmail.com','MAIL_SERVER'),('MAIL_HOST','smtp.gmail.com','MAIL_SERVER'),('MAIL_PASSWORD','fgfexbtvnqboebat','MAIL_SERVER'),('MAIL_PORT','587','MAIL_SERVER'),('MAIL_SENDER_NAME','The Amazon Team','MAIL_SERVER'),('MAIL_USERNAME','aptech.amazonbook@gmail.com','MAIL_SERVER'),('ORDER_CONFIRMATION_CONTENT','&nbsp; &nbsp; &nbsp; &nbsp; Dear [[name]],&nbsp;<div>&nbsp;This email is to confirm that you have successfully placed an order through our website. Please review the following order summary:<div><br></div></div><div>- Order ID: [[orderId]]</div><div>- Order time: [[orderTime]]</div><div>- Ship to: [[shippingAddress]]</div><div>- Total: [[total]]</div><div>- Payment method: [[paymentMethod]]</div><div><br></div><div>We\'re currently processing your order. Click here to view full details of your order on our website (login required).</div><div><br></div><div>Thanks for purchasing products at Amazon Book.</div><div><b>The Amazon Team.</b></div>','MAIL_TEMPLATES'),('ORDER_CONFIRMATION_SUBJECT','[Amazon Book] Purchase Confirmation of your order ID #[[orderId]]','MAIL_TEMPLATES'),('PAYPAL_API_BASE_URL','https://api-m.sandbox.paypal.com','PAYMENT'),('PAYPAL_API_CLIENT_ID','AVrNYKEuIxaJqdoYptMfy8ENDvwBc93u0ClhROkZz_J0sX3-Wa6vCv0s85WDO10e4GyVJo_UnTni47mq','PAYMENT'),('PAYPAL_API_CLIENT_SECRET','EFNVxb4GD57B_OLyw6nYsDJ6l-S08Dk8-l7qJMAf9pvEv5T-UkSMpjjsQoxGMFKVGTuAqe6mgj3Rfpox','PAYMENT'),('SITE_LOGO','/site-logo/amazon.png','GENERAL'),('SITE_NAME','Amazon.com','GENERAL'),('SMTP_AUTH','true','MAIL_SERVER'),('SMTP_SECURED','true','MAIL_SERVER'),('THOUSANDS_POINT_TYPE','COMMA','CURRENCY');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -533,15 +533,15 @@ DROP TABLE IF EXISTS `shipping_rates`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shipping_rates` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `cod_supported` bit(1) DEFAULT NULL,
-  `days` int NOT NULL,
-  `rate` float NOT NULL,
-  `state` varchar(45) NOT NULL,
   `country_id` int DEFAULT NULL,
+  `state` varchar(45) NOT NULL,
+  `rate` float NOT NULL,
+  `days` int NOT NULL,
+  `cod_supported` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKef7sfgeybt3xn13nlt2j6sljw` (`country_id`),
   CONSTRAINT `FKef7sfgeybt3xn13nlt2j6sljw` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -550,7 +550,7 @@ CREATE TABLE `shipping_rates` (
 
 LOCK TABLES `shipping_rates` WRITE;
 /*!40000 ALTER TABLE `shipping_rates` DISABLE KEYS */;
-INSERT INTO `shipping_rates` VALUES (1,_binary '',3,5,'Ho Chi Minh',23),(2,_binary '',4,8,'Ha Noi',23),(3,_binary '',4,9,'Da Nang',23),(4,_binary '',10,8,'Alberta',5),(5,_binary '',15,6,'Nova Scotia',5),(6,_binary '',12,7,'New Brunswick',5),(7,_binary '',9,12,'Andorra',9),(9,_binary '',6,9,'Kansai',20),(10,_binary '',7,10,'Hokkaidō ',20),(11,_binary '\0',8,8,'Washington',25),(12,_binary '',8,12,' West Virginia',25),(13,_binary '',8,13,'Wyoming',25),(14,_binary '',6,7,'South Carolina',25),(15,_binary '',3,4,'Hue',23),(16,_binary '',5,9,'Bac Ninh',23),(17,_binary '',2,7,'Dong Nai',23),(18,_binary '',5,7.7,'Herat',1);
+INSERT INTO `shipping_rates` VALUES (2,234,'New York',10,7,_binary ''),(3,234,'Florida',12,6,_binary '\0'),(5,242,'Hanoi',3.98,2,_binary ''),(6,234,'California',11.56,6,_binary '\0'),(7,242,'Hai Phong',3.93,2,_binary '\0'),(8,242,'Bac Giang',4.12,2,_binary '\0'),(9,242,'Phu Tho',4.21,3,_binary '\0'),(10,242,'Thanh Hoa',3.52,1,_binary ''),(11,106,'Karnataka',8.22,5,_binary '\0'),(12,106,'Maharashtra',8.69,5,_binary ''),(13,106,'Meghalaya',8.1,4,_binary '\0'),(14,106,'Punjab',7.89,3,_binary '\0'),(15,106,'Tamil Nadu',8.25,4,_binary '\0'),(16,106,'Telangana',7.72,4,_binary '\0'),(17,242,'Da Nang',0.5,1,_binary ''),(18,234,'Ohio',11.5,8,_binary ''),(19,78,'London',9.88,6,_binary ''),(20,106,'Delhi',8.45,5,_binary ''),(21,106,'West Bengal',8.88,5,_binary ''),(22,78,'Barton',7.78,6,_binary ''),(23,106,'Andhra Pradesh',8.12,6,_binary ''),(24,234,'Tennessee',12,8,_binary ''),(25,234,'Massachusetts',11.85,7,_binary ''),(26,14,'Queensland',4.99,5,_binary ''),(27,199,'Singapore',3.33,3,_binary ''),(28,39,'British Columbia',9.88,7,_binary ''),(29,14,'New South Wales',4.57,6,_binary ''),(30,234,'Illinois',13,9,_binary '');
 /*!40000 ALTER TABLE `shipping_rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -568,7 +568,7 @@ CREATE TABLE `states` (
   PRIMARY KEY (`id`),
   KEY `FKskkdphjml9vjlrqn4m5hi251y` (`country_id`),
   CONSTRAINT `FKskkdphjml9vjlrqn4m5hi251y` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=311 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -577,7 +577,7 @@ CREATE TABLE `states` (
 
 LOCK TABLES `states` WRITE;
 /*!40000 ALTER TABLE `states` DISABLE KEYS */;
-INSERT INTO `states` VALUES (1,'Bình Định',23),(2,'Lạng Sơn',23),(3,'An Giang',23),(4,'Bà rịa – Vũng tàu',23),(5,'Bắc Giang',23),(6,'Bắc Kạn',23),(7,'Bạc Liêu',23),(8,'Bắc Ninh',23),(9,'Bình Dương',23),(10,'Bình Phước',23),(11,'Đà Nẵng',23),(12,'Đắk Lắk',23),(13,'Đồng Nai',23),(14,'Đồng Tháp',23),(15,'Gia Lai',23),(16,'Hà Giang',23),(17,'Hà Nam',23),(18,'Quảng Trị',23),(19,'Tây Ninh',23),(20,'Thừa Thiên Huế',23),(21,'Thành phố Hồ Chí Minh',23),(22,'Buenos Aires',2),(23,'Chubut',2),(24,'Formosa',2),(25,'Tucumán',2),(26,'Santa Fe',2),(27,'Herat',1),(28,'Jowzjan',1),(29,'Kabul',1),(30,'Kandahar',1),(31,'Manitoba',5),(32,'Ontario',5),(33,'Québec',5),(34,'Newfoundland',5),(35,'New Brunswick',5),(36,'Saskatchewan',5),(37,'Prince Edward Island',5),(38,'Nova Scotia',5);
+INSERT INTO `states` VALUES (1,'Ha Noi',242),(2,'Da Nang',242),(3,'New York',234),(4,'California',234),(5,'Ho Chi Minh City',242),(6,'Hai Phong',242),(7,'Bac Giang',242),(8,'Son La',242),(9,'Quang Ninh',242),(10,'Nghe An',242),(12,'Utah',234),(13,'Washington',234),(14,'Florida',234),(15,'Illinois',234),(16,'Texas',234),(18,'Colorado',234),(19,'Alaska',234),(20,'Can Tho',242),(22,'Binh Duong',242),(23,'Thanh Hoa',242),(24,'Andhra Pradesh',106),(25,'Arunachal Pradesh',106),(26,'Assam',106),(27,'Bihar',106),(28,'Haryana',106),(29,'Himacha Pradesh',106),(30,'Karnataka',106),(31,'Maharashtra',106),(32,'Meghalaya',106),(33,'Punjab',106),(34,'Tamil Nadu',106),(35,'Telangana',106),(36,'Uttar Pradesh',106),(37,'West Bengal',106),(38,'Bac Ninh',242),(40,'Ha Tinh',242),(41,'Hue',242),(42,'Binh Dinh',242),(43,'An Giang',242),(44,'Blackpool',78),(45,'London',78),(46,'Liverpool',78),(47,'Manchester',78),(48,'Newcastle',78),(49,'Bristol',78),(50,'Cambridge',78),(51,'Lang Son',242),(52,'Delhi',106),(53,'Hawaii',234),(54,'Georgia',234),(55,'Pennsylvania',234),(56,'Virginia',234),(57,'Arizona',234),(59,'Kerala',106),(60,'Rajasthan',106),(61,'Odisha',106),(62,'Mizoram',106),(63,'Sikkim',106),(64,'Manipur',106),(65,'Nagaland',106),(66,'Tripura',106),(67,'Jharkhand',106),(68,'Uttarakhand',106),(69,'Goa',106),(70,'Madhya Pradesh',106),(71,'Gujarat',106),(72,'Massachusetts',234),(73,'Indiana',234),(74,'Michigan',234),(75,'Ohio',234),(76,'New Jersey',234),(77,'Minnesota',234),(78,'North Carolina',234),(79,'Oregon',234),(80,'Maryland',234),(81,'Tennessee',234),(82,'Montana',234),(83,'Maine',234),(84,'Alabama',234),(85,'Wisconsin',234),(86,'Louisiana',234),(87,'Connecticut',234),(88,'Missouri',234),(89,'South Carolina',234),(90,'Mississippi',234),(91,'New Mexico',234),(92,'Nevada',234),(93,'Kentucky',234),(94,'Arkansas',234),(95,'Wyoming',234),(96,'Kansas',234),(97,'Delaware',234),(98,'Iowa',234),(99,'Idaho',234),(100,'Nebraska',234),(101,'Rhode Island',234),(102,'Vermont',234),(103,'South Dakota',234),(104,'New Hamsphire',234),(105,'West Virginia',234),(106,'North Dakota',234),(107,'Oklahoma',234),(109,'Nam Dinh',242),(110,'Khanh Hoa',242),(112,'Tay Ninh',242),(113,'Kien Giang',242),(114,'Lai Chau',242),(115,'Lao Cai',242),(116,'Ha Giang',242),(117,'Hoa Binh',242),(118,'Thai Binh',242),(119,'Dong Nai',242),(120,'Soc Trang',242),(121,'Bac Lieu',242),(123,'Ca Mau',242),(124,'Quang Binh',242),(125,'Quang Tri',242),(126,'Quang Nam',242),(127,'Quang Ngai',242),(128,'Gia Lai',242),(129,'Vinh Phuc',242),(130,'Lam Dong',242),(131,'Dak Lak',242),(132,'Phu Yen',242),(133,'Binh Phuoc',242),(134,'Dak Nong',242),(135,'Dong Thap',242),(136,'Hau Giang',242),(137,'Ba Ria Vung Tau',242),(138,'Binh Thuan',242),(139,'Hai Duong',242),(140,'Hung Yen',242),(141,'Thai Nguyen',242),(142,'Long An',242),(143,'Ben Tre',242),(144,'Bac Kan',242),(145,'Ninh Binh',242),(146,'Kon Tum',242),(147,'Tra Vinh',242),(148,'Yen Bai',242),(149,'Tuyen Quang',242),(150,'Phu Tho',242),(151,'Vinh Long',242),(152,'New South Wales',14),(153,'Queensland',14),(154,'Tasmania',14),(155,'Western Australia',14),(156,'Victoria',14),(157,'South Australia',14),(158,'Ontario',39),(159,'Quebec',39),(160,'Nova Scotia',39),(161,'New Brunswick',39),(162,'Manitoba',39),(163,'British Columbia',39),(164,'Prince Edward Island',39),(165,'Saskatchewan',39),(166,'Alberta',39),(167,'Newfoundland and Labrador',39),(168,'Grand Est',76),(169,'Hauts-de-France',76),(170,'Normandy',76),(171,'Nouvelle-Aquitaine',76),(172,'Occitanie',76),(173,'Brittany',76),(174,'Centre-Val de Loire',76),(175,'Corsica',76),(176,'French Guiana',76),(177,'Guadeloupe',76),(178,'Île-de-France',76),(179,'Martinique',76),(180,'Mayotte',76),(181,'Pays de la Loire',76),(182,'Provence-Alpes-Côte d\'Azur',76),(183,'Réunion',76),(184,'Aichi',115),(185,'Akita',115),(186,'Chiba',115),(187,'Ehime',115),(188,'Fukui',115),(189,'Fukuoka',115),(190,'Fukushima',115),(191,'Gunma',115),(192,'Kobe',115),(193,'Hiroshima',115),(194,'Hokkaido',115),(195,'Ishikawa',115),(196,'Kagawa',115),(197,'Kochi',115),(198,'Kyoto',115),(199,'Nagasaki',115),(200,'Okinawa',115),(201,'Osaka',115),(202,'Saga',115),(203,'Tokushima',115),(204,'Tokyo',115),(205,'Yamagata',115),(206,'Yamaguchi',115),(207,'Yamanashi',115),(208,'Greater Poland',180),(209,'Kuyavia-Pomerania',180),(210,'Lesser Poland',180),(211,'Łódź',180),(212,'Lower Silesia',180),(213,'Lublin',180),(214,'Lubusz',180),(215,'Masovia',180),(216,'Opole',180),(217,'Podlaskie',180),(218,'Pomerania',180),(219,'Silesia',180),(220,'Subcarpathia',180),(221,'Holy Cross Province',180),(222,'Warmia-Masuria',180),(223,'West Pomerania',180),(224,'Baden-Württemberg',58),(225,'Bavaria',58),(226,'Berlin',58),(227,'Brandenburg',58),(228,'Bremen',58),(229,'Hamburg',58),(230,'Hesse',58),(231,'Lower Saxony',58),(232,'Mecklenburg-Vorpommern',58),(233,'North Rhine- Westphalia',58),(234,'Rhineland-Palatinate',58),(235,'Saarland',58),(236,'Saxony',58),(237,'Saxony-Anhalt',58),(238,'Schleswig-Holstein',58),(239,'Thuringia',58),(240,'Acre',32),(241,'Alagoas',32),(242,'Amapá',32),(243,'Amazonas',32),(244,'Bahia',32),(245,'Ceará',32),(246,'Distrito Federal',32),(247,'Espírito Santo',32),(248,'Goiás',32),(249,'Maranhão',32),(250,'Mato Grosso',32),(251,'Minas Gerais',32),(252,'Pará',32),(253,'Paraíba',32),(254,'Paraná',32),(255,'Pernambuco',32),(256,'Piauí',32),(257,'Rio de Janeiro',32),(258,'Rio Grande do Norte',32),(259,'Rio Grande do Sul',32),(260,'Rondônia',32),(261,'Roraima',32),(262,'Santa Catarina',32),(263,'São Paulo',32),(264,'Sergipe',32),(265,'Tocantins',32),(266,'Adana',226),(267,'Adıyaman',226),(268,'Ankara',226),(269,'Balıkesir',226),(270,'Bilecik',226),(271,'Bingöl',226),(272,'Bursa',226),(273,'Çanakkale',226),(274,'Çankırı',226),(275,'Çorum',226),(276,'Denizli',226),(277,'Diyarbakır',226),(278,'Edirne',226),(279,'Erzurum',226),(280,'Gaziantep',226),(281,'Giresun',226),(282,'Hakkâri',226),(283,'Hatay',226),(284,'Isparta',226),(285,'Istanbul',226),(286,'Konya',226),(287,'Malatya',226),(288,'Manisa',226),(289,'Iğdır',226),(290,'Karaman',226),(291,'Osmaniye',226),(292,'Tokat',226),(293,'Sivas',226),(294,'Sinop',226),(295,'Siirt',226),(296,'Batman',226),(297,'Kilis',226),(298,'Rize',226),(299,'Ordu',226),(300,'Tunceli',226),(301,'Yozgat',226),(302,'Van',226),(303,'Bayburt',226),(304,'Yalova',226),(305,'Samsun',226),(306,'Sakarya',226);
 /*!40000 ALTER TABLE `states` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -647,4 +647,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-14 11:59:19
+-- Dump completed on 2022-09-14 18:05:21
