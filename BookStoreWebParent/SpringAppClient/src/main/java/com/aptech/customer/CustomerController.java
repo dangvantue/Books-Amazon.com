@@ -25,6 +25,7 @@ import com.aptech.common.entity.Country;
 import com.aptech.common.entity.Customer;
 import com.aptech.security.CustomerUserDetails;
 import com.aptech.security.oauth.CustomerOAuth2User;
+import com.aptech.setting.EmailSettingBag;
 import com.aptech.setting.SettingService;
 
 @Controller
