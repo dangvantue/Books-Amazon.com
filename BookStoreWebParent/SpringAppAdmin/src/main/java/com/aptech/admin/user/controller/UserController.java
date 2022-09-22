@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aptech.admin.FileUploadUtil;
+import com.aptech.admin.paging.PagingAndSortingHelper;
+import com.aptech.admin.paging.PagingAndSortingParam;
 import com.aptech.admin.user.UserNotFoundException;
 import com.aptech.admin.user.UserService;
 import com.aptech.admin.user.export.UserCsvExporter;
@@ -25,16 +27,24 @@ import com.aptech.admin.user.export.UserPdfExporter;
 import com.aptech.common.entity.user.Role;
 import com.aptech.common.entity.user.User;
 
-
 @Controller
 public class UserController {
+
+	private String defaultRedirectURL = "redirect:/users/page/1?sortField=firstName&sortDir=asc";
+
 	@Autowired
 	private UserService service;
 
 	@GetMapping("/users")
-	public String listAll(Model model) {
-		List<User> listUsers = service.listAll();
-		model.addAttribute("listUsers", listUsers);
+	public String listFirstPage() {
+		return defaultRedirectURL;
+	}
+
+	@GetMapping("/users/page/{pageNum}")
+	public String listByPage(
+			@PagingAndSortingParam(listName = "listUsers", moduleURL = "/users") PagingAndSortingHelper helper,
+			@PathVariable(name = "pageNum") int pageNum) {
+		service.listByPage(pageNum, helper);
 
 		return "users/users";
 	}
@@ -75,7 +85,12 @@ public class UserController {
 
 		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
 
-		return "redirect:/users";
+		return getRedirectURLtoAffectedUser(user);
+	}
+
+	private String getRedirectURLtoAffectedUser(User user) {
+		String firstPartOfEmail = user.getEmail().split("@")[0];
+		return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
 	}
 
 	@GetMapping("/users/edit/{id}")
@@ -91,7 +106,7 @@ public class UserController {
 			return "users/user_form";
 		} catch (UserNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
-			return "redirect:/users";
+			return defaultRedirectURL;
 		}
 	}
 
@@ -106,20 +121,18 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 		}
 
-		return "redirect:/users";
+		return defaultRedirectURL;
 	}
 
 	@GetMapping("/users/{id}/enabled/{status}")
 	public String updateUserEnabledStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled,
 			RedirectAttributes redirectAttributes) {
-
 		service.updateUserEnabledStatus(id, enabled);
 		String status = enabled ? "enabled" : "disabled";
 		String message = "The user ID " + id + " has been " + status;
 		redirectAttributes.addFlashAttribute("message", message);
 
-		return "redirect:/users";
-
+		return defaultRedirectURL;
 	}
 
 	@GetMapping("/users/export/csv")
@@ -128,19 +141,20 @@ public class UserController {
 		UserCsvExporter exporter = new UserCsvExporter();
 		exporter.export(listUsers, response);
 	}
-	
+
 	@GetMapping("/users/export/excel")
 	public void exportToExcel(HttpServletResponse response) throws IOException {
 		List<User> listUsers = service.listAll();
+
 		UserExcelExporter exporter = new UserExcelExporter();
 		exporter.export(listUsers, response);
 	}
-	
+
 	@GetMapping("/users/export/pdf")
 	public void exportToPDF(HttpServletResponse response) throws IOException {
 		List<User> listUsers = service.listAll();
+
 		UserPdfExporter exporter = new UserPdfExporter();
 		exporter.export(listUsers, response);
 	}
 }
-
