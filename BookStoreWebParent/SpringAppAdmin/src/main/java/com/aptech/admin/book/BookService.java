@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.aptech.admin.paging.PagingAndSortingHelper;
 import com.aptech.common.entity.book.Book;
 import com.aptech.common.exception.BookNotFoundException;
 
@@ -52,6 +53,13 @@ public class BookService {
 		
 		return repo.findAll(pageable);		
 	}	
+	
+	public void searchBook(int pageNum, PagingAndSortingHelper helper) {
+		Pageable pageable = helper.createPageable(BOOKS_PER_PAGE, pageNum);
+		String keyword = helper.getKeyword();		
+		Page<Book> page = repo.searchBooksByName(keyword, pageable);		
+		helper.updateModelAttributes(pageNum, page);
+	}
 
 	public Book save(Book book) {
 		if (book.getId() == null) {

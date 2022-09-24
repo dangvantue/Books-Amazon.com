@@ -36,4 +36,7 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 			+ "OR b.category.name LIKE %?3%)")			
 	public Page<Book> searchInCategory(Integer categoryId, String categoryIdMatch, 
 			String keyword, Pageable pageable);
+	
+	@Query("SELECT b FROM Book b WHERE b.name LIKE %?1%")
+	public Page<Book> searchBooksByName(String keyword, Pageable pageable);
 }
