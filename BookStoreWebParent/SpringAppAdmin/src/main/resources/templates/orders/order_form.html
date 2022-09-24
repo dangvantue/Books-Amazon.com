@@ -24,7 +24,9 @@
 		    <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
 		  </li>
 		  <li class="nav-item">
+
 		    <a class="nav-link" id="books-tab" data-bs-toggle="tab" href="#books" role="tab">Books</a>
+
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" id="shipping-tab" data-bs-toggle="tab" href="#shipping" role="tab">Shipping</a>
@@ -40,6 +42,7 @@
 		  
 		  <div class="tab-pane fade p-3" id="books" role="tabpanel">
 			<div th:replace="orders/order_form_books :: content"></div>   
+
 		  </div>
 		  
 		  <div class="tab-pane fade p-3" id="shipping" role="tabpanel">
