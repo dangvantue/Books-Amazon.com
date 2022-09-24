@@ -46,20 +46,22 @@
                                        <a th:href="@{?lang=es}">español - ES</a>                                                                         
                                     </li>
                                      <li class="menu-item menu-item-has-children">
-                                       <a href="#">العربية - AR </a>                                                                         
+
+                                       <a th:href="@{?lang=ar}">العربية - AR </a>                                                                         
                                     </li>
                                      <li class="menu-item menu-item-has-children">
-                                       <a href="#">Deutsch - DE</a>                                                                         
+                                       <a th:href="@{?lang=de}">Deutsch - DE</a>                                                                         
                                     </li>
                                      <li class="menu-item menu-item-has-children">
-                                       <a href="#">한국어 - KO</a>                                                                         
+                                       <a th:href="@{?lang=ko}">한국어 - KO</a>                                                                         
                                     </li>
                                     
                                      <li class="menu-item menu-item-has-children">
-                                       <a href="#">português - PT</a>                                                                         
+                                       <a th:href="@{?lang=pt}">português - PT</a>                                                                         
                                     </li>
                                      <li class="menu-item menu-item-has-children">
-                                       <a href="#">中文 (简体) - ZH</a>                                                                         
+                                       <a th:href="@{?lang=zh}">中文 (简体) - ZH</a>                                                                         
+
                                     </li>
                                  </ul>
                               </li>                         
@@ -128,7 +130,9 @@
                            <a th:href="@{/login}" class="gen-button">
                               <div class="gen-button-block">
                                  <span class="gen-button-line-left"></span>
-                                 <span class="gen-button-text" >[[#{menu.subcrible}]]</span>
+
+                                 <span class="gen-button-text" >[[#{menu.subscribe}]]</span>
+
                               </div>
                            </a>
                         </div>
