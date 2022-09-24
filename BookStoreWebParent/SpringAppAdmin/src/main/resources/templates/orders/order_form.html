@@ -24,7 +24,7 @@
 		    <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab">Overview</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="products-tab" data-bs-toggle="tab" href="#products" role="tab">Books</a>
+		    <a class="nav-link" id="books-tab" data-bs-toggle="tab" href="#books" role="tab">Books</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" id="shipping-tab" data-bs-toggle="tab" href="#shipping" role="tab">Shipping</a>
@@ -38,8 +38,8 @@
 			<div th:replace="orders/order_form_overview :: content"></div>  
 		  </div>
 		  
-		  <div class="tab-pane fade p-3" id="products" role="tabpanel">
-			<h2>Edit Books</h2>  
+		  <div class="tab-pane fade p-3" id="books" role="tabpanel">
+			<div th:replace="orders/order_form_books :: content"></div>   
 		  </div>
 		  
 		  <div class="tab-pane fade p-3" id="shipping" role="tabpanel">
@@ -81,6 +81,8 @@
 </script>
 	<script th:src="@{/js/common_form.js}"></script>
 	<script th:src="@{/js/common_form_country_state.js}"></script>	
+	<script th:src="@{/js/jquery.number.min.js}"></script>
+	<script th:src="@{/js/order_form_overview_books.js}"></script>
     <script th:src="@{/js/feather-icons/feather.min.js}"></script>
     <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
     <script th:src="@{/js/app.js}"></script>  
