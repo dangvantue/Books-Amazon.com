@@ -227,7 +227,7 @@ CREATE TABLE `cart_items` (
   KEY `FKdagcsk6v6x4n1kxw3rkp57921` (`customer_id`),
   CONSTRAINT `FKdagcsk6v6x4n1kxw3rkp57921` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `FKhiu1jw80o45wfiw5tgok1xpkl` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,7 +387,7 @@ CREATE TABLE `order_details` (
   KEY `FKjyu2qbqt8gnvno9oe9j2s2ldk` (`order_id`),
   CONSTRAINT `FKjqe04yonp6a52rhbf2y0m03qw` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `FKjyu2qbqt8gnvno9oe9j2s2ldk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +396,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (3,36,3,88.92,125.55,41.85,4,2),(4,7,2,39.52,64.8,32.4,3,2);
+INSERT INTO `order_details` VALUES (3,36,3,88.92,125.55,41.85,4,2),(4,7,2,39.52,64.8,32.4,3,2),(5,24,2,59.28,83.7,41.85,4,3),(6,20,4,118.56,123.2,30.8,8,3),(7,12,1,29.64,41.85,41.85,4,4);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +416,7 @@ CREATE TABLE `order_track` (
   PRIMARY KEY (`id`),
   KEY `FK31jv1s212kajfn3kk1ksmnyfl` (`order_id`),
   CONSTRAINT `FK31jv1s212kajfn3kk1ksmnyfl` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -425,7 +425,7 @@ CREATE TABLE `order_track` (
 
 LOCK TABLES `order_track` WRITE;
 /*!40000 ALTER TABLE `order_track` DISABLE KEYS */;
-INSERT INTO `order_track` VALUES (1,'Order placed by customer','NEW','2020-11-06 09:27:20.000000',2),(2,'Pickked','PICKED','2022-09-26 15:03:46.000000',2);
+INSERT INTO `order_track` VALUES (1,'Order placed by customer','NEW','2020-11-06 09:27:20.000000',2),(8,'Order is being processed','PROCESSING','2022-09-26 16:45:01.000000',2),(9,'Customer received products','DELIVERED','2022-09-26 16:45:06.000000',2),(10,'Customer has paid this order','PAID','2022-09-26 16:45:16.000000',2),(11,'Shipper is delivering the package','SHIPPING','2022-09-26 16:46:51.029000',2),(12,'Reason: I was charged the wrong amount. Please return money','RETURN_REQUESTED','2022-09-26 21:21:47.962000',3),(13,'Shipper picked the package','PICKED','2022-09-26 21:40:41.782000',4),(14,'Shipper picked the package','PICKED','2022-09-26 21:40:45.541000',3),(15,'Shipper picked the package','PICKED','2022-09-26 21:40:50.011000',2),(16,'Shipper is delivering the package','SHIPPING','2022-09-26 21:40:54.142000',4),(17,'Shipper is delivering the package','SHIPPING','2022-09-26 21:40:56.870000',3),(18,'Books were returned','RETURNED','2022-09-26 21:42:26.850000',3);
 /*!40000 ALTER TABLE `order_track` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,7 +461,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `FKpxtb8awmi0dk6smoh2vp1litg` (`customer_id`),
   CONSTRAINT `FKpxtb8awmi0dk6smoh2vp1litg` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +470,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (2,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','346377','London',122,'Haiti','2022-09-22 00:00:00.000000',7,'2022-09-14 17:58:09.898000','CREDIT_CARD',128.44,'NEW',190.35,1,319.79,2);
+INSERT INTO `orders` VALUES (2,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','346377','London',122,'Haiti','2022-09-22 00:00:00.000000',7,'2022-09-14 17:58:09.898000','CREDIT_CARD',128.44,'PICKED',190.35,1,319.79,2),(3,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','','British Columbia',44,'Canada','2022-10-03 21:19:23.949000',7,'2022-09-26 21:19:23.949000','PAYPAL',177.84,'RETURNED',206.9,0,384.74,2),(4,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','','British Columbia',12,'Canada','2022-10-03 21:25:40.752000',7,'2022-09-26 21:25:40.752000','PAYPAL',29.64,'SHIPPING',41.85,0,71.49,2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -648,4 +648,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-26 15:16:17
+-- Dump completed on 2022-09-26 22:01:23
