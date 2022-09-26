@@ -353,7 +353,7 @@ CREATE TABLE `customers` (
   UNIQUE KEY `UK_rfbvkrffamfql7cjmen8v976v` (`email`),
   KEY `FK7b7p2myt0y31l4nyj1p7sk0b1` (`country_id`),
   CONSTRAINT `FK7b7p2myt0y31l4nyj1p7sk0b1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,7 +362,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'8 W Cerritos Ave #54','Benton, John B Jr','Ho Chi Minh','Quang','Trí','0987774191','71000','California','GOOGLE','2022-09-14 17:07:12.037000','triquang.15qt@gmail.com','',NULL,_binary '',NULL,234),(2,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','New Orleans','Trí','Quang','0987774191','71000','Queensland','FACEBOOK','2022-09-14 17:52:45.582000','triquang.74qt@gmail.com','',NULL,_binary '',NULL,14);
+INSERT INTO `customers` VALUES (1,'8 W Cerritos Ave #54','Benton, John B Jr','Ho Chi Minh','Quang','Trí','0987774191','71000','California','GOOGLE','2022-09-14 17:07:12.037000','triquang.15qt@gmail.com','',NULL,_binary '',NULL,234),(2,'8 W Cerritos Ave #54','8 W Cerritos Ave #54','New Orleans','Trí','Quang','0987774191','71000','Queensland','FACEBOOK','2022-09-14 17:52:45.582000','triquang.74qt@gmail.com','',NULL,_binary '',NULL,14),(3,'',NULL,'','Quang','Tri','','','','GOOGLE','2022-09-19 08:33:57.272000','onlinebook.amazon.com@gmail.com','',NULL,_binary '',NULL,234);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -387,7 +387,7 @@ CREATE TABLE `order_details` (
   KEY `FKjyu2qbqt8gnvno9oe9j2s2ldk` (`order_id`),
   CONSTRAINT `FKjqe04yonp6a52rhbf2y0m03qw` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `FKjyu2qbqt8gnvno9oe9j2s2ldk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +396,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (1,5,1,80.92,84.15,84.15,18,1),(2,60,3,173.4,128.25,42.75,9,1),(3,36,3,88.92,125.55,41.85,4,2);
+INSERT INTO `order_details` VALUES (3,36,3,88.92,125.55,41.85,4,2),(4,7,2,39.52,64.8,32.4,3,2);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +416,7 @@ CREATE TABLE `order_track` (
   PRIMARY KEY (`id`),
   KEY `FK31jv1s212kajfn3kk1ksmnyfl` (`order_id`),
   CONSTRAINT `FK31jv1s212kajfn3kk1ksmnyfl` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -425,6 +425,7 @@ CREATE TABLE `order_track` (
 
 LOCK TABLES `order_track` WRITE;
 /*!40000 ALTER TABLE `order_track` DISABLE KEYS */;
+INSERT INTO `order_track` VALUES (1,'Order placed by customer','NEW','2020-11-06 09:27:20.000000',2),(2,'Pickked','PICKED','2022-09-26 15:03:46.000000',2);
 /*!40000 ALTER TABLE `order_track` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,7 +470,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'8 W Cerritos Ave #54','Benton, John B Jr','Ho Chi Minh','Quang','Trí','0987774191','71000','California',65,'United States','2022-09-20 17:48:26.456000',6,'2022-09-14 17:48:26.456000','PAYPAL',254.32,'NEW',212.4,0,466.72,1),(2,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','','British Columbia',36,'Canada','2022-09-21 17:58:09.898000',7,'2022-09-14 17:58:09.898000','PAYPAL',88.92,'NEW',125.55,0,214.47,2);
+INSERT INTO `orders` VALUES (2,'8 W Cerritos Ave #54','Benton, John B Jr','Queensland','James','Butt','0987774191','346377','London',122,'Haiti','2022-09-22 00:00:00.000000',7,'2022-09-14 17:58:09.898000','CREDIT_CARD',128.44,'NEW',190.35,1,319.79,2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -598,7 +599,7 @@ CREATE TABLE `users` (
   `status` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -607,7 +608,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'triquang.95qt@gmail.com','Quang','Tri','$2a$10$0aY90d7DVwRgOD4itIxvie3/19WJQS7t6PoloXbJu5C9fm.keU2Yu','289014159_1126424917918145_1692834393169026245_n.jpg',_binary ''),(3,'art@venere.org','Art','Venere','$2a$10$VGRzfPXGouyweaS.fsDrWupx2mxAPcLbiI5wUJP.99y0YsXpuAGDm','Messi-800x480.jpg',_binary ''),(4,'lpaprocki@hotmail.com','Paprocki','Feltz Printing Service','$2a$10$B.H7nPBRlkcw4aZdXbURsOBISJzgizTDsPzeNddkmDdD144TgtuKO','bo.jpg',_binary ''),(5,'donette.foller@cox.net','Foller','Printing Dimensions','$2a$10$wn0pC9WMDG1rL/xeccajhOagRLvsu7ohGqZgP5QRpTELsX4bnfsDK','skysports-neymar-paris-saint-germain_4456493_yggp.jpg',_binary ''),(6,'simona@morasca.com','Morasca','Chapman, Ross E Esq','$2a$10$Ca.49abWWwaSHE4Y2J0P5uRsOC56HwauzwibrZB93AvHtmW0MpH1G','champions-league-psg-neymar-2_ccyv.jpg',_binary ''),(7,'sage_wieser@cox.net','Wieser','Truhlar And Truhlar Attys','$2a$10$AZ6Mur9GwQnnDGunxAbuZeO80pkz9lH5qTuKup38sZVOBQfUJ6.Gi','tong-thong-My-Donald-Trump-featured-image-elle-man-1.png',_binary ''),(8,'calbares@gmail.com','Rousseaux','Michael Esq','$2a$10$zw/Jla2nBcy7QeS9kKtF3ecuEouOCr.p8nAU1X8J4UOEdf1h5NMe6','pBpivAl.jpg',_binary ''),(9,'ravi@gmail.com','Ravi','Kumar','$2a$10$bRZuAmOVvEPJb9e/Zp0in.npKfyEsn8dZOTUvO82YbxpV79jmFo8u','images.jpg',_binary ''),(12,'quangtri.nguyen@dxc.com','Tri',' Quang','$2a$10$N9b0GSnOqoRxuBpnemHjS.4F9LnQ/HgXLho.TS1o/ObnTWM/JgRDm','david-beckham-10.jpg',_binary ''),(15,'vokhanhloc@gmail','Loc','Khanh','$2a$10$R6QKG54RoORjWLeeXdfbPudSvNSEqwxqMNouvSal.F/sQuwVi0oIW','office.jpg',_binary '');
+INSERT INTO `users` VALUES (1,'triquang.95qt@gmail.com','Quang','Tri','$2a$10$0aY90d7DVwRgOD4itIxvie3/19WJQS7t6PoloXbJu5C9fm.keU2Yu','289014159_1126424917918145_1692834393169026245_n.jpg',_binary ''),(3,'art@venere.org','Art','Venere','$2a$10$VGRzfPXGouyweaS.fsDrWupx2mxAPcLbiI5wUJP.99y0YsXpuAGDm','Messi-800x480.jpg',_binary ''),(4,'lpaprocki@hotmail.com','Paprocki','Feltz Printing Service','$2a$10$B.H7nPBRlkcw4aZdXbURsOBISJzgizTDsPzeNddkmDdD144TgtuKO','bo.jpg',_binary ''),(5,'donette.foller@cox.net','Foller','Printing Dimensions','$2a$10$wn0pC9WMDG1rL/xeccajhOagRLvsu7ohGqZgP5QRpTELsX4bnfsDK','skysports-neymar-paris-saint-germain_4456493_yggp.jpg',_binary ''),(6,'simona@morasca.com','Morasca','Chapman, Ross E Esq','$2a$10$Ca.49abWWwaSHE4Y2J0P5uRsOC56HwauzwibrZB93AvHtmW0MpH1G','champions-league-psg-neymar-2_ccyv.jpg',_binary ''),(7,'sage_wieser@cox.net','Wieser','Truhlar And Truhlar Attys','$2a$10$AZ6Mur9GwQnnDGunxAbuZeO80pkz9lH5qTuKup38sZVOBQfUJ6.Gi','tong-thong-My-Donald-Trump-featured-image-elle-man-1.png',_binary ''),(8,'calbares@gmail.com','Rousseaux','Michael Esq','$2a$10$zw/Jla2nBcy7QeS9kKtF3ecuEouOCr.p8nAU1X8J4UOEdf1h5NMe6','pBpivAl.jpg',_binary ''),(9,'ravi@gmail.com','Ravi','Kumar','$2a$10$bRZuAmOVvEPJb9e/Zp0in.npKfyEsn8dZOTUvO82YbxpV79jmFo8u','images.jpg',_binary ''),(12,'quangtri.nguyen@dxc.com','Tri',' Quang','$2a$10$N9b0GSnOqoRxuBpnemHjS.4F9LnQ/HgXLho.TS1o/ObnTWM/JgRDm','david-beckham-10.jpg',_binary '');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -634,7 +635,7 @@ CREATE TABLE `users_roles` (
 
 LOCK TABLES `users_roles` WRITE;
 /*!40000 ALTER TABLE `users_roles` DISABLE KEYS */;
-INSERT INTO `users_roles` VALUES (1,1),(12,1),(7,2),(3,3),(6,3),(7,3),(8,3),(9,3),(4,4),(6,4),(8,4),(15,4),(5,5),(8,5),(9,5),(15,5);
+INSERT INTO `users_roles` VALUES (1,1),(12,1),(7,2),(3,3),(6,3),(7,3),(8,3),(9,3),(4,4),(6,4),(8,4),(5,5),(8,5),(9,5);
 /*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -647,4 +648,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-14 18:05:21
+-- Dump completed on 2022-09-26 15:16:17
