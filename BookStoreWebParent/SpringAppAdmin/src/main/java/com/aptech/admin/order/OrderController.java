@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.aptech.admin.paging.PagingAndSortingHelper;
 import com.aptech.admin.paging.PagingAndSortingParam;
+import com.aptech.admin.security.BookStoreUserDetails;
 import com.aptech.admin.setting.SettingService;
 import com.aptech.common.entity.Country;
 import com.aptech.common.entity.book.Book;
@@ -45,10 +47,15 @@ public class OrderController {
 	public String listByPage(
 			@PagingAndSortingParam(listName = "listOrders", moduleURL = "/orders") PagingAndSortingHelper helper,
 			@PathVariable(name = "pageNum") int pageNum,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			@AuthenticationPrincipal BookStoreUserDetails loggedUser) {
 
 		orderService.listByPage(pageNum, helper);
 		loadCurrencySetting(request);
+		
+		if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Salesperson") && loggedUser.hasRole("Shipper")) {
+			return "orders/orders_shipper";
+		}
 		
 		return "orders/orders";
 	}
@@ -63,13 +70,22 @@ public class OrderController {
 	
 	@GetMapping("/orders/detail/{id}")
 	public String viewOrderDetails(@PathVariable("id") Integer id, Model model, 
-			RedirectAttributes ra, HttpServletRequest request) {
+			RedirectAttributes ra, HttpServletRequest request, @AuthenticationPrincipal BookStoreUserDetails loggedUser) {
 		try {
 			Order order = orderService.get(id);
 			loadCurrencySetting(request);			
+						
+			boolean isVisibleForAdminOrSalesperson = false;
+			
+			if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson")) {
+				isVisibleForAdminOrSalesperson = true;
+			}
+			
+			model.addAttribute("isVisibleForAdminOrSalesperson", isVisibleForAdminOrSalesperson);
 			model.addAttribute("order", order);
 			
 			return "orders/order_details_modal";
+			
 		} catch (OrderNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return defaultRedirectURL;

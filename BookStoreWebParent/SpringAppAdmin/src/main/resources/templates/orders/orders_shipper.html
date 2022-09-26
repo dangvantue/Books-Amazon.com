@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Orders - Book Store Admin', 'none')" />
+<body>
+    <div id="app">
+       <span th:replace="sidebar :: sidebar"></span>
+        <div id="main">
+            
+           <span th:replace="header :: header"></span>
+            
+<div class="main-content container-fluid">
+    <span th:replace="locale :: locate"></span>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h3>Manage Orders (Shipper) </h3> <br>
+                
+            </div>
+			
+            
+           <div th:replace="fragments :: search_form_and_message('/orders/page/1')"></div>
+           <div>
+		<th:block th:each="order : ${listOrders}">
+		<div class="row m-1">
+			<div class="card">
+				<div class="card-header">
+					<div class="row">
+						<div class="col">										
+							<span>Order ID #[[${order.id}]]</span>
+						</div>				
+					</div>
+				</div>
+				<div class="card-body">
+					<div>
+						<i class="fas fa-user"></i>
+						<b>[[${order.recipientName}]]</b>
+					</div>
+					<div>
+						<i class="fas fa-home"></i>
+						[[${order.recipientAddress}]]
+					</div>
+					<div>
+						<i class="fas fa-phone-alt"></i>
+						[[${order.phoneNumber}]]
+					</div>
+					<div th:if="${order.COD}">
+						<span>COD: <b><div th:replace="fragments :: format_currency(${order.total})"></div></b></span>
+					</div>
+					<div>&nbsp;</div>
+					<div class="row">
+						<div class="col">
+							<a class="fas fa-file-alt fa-2x icon-green linkOrderDetail"
+									th:href="@{'/orders/detail/' + ${order.id}}"
+									title="View details of this order"
+									></a>						
+						</div>
+						
+						<div class="col">
+							<th:block th:if="${order.picked}">
+								<i class="fas fa-people-carry fa-2x icon-green"></i>
+							</th:block>
+							<th:block th:unless="${order.picked}">
+								<i class="fas fa-people-carry fa-2x icon-dark"></i>
+							</th:block>							
+						</div>
+						
+						<div class="col">
+							<th:block th:if="${order.shipping}">
+								<i class="fas fa-shipping-fast fa-2x icon-green"></i>
+							</th:block>
+							<th:block th:unless="${order.shipping}">
+								<i class="fas fa-shipping-fast fa-2x icon-dark"></i>
+							</th:block>							
+						</div>
+						
+						<div class="col">
+							<th:block th:if="${order.delivered}">
+								<i class="fas fa-box-open fa-2x icon-green"></i>
+							</th:block>
+							<th:block th:unless="${order.delivered}">
+								<i class="fas fa-box-open fa-2x icon-dark"></i>
+							</th:block>							
+						</div>
+						
+						<div class="col">
+							<th:block th:if="${order.returned}">
+								<i class="fas fa-undo fa-2x icon-green"></i>
+							</th:block>
+							<th:block th:unless="${order.returned}">
+								<i class="fas fa-undo fa-2x icon-dark"></i>
+							</th:block>							
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+		</th:block>
+	</div>	
+          
+                
+            
+           
+			<div th:replace="fragments :: pagination('/orders', 'orders')"></div>
+            
+            <div th:replace="modal_fragments :: confirm_modal" /></div>
+            
+           <div class="modal fade" id="customerDetailModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="orderDetailModal">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
+	
+        </div>
+
+    </section>
+</div>
+
+
+	<span th:replace="footer:: footer"></span>
+        </div>
+    </div>
+    
+<script type="text/javascript">
+	moduleURL = "[[@{/orders}]]";
+	
+	$(document).ready(function() {
+		$("[name='keyword']").attr("placeholder", "Type #number to search by Order ID");
+		handleLinkViewOrderDetails();
+	});
+		
+	function handleLinkViewOrderDetails() {
+		$(".linkOrderDetail").on("click", function(e) {
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#orderDetailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});		
+	}
+</script>
+	<script th:src="@{/js/common_list.js}"></script>
+    <script th:src="@{/js/feather-icons/feather.min.js}"></script>
+    <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+    <script th:src="@{/js/app.js}"></script>  
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>
