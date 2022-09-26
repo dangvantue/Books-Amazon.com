@@ -26,6 +26,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
+		.antMatchers("/states/list_by_country/**").hasAnyAuthority("Admin", "Salesperson")
 		.antMatchers("/users/**").hasAuthority("Admin")
 		.antMatchers("/categories/**", "/authors/**").hasAnyAuthority("Admin", "Editor")
 		.antMatchers("/books/new", "/books/delete/**").hasAnyAuthority("Admin", "Editor")
@@ -37,6 +38,7 @@ public class SecurityConfiguration {
 			.hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 			
 		.antMatchers("/books/**").hasAnyAuthority("Admin", "Editor")
+		.antMatchers("/orders", "/orders/", "/orders/page/**", "/orders/detail/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")
 		.antMatchers("/customers/**", "/orders/**", "/get_shipping_cost").hasAnyAuthority("Admin", "Salesperson")
 		
 		.anyRequest().authenticated()

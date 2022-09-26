@@ -31,7 +31,7 @@
 						<input type="text" required class="form-control m-1 cost-input" 
 							name="bookDetailCost"
 							th:rowNumber="${status.count}" 
-							th:value="${detail.bookCost}" style="max-width: 140px"/>
+							th:value="${detail.bookCost}" style="max-width: 250px"/>
 					</td>
 				</tr>
 				<tr>
@@ -41,7 +41,7 @@
 							name="quantity"
 							th:id="'quantity' + ${status.count}"
 							th:rowNumber="${status.count}" 
-							th:value="${detail.quantity}" style="max-width: 140px"/>
+							th:value="${detail.quantity}" style="max-width: 250px"/>
 					</td>
 				</tr>	
 				<tr>
@@ -51,7 +51,7 @@
 							name="bookPrice"
 							th:id="'price' + ${status.count}"
 							th:rowNumber="${status.count}" 
-							th:value="${detail.unitPrice}" style="max-width: 140px"/>
+							th:value="${detail.unitPrice}" style="max-width: 250px"/>
 					</td>
 				</tr>
 				<tr>
@@ -60,7 +60,7 @@
 						<input type="text" readonly="readonly" class="form-control m-1 subtotal-output"
 							name="bookSubtotal"
 							th:id="'subtotal' + ${status.count}" 
-							th:value="${detail.subtotal}" style="max-width: 140px"/>
+							th:value="${detail.subtotal}" style="max-width: 250px"/>
 					</td>
 				</tr>				
 				<tr>
@@ -68,7 +68,7 @@
 					<td>
 						<input type="text" required class="form-control m-1 ship-input"
 							name="bookShipCost" 
-							th:value="${detail.shippingCost}" style="max-width: 140px"/>
+							th:value="${detail.shippingCost}" style="max-width: 250px"/>
 					</td>
 				</tr>											
 			</table>
