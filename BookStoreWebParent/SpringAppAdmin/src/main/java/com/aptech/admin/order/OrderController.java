@@ -1,6 +1,10 @@
 package com.aptech.admin.order;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,13 +13,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aptech.admin.paging.PagingAndSortingHelper;
 import com.aptech.admin.paging.PagingAndSortingParam;
 import com.aptech.admin.setting.SettingService;
 import com.aptech.common.entity.Country;
+import com.aptech.common.entity.book.Book;
 import com.aptech.common.entity.order.Order;
+import com.aptech.common.entity.order.OrderDetail;
+import com.aptech.common.entity.order.OrderStatus;
+import com.aptech.common.entity.order.OrderTrack;
 import com.aptech.common.entity.setting.Setting;
 import com.aptech.common.exception.OrderNotFoundException;
 
@@ -100,5 +109,90 @@ public class OrderController {
 		}
 		
 	}	
+	
+	@PostMapping("/order/save")
+	public String saveOrder(Order order, HttpServletRequest request, RedirectAttributes ra) {
+		String countryName = request.getParameter("countryName");
+		order.setCountry(countryName);
+		
+		updateBookDetails(order, request);
+		updateOrderTracks(order, request);
+
+		orderService.save(order);		
+		
+		ra.addFlashAttribute("message", "The order ID " + order.getId() + " has been updated successfully");
+		
+		return defaultRedirectURL;
+	}
+	
+	private void updateOrderTracks(Order order, HttpServletRequest request) {
+		String[] trackIds = request.getParameterValues("trackId");
+		String[] trackStatuses = request.getParameterValues("trackStatus");
+		String[] trackDates = request.getParameterValues("trackDate");
+		String[] trackNotes = request.getParameterValues("trackNotes");
+		
+		List<OrderTrack> orderTracks = order.getOrderTracks();
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+		
+		for (int i = 0; i < trackIds.length; i++) {
+			OrderTrack trackRecord = new OrderTrack();
+			
+			Integer trackId = Integer.parseInt(trackIds[i]);
+			if (trackId > 0) {
+				trackRecord.setId(trackId);
+			}
+			
+			trackRecord.setOrder(order);
+			trackRecord.setStatus(OrderStatus.valueOf(trackStatuses[i]));
+			trackRecord.setNotes(trackNotes[i]);
+			
+			try {
+				trackRecord.setUpdatedTime(dateFormatter.parse(trackDates[i]));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			orderTracks.add(trackRecord);
+		}
+	}
+
+	private void updateBookDetails(Order order, HttpServletRequest request) {
+		String[] detailIds = request.getParameterValues("detailId");
+		String[] bookIds = request.getParameterValues("bookId");
+		String[] bookPrices = request.getParameterValues("bookPrice");
+		String[] bookDetailCosts = request.getParameterValues("bookDetailCost");
+		String[] quantities = request.getParameterValues("quantity");
+		String[] bookSubtotals = request.getParameterValues("bookSubtotal");
+		String[] bookShipCosts = request.getParameterValues("bookShipCost");
+		
+		Set<OrderDetail> orderDetails = order.getOrderDetails();
+		
+		for (int i = 0; i < detailIds.length; i++) {
+			System.out.println("Detail ID: " + detailIds[i]);
+			System.out.println("\t Prodouct ID: " + bookIds[i]);
+			System.out.println("\t Cost: " + bookDetailCosts[i]);
+			System.out.println("\t Quantity: " + quantities[i]);
+			System.out.println("\t Subtotal: " + bookSubtotals[i]);
+			System.out.println("\t Ship cost: " + bookShipCosts[i]);
+			
+			OrderDetail orderDetail = new OrderDetail();
+			Integer detailId = Integer.parseInt(detailIds[i]);
+			if (detailId > 0) {
+				orderDetail.setId(detailId);
+			}
+			
+			orderDetail.setOrder(order);
+			orderDetail.setBook(new Book(Integer.parseInt(bookIds[i])));
+			orderDetail.setBookCost(Float.parseFloat(bookDetailCosts[i]));
+			orderDetail.setSubtotal(Float.parseFloat(bookSubtotals[i]));
+			orderDetail.setShippingCost(Float.parseFloat(bookShipCosts[i]));
+			orderDetail.setQuantity(Integer.parseInt(quantities[i]));
+			orderDetail.setUnitPrice(Float.parseFloat(bookPrices[i]));
+			
+			orderDetails.add(orderDetail);
+			
+		}
+		
+	}
 }
 
