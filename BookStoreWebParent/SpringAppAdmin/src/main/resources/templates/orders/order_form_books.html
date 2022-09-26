@@ -5,10 +5,12 @@
 	<div id="bookList">
 		
 		<th:block th:each="detail, status : ${order.orderDetails}">
-		<div class="border rounded p-1" th:with="book = ${detail.book}">
+		<div class="border rounded p-1" th:with="book = ${detail.book}" th:id="'row' + ${status.count}">
+		<input type="hidden" name="bookId" th:value="${book.id}"  class="hiddenBookId"/>
 			<div class="row">
 				<div class="col-1">
-					<div>[[${status.count}]]</div>				
+					<div class="divCount">[[${status.count}]]</div>		
+					<div><a class="fas fa-trash icon-red linkRemove" href="" th:rowNumber="${status.count}"></a></div>			
 				</div>
 				<div class="col-3">
 					<img th:src="@{${book.mainImagePath}}" class="img-fluid" width="60%"/>

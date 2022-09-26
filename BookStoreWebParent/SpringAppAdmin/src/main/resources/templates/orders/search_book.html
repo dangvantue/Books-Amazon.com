@@ -13,7 +13,7 @@
 						   <div class="input-group mb-3">
 							
 							   <span class="input-group-text">Search</span>
-							   <input type="search" name="keyword" th:value="${keyword}" class="form-control" required >
+							   <input type="search" name="keyword" th:value="${keyword}" placeholder="More in Books..." class="form-control" required >
 							   &nbsp;&nbsp;
 							   <button type="submit" class="btn btn-primary">
 								   <i class="fas fa-search"></i>
@@ -38,10 +38,11 @@
 		</div>
 		</th:block>
 	</div>
-	
+	<div th:replace="modal_fragments :: confirm_modal" /></div>
 	<div th:replace="fragments :: pagination('/books', 'books')"></div>
 	</section>
 </div>
+<script th:src="@{/js/common_form.js}"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		handleLinkBook();
@@ -53,7 +54,11 @@
 			bookId = $(this).attr("pid");
 			bookName = $("#pname" + bookId).text();
 			
-			alert("Selected book ID: " + bookId + "\n" + bookName);
+			if (window.parent.isBookAlreadyAdded(bookId)) {
+				showWarningModal("The book '" + bookName + "' was already added.");
+			} else {				
+				window.parent.addBook(bookId, bookName);
+			}
 		});
 	}
 </script>
