@@ -110,8 +110,8 @@
                                        Address Book </a>
                                  </li>
                                  <li>
-                                    <a href="library.html"><i class="fa fa-list"></i>
-                                       Payments </a>
+                                    <a th:href="@{/orders}"><i class="fa fa-list"></i>
+                                       Returns & Orders </a>
                                  </li>
                                 
                                   <li>
@@ -125,6 +125,7 @@
                         </div>
                          </th:block>		
                         <div class="gen-btn-container">
+                        <th:block sec:authorize="!isAuthenticated()">
                            <a th:href="@{/login}" class="gen-button">
                               <div class="gen-button-block">
                                  <span class="gen-button-line-left"></span>

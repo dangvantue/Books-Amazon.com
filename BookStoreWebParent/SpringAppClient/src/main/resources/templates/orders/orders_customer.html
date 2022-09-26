@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Your Orders', 'none')" />
+ <body>
+	  <!--=========== Loader =============-->
+   			<span th:replace="loader :: loader"></span>
+   <!--=========== Loader =============-->
+			<span th:replace="header :: header"></span>
+   <!--========== Header ==============-->
+  
+   <!-- breadcrumb -->
+    <div class="gen-breadcrumb" th:style=" 'background-image: url(' + @{/images/background/asset-10.JPG} + ');' ">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <div class="gen-breadcrumb-title" >                           
+                               <h3>Your Orders</h3>                      
+                        </div> <br>
+                       
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb -->
+
+	 <!-- Section-1 Start -->
+	
+   	<div>
+		<form th:action="@{'/orders/page/1'}" class="form-inline m-3">
+			<input type="hidden" name="sortField" th:value="${sortField}" />
+			<input type="hidden" name="sortDir" th:value="${sortDir}" />
+			
+			<b>Filter:</b>&nbsp;&nbsp;
+			<input type="search" name="orderKeyword" th:value="${orderKeyword}" placeholder="Search all orders" class="form-control" required/>
+			&nbsp;&nbsp;
+			<button type="submit" class="btn btn-primary">
+				<i class="fas fa-search"></i>
+			</button>
+			&nbsp;&nbsp;
+			<button type="button" style="height: 58px; width: 75px" class="btn btn-primary" onclick="clearFilter()">
+				<i class="fas fa-eraser"></i>
+			</button>
+		</form>				
+	</div>
+	
+	<div class="full-details">
+		<table class="table table-bordered table-striped table-hover table-responsive-xl">
+			<thead class="thead-dark">
+				<tr>
+					<th th:replace="fragments :: column_link('id', 'ID', 'none')" />
+					<th th:replace="fragments :: column_link('orderTime', 'Order Time', 'none')" />
+					<th>Books</th>
+					<th th:replace="fragments :: column_link('total', 'Total', 'none')" />
+					<th th:replace="fragments :: column_link('status', 'Status', 'none')" />
+					<th>Action</th>
+				</tr>								
+			</thead>
+			<tbody>
+				<tr th:each="order : ${listOrders}" style="color: #FF6347;">
+					<td th:text="${order.id}">ID</td>
+					<td><div th:replace="fragments :: format_time(${order.orderTime})">Order Time</div></td>
+					<td th:utext="${order.bookNames}"></td>
+					<td>
+						<div th:replace="fragments :: format_currency(${order.total})">Total</div>
+					</td>
+					<td><span th:class="'textOrderStatus' + ${order.id}">[[${order.status}]]</span></td>
+					<td>
+						<a class="fas fa-file-alt linkDetail" style="color: #008000;" th:href="@{'/orders/detail/' + ${order.id}}"  title="View details of this order"></a>
+									
+						<th:block th:if="${order.returnRequested == false && order.delivered == true && order.returned == false}">
+							&nbsp;&nbsp;&nbsp;		
+							<a class="fas fa-undo linkReturnOrder" style="color: #0000FF" href=""
+								th:classappend="'linkReturn' + ${order.id}"
+								th:orderId="${order.id}"
+							    title="Return this order"></a>
+						</th:block> 
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div th:replace="fragments :: pagination('/orders', 'orders')"></div>
+	<div th:replace="orders/return_order_modal :: content"></div>
+	
+	<div class="modal fade" id="orderDetailsModal">
+	  <div class="modal-dialog modal-xl">
+	    <div class="modal-content">
+	    </div>
+	  </div>
+	</div>	
+		
+	<br>
+	
+    <!-- Section-1 End -->
+	 <span th:replace="footer:: footer"></span>
+  <!-- Back-to-Top start -->
+    <div id="back-to-top">
+        <a class="top" id="top" href="#top"> <i class="ion-ios-arrow-up"></i> </a>
+    </div>
+    <!-- Back-to-Top end -->
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";	
+
+	moduleURL = "[[@{/orders}]]";
+	
+	function clearFilter() {
+		window.location = moduleURL;
+	}
+
+	$(document).ready(function(){
+		handleDetailLink();
+	});
+	
+	function handleDetailLink() {
+		$(".linkDetail").on("click", function(e) {
+			e.preventDefault();
+			$('#orderDetailsModal').modal('show').find('.modal-content').load($(this).attr('href'));
+		});		
+	}	
+</script>
+
+    <!-- js-min -->
+    <script type="text/javascript" th:src="@{/js/return_order.js}"></script>
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/asyncloader.min.js}"></script>
+    <!-- JS bootstrap -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- owl-carousel -->
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <!-- counter-js -->
+    <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/jquery.counterup.min.js}"></script>
+    <!-- popper-js -->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/swiper-bundle.min.js}"></script>
+    <!-- Iscotop -->
+    <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+
+    <script th:src="@{/js/slick.min.js}"></script>
+
+    <script th:src="@{/js/streamlab-core.js}"></script>
+
+    <script th:src="@{/js/script.js}"></script>
+
+
+</body>
+</html>
