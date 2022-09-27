@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aptech.admin.AmazonS3Util;
 import com.aptech.admin.FileUploadUtil;
 import com.aptech.common.entity.Category;
 import com.aptech.common.exception.CategoryNotFoundException;
@@ -86,10 +87,16 @@ public class CategoryController {
 			category.setImage(fileName);
 
 			Category savedCategory = service.save(category);
-			String uploadDir = "../category-images/" + savedCategory.getId();
+//			String uploadDir = "../category-images/" + savedCategory.getId();
+//			
+//			FileUploadUtil.cleanDir(uploadDir);
+//			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			/* Save file when upload file AWS */
+			String uploadDir = "category-images/" + savedCategory.getId();
+			
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 		} else {
 			service.save(category);
 		}
@@ -133,8 +140,12 @@ public class CategoryController {
 			RedirectAttributes redirectAttributes) {
 		try {
 			service.delete(id);
-			String categoryDir = "../category-images/" + id;
-			FileUploadUtil.removeDir(categoryDir);
+//			String categoryDir = "../category-images/" + id;
+//			FileUploadUtil.removeDir(categoryDir);
+			
+			/* Delete Folder from AWS */
+			String categoryDir = "category-images/" + id;
+			AmazonS3Util.removeFolder(categoryDir);
 			
 			redirectAttributes.addFlashAttribute("message", 
 					"The category ID " + id + " has been deleted successfully");
