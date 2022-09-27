@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aptech.admin.AmazonS3Util;
 import com.aptech.admin.FileUploadUtil;
+import com.aptech.common.Constants;
 import com.aptech.common.entity.Currency;
 import com.aptech.common.entity.setting.Setting;
 
@@ -39,6 +41,8 @@ public class SettingController {
 			model.addAttribute(setting.getKey(), setting.getValue());
 		}
 		
+		model.addAttribute("S3_BASE_URI", Constants.S3_BASE_URI);
+		
 		return "settings/settings";
 	}
 	
@@ -60,12 +64,20 @@ public class SettingController {
 	private void saveSiteLogo(MultipartFile multipartFile, GeneralSettingBag settingBag) throws IOException {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//			String value = "/site-logo/" + fileName;
+//			settingBag.updateSiteLogo(value);
+//			
+//			String uploadDir = "../site-logo/";
+//			FileUploadUtil.cleanDir(uploadDir);
+//			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			
+			/* Upload File Amazon S3 Cloud */
 			String value = "/site-logo/" + fileName;
 			settingBag.updateSiteLogo(value);
 			
-			String uploadDir = "../site-logo/";
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			String uploadDir = "site-logo";
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 		}
 	}
 	

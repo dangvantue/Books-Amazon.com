@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.aptech.common.Constants;
 import com.aptech.common.entity.Author;
 import com.aptech.common.entity.Category;
 import com.aptech.common.entity.IdBasedEntity;
@@ -91,12 +92,20 @@ public class Book extends IdBasedEntity {
 		this.images.add(new BookImage(imageName, this));
 	}
 
+//	@Transient
+//	public String getMainImagePath() {
+//		if (id == null || mainImage == null)
+//			return "/images/image-thumbnail.png";
+//
+//		return "/book-images/" + this.id + "/" + this.mainImage;
+//	}
+	
 	@Transient
 	public String getMainImagePath() {
 		if (id == null || mainImage == null)
 			return "/images/image-thumbnail.png";
 
-		return "/book-images/" + this.id + "/" + this.mainImage;
+		return Constants.S3_BASE_URI + "/book-images/" + this.id + "/" + this.mainImage;
 	}
 	
 	public void addDetail(String name, String value) {

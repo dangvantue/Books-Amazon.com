@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.aptech.common.Constants;
 import com.aptech.common.entity.IdBasedEntity;
 
 import lombok.Getter;
@@ -38,8 +39,13 @@ public class BookImage extends IdBasedEntity {
 		this.book = book;
 	}
 
+//	@Transient
+//	public String getImagePath() {
+//		return "/book-images/" + book.getId() + "/extras/" + this.name;
+//	}
+	
 	@Transient
 	public String getImagePath() {
-		return "/book-images/" + book.getId() + "/extras/" + this.name;
+		return Constants.S3_BASE_URI + "/book-images/" + book.getId() + "/extras/" + this.name;
 	}
 }

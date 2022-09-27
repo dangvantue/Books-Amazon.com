@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.util.StringUtils;
 
+import com.aptech.admin.AmazonS3Util;
 import com.aptech.admin.FileUploadUtil;
 import com.aptech.admin.category.CategoryService;
 import com.aptech.common.entity.Author;
@@ -84,10 +85,15 @@ public class AuthorController {
 			author.setImage(fileName);
 			
 			Author savedAuthor = authorService.save(author);
-			String uploadDir = "../author-images/" + savedAuthor.getId();
+//			String uploadDir = "../author-images/" + savedAuthor.getId();
 			
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//			FileUploadUtil.cleanDir(uploadDir);
+//			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			
+			/* Save File Upload AWS */
+			String uploadDir = "author-images/" + savedAuthor.getId();
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 			
 		} else {
 			authorService.save(author);
@@ -121,8 +127,12 @@ public class AuthorController {
 			RedirectAttributes redirectAttributes) {
 		try {
 			authorService.delete(id);
-			String authorDir = "../author-images/" + id;
-			FileUploadUtil.removeDir(authorDir);
+//			String authorDir = "../author-images/" + id;
+//			FileUploadUtil.removeDir(authorDir);
+			
+			/* Delete file Amazon S3 */
+			String authorDir = "author-images/" + id;
+			AmazonS3Util.removeFolder(authorDir);
 			
 			redirectAttributes.addFlashAttribute("message", 
 					"The author ID " + id + " has been deleted successfully");

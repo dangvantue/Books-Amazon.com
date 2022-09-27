@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.aptech.common.Constants;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,11 +46,18 @@ public class Author extends IdBasedEntity {
 		this.name = name;
 	}
 	
+//	@Transient
+//	public String getImagePath() {
+//		if (this.id == null) return "/images/image-thumbnail.png";
+//		
+//		return "/author-images/" + this.id + "/" + this.image;		
+//	}
+	
 	@Transient
 	public String getImagePath() {
 		if (this.id == null) return "/images/image-thumbnail.png";
 		
-		return "/author-images/" + this.id + "/" + this.image;		
+		return Constants.S3_BASE_URI + "/author-images/" + this.id + "/" + this.image;		
 	}
 
 }

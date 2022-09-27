@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.aptech.common.Constants;
 import com.aptech.common.entity.IdBasedEntity;
 
 import lombok.AllArgsConstructor;
@@ -69,17 +70,16 @@ public class User extends IdBasedEntity {
 
 //	@Transient
 //	public String getPhotosImagePath() {
-//		if (id == null || photos == null)
-//			return "/images/default-user.png";
-//
-//		return Constants.S3_BASE_URI + "/user-photos/" + this.id + "/" + this.photos;
+//		if (id == null || photos == null) return "/images/default-user.png";
+//		
+//		return "/user-photos/" + this.id + "/" + this.photos;
 //	}
-//	
+	
 	@Transient
 	public String getPhotosImagePath() {
 		if (id == null || photos == null) return "/images/default-user.png";
 		
-		return "/user-photos/" + this.id + "/" + this.photos;
+		return Constants.S3_BASE_URI + "/user-photos/" + this.id + "/" + this.photos;
 	}
 
 	@Transient
