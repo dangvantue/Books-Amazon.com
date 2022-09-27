@@ -136,7 +136,7 @@
                 <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
                  <li class="sidebar-item">
 
-                    <a href="#" class='sidebar-link'>
+                    <a th:href="@{/reports}" class='sidebar-link'>
                         <i data-feather="sun" width="20"></i> 
                         <span>[[#{menu.report}]]</span>
                     </a>
