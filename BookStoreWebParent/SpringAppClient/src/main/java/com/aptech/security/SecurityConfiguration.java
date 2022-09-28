@@ -36,7 +36,7 @@ public class SecurityConfiguration {
 
 		http.authorizeRequests()
 		.antMatchers("/account_details", "/update_account_details", "/cart", "/address_book/**", "/orders/**", "/reviews/**", 
-				"/checkout", "/place_order", "/process_paypal_order").authenticated()
+				"/checkout", "/place_order", "/process_paypal_order", "/write_review/**", "/post_review").authenticated()
 		.anyRequest().permitAll()
 		.and()
 		.formLogin()

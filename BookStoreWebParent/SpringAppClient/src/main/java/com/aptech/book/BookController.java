@@ -2,6 +2,8 @@ package com.aptech.book;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -10,16 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.aptech.Utility;
 import com.aptech.category.CategoryService;
 import com.aptech.common.entity.Category;
+import com.aptech.common.entity.Customer;
+import com.aptech.common.entity.Review;
 import com.aptech.common.entity.book.Book;
 import com.aptech.common.exception.BookNotFoundException;
 import com.aptech.common.exception.CategoryNotFoundException;
+import com.aptech.customer.CustomerService;
+import com.aptech.review.ReviewService;
 
 @Controller
 public class BookController {
 	@Autowired private BookService bookService;
 	@Autowired private CategoryService categoryService;
+	@Autowired private ReviewService reviewService;
+	@Autowired private CustomerService customerService;
 
 	@GetMapping("/c/{category_alias}")
 	public String viewCategoryFirstPage(@PathVariable("category_alias") String alias,
@@ -62,14 +71,26 @@ public class BookController {
 	}
 	
 	@GetMapping("/b/{book_alias}")
-	public String viewBookDetail(@PathVariable("book_alias") String alias, Model model) {
+	public String viewBookDetail(@PathVariable("book_alias") String alias, Model model, HttpServletRequest request) {
 		
 		try {
 			Book book = bookService.getBook(alias);
 			List<Category> listCategoryParents = categoryService.getCategoryParents(book.getCategory());
+			Page<Review> listReviews = reviewService.list3MostRecentReviewsByBook(book);
+			
+			Customer customer = getAuthenticatedCustomer(request);
+			boolean customerReviewed = reviewService.didCustomerReviewBook(customer, book.getId());
+			
+			if (customerReviewed) {
+				model.addAttribute("customerReviewed", customerReviewed);
+			} else {
+				boolean customerCanReview = reviewService.canCustomerReviewBook(customer, book.getId());
+				model.addAttribute("customerCanReview", customerCanReview);
+			}
 			
 			model.addAttribute("listCategoryParents", listCategoryParents);
 			model.addAttribute("book", book);
+			model.addAttribute("listReviews", listReviews);
 			model.addAttribute("pageTitle", book.getShortName());
 			
 			return "book/book_detail";
@@ -108,4 +129,9 @@ public class BookController {
 		
 		return "book/search_result";
 	}
+	
+	private Customer getAuthenticatedCustomer(HttpServletRequest request) {
+		String email = Utility.getEmailOfAuthenticatedCustomer(request);				
+		return customerService.getCustomerByEmail(email);
+	}	
 }

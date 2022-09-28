@@ -1,5 +1,7 @@
 package com.aptech.book;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,5 +38,14 @@ public class BookService {
 		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULTS_PER_PAGE);
 		return repo.search(keyword, pageable);
 		
+	}
+
+	public Book getBook(Integer id) throws BookNotFoundException {
+		try {
+			Book book = repo.findById(id).get();
+			return book;
+		} catch (NoSuchElementException ex) {
+			throw new BookNotFoundException("Could not find any book with ID " + id);
+		}	
 	}
 }

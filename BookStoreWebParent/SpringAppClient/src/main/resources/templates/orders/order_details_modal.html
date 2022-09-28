@@ -111,7 +111,16 @@
 						<div th:replace="fragments :: format_currency(${detail.unitPrice})" />
 						 = 
 						 <div th:replace="fragments :: format_currency(${detail.subtotal})" />
-					</div>				
+					</div>		
+					
+					<div th:if="${!book.reviewedByCustomer && book.customerCanReview}">
+						<a th:href="@{'/write_review/book/' + ${book.id}}" class="btn btn-info">Write Review</a>
+					</div>
+					
+					<div th:if="${book.reviewedByCustomer}">
+						<a target="_blank" th:href="@{'/reviews/page/1?sortField=reviewTime&sortDir=desc&keyword=' + ${#strings.substring(book.shortName, 0, 20)}}" class="btn btn-warning">See your Review</a>
+					</div>	
+							
 				</div>
 			</div>
 			</th:block>
