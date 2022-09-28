@@ -27,8 +27,9 @@ public class SecurityConfiguration {
 
 		http.authorizeRequests()
 		.antMatchers("/states/list_by_country/**").hasAnyAuthority("Admin", "Salesperson")
-		.antMatchers("/users/**").hasAuthority("Admin")
+		.antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
 		.antMatchers("/categories/**", "/authors/**").hasAnyAuthority("Admin", "Editor")
+		
 		.antMatchers("/books/new", "/books/delete/**").hasAnyAuthority("Admin", "Editor")
 		
 		.antMatchers("/books/edit/**", "/books/save", "/books/check_unique")
@@ -38,9 +39,16 @@ public class SecurityConfiguration {
 			.hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 			
 		.antMatchers("/books/**").hasAnyAuthority("Admin", "Editor")
+		
 		.antMatchers("/orders", "/orders/", "/orders/page/**", "/orders/detail/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")
+		
+		.antMatchers("/books/detail/**", "/customers/detail/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Assistant")
+
 		.antMatchers("/customers/**", "/orders/**", "/get_shipping_cost", "/reports/**").hasAnyAuthority("Admin", "Salesperson")
+		
 		.antMatchers("/orders_shipper/update/**").hasAuthority("Shipper")
+		
+		.antMatchers("/reviews/**").hasAnyAuthority("Admin", "Assistant")
 		
 		.anyRequest().authenticated()
 		.and()
