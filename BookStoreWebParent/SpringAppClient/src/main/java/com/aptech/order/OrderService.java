@@ -25,7 +25,7 @@ import com.aptech.common.exception.OrderNotFoundException;
 
 @Service
 public class OrderService {
-	public static final int ORDERS_PER_PAGE = 3;
+	public static final int ORDERS_PER_PAGE = 5;
 	
 	@Autowired private OrderRepository repo;
 	

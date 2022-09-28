@@ -75,7 +75,10 @@ public class BookService {
 
 		book.setUpdatedTime(new Date());
 
-		return repo.save(book);
+		Book updatedBook = repo.save(book);
+		repo.updateReviewCountAndAverageRating(updatedBook.getId());
+		
+		return updatedBook;
 	}
 
 	public String checkUnique(Integer id, String name) {

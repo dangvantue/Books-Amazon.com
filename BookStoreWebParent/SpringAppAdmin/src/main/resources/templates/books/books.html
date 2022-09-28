@@ -48,7 +48,10 @@
 									</div>
 								</form>
 							</div>
-
+							
+<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>	
 							<table class="table table-hover mb-0">
 								<thead>
 									<tr>
