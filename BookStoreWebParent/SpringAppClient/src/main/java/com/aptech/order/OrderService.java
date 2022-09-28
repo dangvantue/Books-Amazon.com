@@ -40,7 +40,6 @@ public class OrderService {
 			newOrder.setStatus(OrderStatus.NEW);
 		}
 		
-		newOrder.setStatus(OrderStatus.NEW);
 		newOrder.setCustomer(customer);
 		newOrder.setBookCost(checkoutInfo.getBookCost());
 		newOrder.setSubtotal(checkoutInfo.getBookTotal());
@@ -74,6 +73,13 @@ public class OrderService {
 			orderDetails.add(orderDetail);
 		}
 		
+		OrderTrack track = new OrderTrack();
+		track.setOrder(newOrder);
+		track.setStatus(OrderStatus.NEW);
+		track.setNotes(OrderStatus.NEW.defaultDescription());
+		track.setUpdatedTime(new Date());
+		
+		newOrder.getOrderTracks().add(track);
 		
 		return repo.save(newOrder);
 	}
@@ -90,8 +96,7 @@ public class OrderService {
 		}
 		
 		return repo.findAll(customer.getId(), pageable);
-		
-	}	
+	}
 	
 	public Order getOrder(Integer id, Customer customer) {
 		return repo.findByIdAndCustomer(id, customer);
