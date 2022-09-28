@@ -64,7 +64,7 @@
             
                 </th:block>
                 
-               <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
+              <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson', 'Editor', 'Shipper')">
                 <li class="sidebar-item  has-sub">
 
                     <a href="#" class='sidebar-link'>
@@ -78,7 +78,7 @@
                         </li>      
                         
                          <li>
-                            <a href="component-extra-divider.html">[[#{menu.review}]]</a>
+                            <a th:href="@{/reviews}">[[#{menu.review}]]</a>
                         </li>                                                           
                     </ul>
                     
@@ -111,10 +111,10 @@
                 </li>
                </th:block>
                
-                <th:block sec:authorize="hasAnyAuthority('Admin','Assistant')">
+                <th:block sec:authorize="hasAuthority('Assistant')">
                  <li class="sidebar-item">
 
-                    <a href="#" class='sidebar-link'>
+                    <a th:href="@{/reviews}" class='sidebar-link'>
                         <i data-feather="wifi" width="20"></i> 
                         <span>[[#{menu.review}]]</span>
                     </a>
