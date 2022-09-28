@@ -65,6 +65,9 @@ public class Book extends IdBasedEntity {
 	
 	private int reviewCount;
 	private float averageRating;
+	
+	@Transient private boolean customerCanReview;
+	@Transient private boolean reviewedByCustomer;
 
 	@Column(name = "main_image", nullable = false)
 	private String mainImage;
@@ -147,5 +150,10 @@ public class Book extends IdBasedEntity {
 		}
 		return this.price;
 	}
+	
+	@Transient
+	public String getURI() {
+		return "/b/" + this.alias + "/";
+	}	
 
 }
