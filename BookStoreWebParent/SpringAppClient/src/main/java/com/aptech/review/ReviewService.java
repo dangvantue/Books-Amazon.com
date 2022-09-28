@@ -13,7 +13,7 @@ import com.aptech.common.exception.ReviewNotFoundException;
 
 @Service
 public class ReviewService {
-	public static final int REVIEWS_PER_PAGE = 3;
+	public static final int REVIEWS_PER_PAGE = 5;
 	
 	@Autowired private ReviewRepository repo;
 

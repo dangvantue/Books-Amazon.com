@@ -39,4 +39,10 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 	
 	@Query("SELECT b FROM Book b WHERE b.name LIKE %?1%")
 	public Page<Book> searchBooksByName(String keyword, Pageable pageable);
+	
+	@Query("Update Book b SET b.averageRating = COALESCE((SELECT AVG(r.rating) FROM Review r WHERE r.book.id = ?1), 0),"
+			+ " b.reviewCount = (SELECT COUNT(r.id) FROM Review r WHERE r.book.id =?1) "
+			+ "WHERE b.id = ?1")
+	@Modifying
+	public void updateReviewCountAndAverageRating(Integer bookId);
 }
