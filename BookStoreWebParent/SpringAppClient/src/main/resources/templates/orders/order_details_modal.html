@@ -188,13 +188,13 @@
 		  <div class="tab-pane fade p-3" id="track" role="tabpanel">
 		  	<div class="full-details">
 		  		<div class="row text-center">
-		  			<div th:replace="orders/order_status_fragment :: content(${order.processing}, 'fa-spinner', 'processing')"></div>
-					<div th:replace="orders/order_status_fragment :: content(${order.picked}, 'fa-people-carry', 'picked')"></div>
-					<div th:replace="orders/order_status_fragment :: content(${order.shipping}, 'fa-shipping-fast', 'shipping')"></div>
-					<div th:replace="orders/order_status_fragment :: content(${order.delivered}, 'fa-box-open', 'delivered')"></div>
+		  			<div th:replace="orders/order_status_fragment :: content(${order.processing}, 'fa-spinner', 'Processing')"></div>
+					<div th:replace="orders/order_status_fragment :: content(${order.picked}, 'fa-people-carry', 'Picked')"></div>
+					<div th:replace="orders/order_status_fragment :: content(${order.shipping}, 'fa-shipping-fast', 'Shipping')"></div>
+					<div th:replace="orders/order_status_fragment :: content(${order.delivered}, 'fa-box-open', 'Delivered')"></div>
 					
 					<th:block th:if="${order.returned}">
-					<div th:replace="orders/order_status_fragment :: content(${order.returned}, 'fa-undo', 'returned')"></div>
+					<div th:replace="orders/order_status_fragment :: content(${order.returned}, 'fa-undo', 'Returned')"></div>
 					</th:block>
 		  		</div>		  
 		  			
