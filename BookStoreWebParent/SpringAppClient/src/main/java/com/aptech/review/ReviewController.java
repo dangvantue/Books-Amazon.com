@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aptech.ControllerHelper;
 import com.aptech.Utility;
 import com.aptech.book.BookService;
 import com.aptech.common.entity.Customer;
@@ -21,14 +22,16 @@ import com.aptech.common.entity.book.Book;
 import com.aptech.common.exception.BookNotFoundException;
 import com.aptech.common.exception.ReviewNotFoundException;
 import com.aptech.customer.CustomerService;
+import com.aptech.review.vote.ReviewVoteService;
 
 @Controller
 public class ReviewController {
 	private String defaultRedirectURL = "redirect:/reviews/page/1?sortField=reviewTime&sortDir=desc";
 	
 	@Autowired private ReviewService reviewService;
-	@Autowired private CustomerService customerService;
+	@Autowired private ReviewVoteService voteService;
 	@Autowired private BookService bookService;
+	@Autowired private ControllerHelper controllerHelper;
 	
 	@GetMapping("/reviews")
 	public String listFirstPage(Model model) {
@@ -39,7 +42,7 @@ public class ReviewController {
 	public String listReviewsByCustomerByPage(Model model, HttpServletRequest request,
 							@PathVariable(name = "pageNum") int pageNum,
 							String keyword, String sortField, String sortDir) {
-		Customer customer = getAuthenticatedCustomer(request);
+		Customer customer = controllerHelper.getAuthenticatedCustomer(request);
 		Page<Review> page = reviewService.listByCustomerByPage(customer, keyword, pageNum, sortField, sortDir);		
 		List<Review> listReviews = page.getContent();
 		
@@ -66,16 +69,11 @@ public class ReviewController {
 		
 		return "reviews/reviews_customer";
 	}
-
-	private Customer getAuthenticatedCustomer(HttpServletRequest request) {
-		String email = Utility.getEmailOfAuthenticatedCustomer(request);				
-		return customerService.getCustomerByEmail(email);
-	}
 	
 	@GetMapping("/reviews/detail/{id}")
 	public String viewReview(@PathVariable("id") Integer id, Model model, 
 			RedirectAttributes ra, HttpServletRequest request) {
-		Customer customer = getAuthenticatedCustomer(request);
+		Customer customer = controllerHelper.getAuthenticatedCustomer(request);
 		try {
 			Review review = reviewService.getByCustomerAndId(customer, id);
 			model.addAttribute("review", review);
@@ -85,13 +83,14 @@ public class ReviewController {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return defaultRedirectURL;		
 		}
-	}	
+	}
 	
 	@GetMapping("/ratings/{bookAlias}/page/{pageNum}") 
 	public String listByBookByPage(Model model,
 				@PathVariable(name = "bookAlias") String bookAlias,
 				@PathVariable(name = "pageNum") int pageNum,
-				String sortField, String sortDir) {
+				String sortField, String sortDir,
+				HttpServletRequest request) {
 		
 		Book book = null;
 		
@@ -103,6 +102,11 @@ public class ReviewController {
 		
 		Page<Review> page = reviewService.listByBook(book, pageNum, sortField, sortDir);
 		List<Review> listReviews = page.getContent();
+		
+		Customer customer = controllerHelper.getAuthenticatedCustomer(request);
+		if (customer != null) {
+			voteService.markReviewsVotedForBookByCustomer(listReviews, book.getId(), customer.getId());
+		}
 		
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
@@ -129,8 +133,9 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/ratings/{bookAlias}")
-	public String listByBookFirstPage(@PathVariable(name = "bookAlias") String bookAlias, Model model) {
-		return listByBookByPage(model, bookAlias, 1, "reviewTime", "desc");
+	public String listByBookFirstPage(@PathVariable(name = "bookAlias") String bookAlias, Model model,
+			HttpServletRequest request) {
+		return listByBookByPage(model, bookAlias, 1, "reviewTime", "desc", request);
 	}	
 	
 	@GetMapping("/write_review/book/{bookId}")
@@ -147,7 +152,7 @@ public class ReviewController {
 			return "error/404";
 		}
 		
-		Customer customer = getAuthenticatedCustomer(request);
+		Customer customer = controllerHelper.getAuthenticatedCustomer(request);
 		boolean customerReviewed = reviewService.didCustomerReviewBook(customer, book.getId());
 		
 		if (customerReviewed) {
@@ -165,12 +170,12 @@ public class ReviewController {
 		model.addAttribute("book", book);
 		model.addAttribute("review", review);
 		
-		return "reviews/reviews_form";
+		return "reviews/review_form";
 	}
 	
 	@PostMapping("/post_review")
 	public String saveReview(Model model, Review review, Integer bookId, HttpServletRequest request) {
-		Customer customer = getAuthenticatedCustomer(request);
+		Customer customer = controllerHelper.getAuthenticatedCustomer(request);
 		
 		Book book = null;
 		
@@ -189,5 +194,4 @@ public class ReviewController {
 		
 		return "reviews/review_done";
 	}
-
 }

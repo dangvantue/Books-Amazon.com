@@ -3,6 +3,7 @@ package com.aptech.review;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.aptech.common.entity.Review;
@@ -26,4 +27,12 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	@Query("SELECT COUNT(r.id) FROM Review r WHERE r.customer.id = ?1 AND "
 			+ "r.book.id = ?2")
 	public Long countByCustomerAndBook(Integer customerId, Integer bookId);
+	
+	@Query("UPDATE Review r SET r.votes = COALESCE((SELECT SUM(v.votes) FROM ReviewVote v"
+			+ " WHERE v.review.id=?1), 0) WHERE r.id = ?1")
+	@Modifying
+	public void updateVoteCount(Integer reviewId);
+	
+	@Query("SELECT r.votes FROM Review r WHERE r.id = ?1")
+	public Integer getVoteCount(Integer reviewId);
 }

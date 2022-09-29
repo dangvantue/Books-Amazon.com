@@ -26,7 +26,7 @@ public class ReviewService {
 	
 	@Autowired private ReviewRepository reviewRepo;
 	@Autowired private OrderDetailRepository orderDetailRepo;
-	@Autowired private BookRepository bookRepository;
+	@Autowired private BookRepository bookRepo;
 
 	public Page<Review> listByCustomerByPage(Customer customer, String keyword, int pageNum, 
 			String sortField, String sortDir) {
@@ -45,17 +45,17 @@ public class ReviewService {
 	public Review getByCustomerAndId(Customer customer, Integer reviewId) throws ReviewNotFoundException {
 		Review review = reviewRepo.findByCustomerAndId(customer.getId(), reviewId);
 		if (review == null) 
-			throw new ReviewNotFoundException("Customer does not have any reviews with ID " + reviewId);
+			throw new ReviewNotFoundException("Customer doesn not have any reviews with ID " + reviewId);
 		
 		return review;
 	}
 	
-	public Page<Review> list3MostRecentReviewsByBook(Book book) {
-		Sort sort = Sort.by("reviewTime").descending();
+	public Page<Review> list3MostVotedReviewsByBook(Book book) {
+		Sort sort = Sort.by("votes").descending();
 		Pageable pageable = PageRequest.of(0, 3, sort);
 		
 		return reviewRepo.findByBook(book, pageable);		
-	}	
+	}
 	
 	public Page<Review> listByBook(Book book, int pageNum, String sortField, String sortDir) {
 		Sort sort = Sort.by(sortField);
@@ -64,7 +64,7 @@ public class ReviewService {
 		
 		return reviewRepo.findByBook(book, pageable);
 	}
-	
+
 	public boolean didCustomerReviewBook(Customer customer, Integer bookId) {
 		Long count = reviewRepo.countByCustomerAndBook(customer.getId(), bookId);
 		return count > 0;
@@ -80,7 +80,7 @@ public class ReviewService {
 		Review savedReview = reviewRepo.save(review);
 		
 		Integer bookId = savedReview.getBook().getId();		
-		bookRepository.updateReviewCountAndAverageRating(bookId);
+		bookRepo.updateReviewCountAndAverageRating(bookId);
 		
 		return savedReview;
 	}
