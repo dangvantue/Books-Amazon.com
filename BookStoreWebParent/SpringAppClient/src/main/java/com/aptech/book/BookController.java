@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.aptech.ControllerHelper;
 import com.aptech.Utility;
 import com.aptech.category.CategoryService;
 import com.aptech.common.entity.Category;
@@ -22,13 +23,15 @@ import com.aptech.common.exception.BookNotFoundException;
 import com.aptech.common.exception.CategoryNotFoundException;
 import com.aptech.customer.CustomerService;
 import com.aptech.review.ReviewService;
+import com.aptech.review.vote.ReviewVoteService;
 
 @Controller
 public class BookController {
 	@Autowired private BookService bookService;
 	@Autowired private CategoryService categoryService;
 	@Autowired private ReviewService reviewService;
-	@Autowired private CustomerService customerService;
+	@Autowired private ControllerHelper controllerHelper;
+	@Autowired private ReviewVoteService voteService;
 
 	@GetMapping("/c/{category_alias}")
 	public String viewCategoryFirstPage(@PathVariable("category_alias") String alias,
@@ -76,16 +79,20 @@ public class BookController {
 		try {
 			Book book = bookService.getBook(alias);
 			List<Category> listCategoryParents = categoryService.getCategoryParents(book.getCategory());
-			Page<Review> listReviews = reviewService.list3MostRecentReviewsByBook(book);
+			Page<Review> listReviews = reviewService.list3MostVotedReviewsByBook(book);
 			
-			Customer customer = getAuthenticatedCustomer(request);
-			boolean customerReviewed = reviewService.didCustomerReviewBook(customer, book.getId());
+			Customer customer = controllerHelper.getAuthenticatedCustomer(request);
 			
-			if (customerReviewed) {
-				model.addAttribute("customerReviewed", customerReviewed);
-			} else {
-				boolean customerCanReview = reviewService.canCustomerReviewBook(customer, book.getId());
-				model.addAttribute("customerCanReview", customerCanReview);
+			if (customer != null) {
+				boolean customerReviewed = reviewService.didCustomerReviewBook(customer, book.getId());
+				voteService.markReviewsVotedForBookByCustomer(listReviews.getContent(), book.getId(), customer.getId());
+				
+				if (customerReviewed) {
+					model.addAttribute("customerReviewed", customerReviewed);
+				} else {
+					boolean customerCanReview = reviewService.canCustomerReviewBook(customer, book.getId());
+					model.addAttribute("customerCanReview", customerCanReview);
+				}
 			}
 			
 			model.addAttribute("listCategoryParents", listCategoryParents);
@@ -130,8 +137,4 @@ public class BookController {
 		return "book/search_result";
 	}
 	
-	private Customer getAuthenticatedCustomer(HttpServletRequest request) {
-		String email = Utility.getEmailOfAuthenticatedCustomer(request);				
-		return customerService.getCustomerByEmail(email);
-	}	
 }
